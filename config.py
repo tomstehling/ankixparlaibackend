@@ -24,10 +24,10 @@ ANKICONNECT_URL = "http://localhost:8765" # Default AnkiConnect URL
 # !!! IMPORTANT: User must configure these Anki settings !!!
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 # Replace with the exact name of the deck you want cards added to
-ANKI_DECK_NAME = "Spanish::Chatbot" # Example: "Spanish::Vocabulary"
+ANKI_DECK_NAME = "ankixparlai" # Example: "Spanish::Vocabulary"
 
 # Replace with the exact name of the Note Type you use for vocabulary
-ANKI_MODEL_NAME = "Basic" # Example: "Basic", "Basic (and reversed card)"
+ANKI_MODEL_NAME = "Basic (and reversed card)" # Example: "Basic", "Basic (and reversed card)"
 
 # Field names within your Anki Note Type that correspond to Front and Back
 # For the default "Basic" model, these are typically "Front" and "Back"
