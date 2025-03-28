@@ -10,9 +10,9 @@ MODEL_NAME = "gemini-1.5-flash-latest"
 
 # --- File Paths ---
 FLASHCARD_FILE = "flashcards.json"
-TANDEM_PROMPT_TEMPLATE_FILE = "system_prompt_template.txt"
-TEACHER_PROMPT_TEMPLATE_FILE = "teacher_prompt_template.txt"
-CARD_CREATOR_PROMPT_FILE = "card_creator_prompt.txt"
+TANDEM_PROMPT_TEMPLATE_FILE = "./system_prompts/system_prompt_template.txt"
+TEACHER_PROMPT_TEMPLATE_FILE = "./system_prompts/teacher_prompt_template.txt"
+CARD_CREATOR_PROMPT_FILE = "./system_prompts/card_creator_prompt.txt"
 
 # --- Command Triggers ---
 # Teacher command is checked directly as '? ' in chatbot.py run() method
