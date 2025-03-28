@@ -3,214 +3,212 @@ import google.generativeai as genai
 import sys
 import json
 import re
-# ---vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv---
-# --- ENSURE THIS IMPORT IS AT THE TOP ---
-from typing import Optional, List
-# ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---
+from typing import Optional, List, Dict, Any
 
 # --- Configuration ---
 MODEL_NAME = "gemini-1.5-flash-latest"
 FLASHCARD_FILE = "flashcards.json"
-TANDEM_PROMPT_TEMPLATE_FILE = "system_prompt_template.txt" # Your existing tandem prompt
-# --- New Configuration ---
-TEACHER_PROMPT_TEMPLATE_FILE = "teacher_prompt_template.txt" # New teacher prompt
-TEACHER_COMMAND = "/teacher" # Command to activate teacher mode
-# TEACHER_COMMAND = "/explain" # Alternative command
+TANDEM_PROMPT_TEMPLATE_FILE = "system_prompt_template.txt"
+TEACHER_PROMPT_TEMPLATE_FILE = "teacher_prompt_template.txt"
+# --- No TEACHER_COMMAND constant needed now, we'll use '?' directly ---
 
-# --- configure_api() --- (Keep as before)
-def configure_api():
-    # ... (same code) ...
-    api_key = os.getenv("GOOGLE_API_KEY")
-    if not api_key: print("Error: GOOGLE_API_KEY not set."); sys.exit(1)
-    try:
+class Chatbot:
+    """
+    Manages the Spanish tandem and teacher AI chatbot application.
+    Handles configuration, API interaction, role switching, and the main chat loop.
+    """
+
+    # --- __init__, _configure_api, _load_flashcards, _load_prompt_from_template ---
+    # --- _load_prompts, _initialize_tandem_chat, get_teacher_explanation        ---
+    # --- handle_tandem_message                                                  ---
+    # --- (Keep all these methods exactly the same as the previous OOP version)  ---
+
+    def __init__(self):
+        """Initializes the chatbot, loads config, prompts, and sets up the API."""
+        print("Initializing Chatbot...")
+        self.model: Optional[genai.GenerativeModel] = None
+        self.tandem_chat: Optional[genai.ChatSession] = None
+        self.learned_sentences: List[str] = []
+        self.tandem_system_prompt: Optional[str] = None
+        self.teacher_system_prompt: Optional[str] = None
+        try:
+            self._configure_api()
+            self._load_flashcards()
+            self._load_prompts()
+            self.model = genai.GenerativeModel(MODEL_NAME)
+            print("Chatbot base model initialized.")
+        except Exception as e: print(f"FATAL: Chatbot initialization failed: {e}"); sys.exit(1)
+
+    def _configure_api(self):
+        """Configures the Generative AI client."""
+        print("Configuring API...")
+        # ... (same code) ...
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key: raise ValueError("GOOGLE_API_KEY environment variable not set.")
         genai.configure(api_key=api_key)
         print("Successfully configured Gemini API.")
-    except Exception as e: print(f"Error configuring API: {e}"); sys.exit(1)
-
-# --- load_spanish_sentences_from_json() --- (Keep as before)
-def load_spanish_sentences_from_json(filename: str) -> list[str]:
-    # ... (same code) ...
-    print(f"Attempting to load sentences from {filename}")
-    sentences = []
-    # ... (rest of loading logic) ...
-    return sentences
-
-# --- create_system_prompt() --- (Keep as before, loads specified template)
-def create_system_prompt(learned_sentences: Optional[List[str]], template_filename: str) -> str:
-    """Loads prompt from template, optionally inserting learned content."""
-    print(f"Attempting to load system prompt template from '{template_filename}'...")
-    try:
-        with open(template_filename, 'r', encoding='utf-8') as f:
-            template_content = f.read()
-        print("Successfully loaded system prompt template.")
-
-        # The logic here already handles None correctly
-        if '{learned_content}' in template_content:
-            if not learned_sentences: # Checks if None or empty
-                learned_content_str = "(No learned sentences loaded)"
-            else:
-                learned_content_str = "\n".join(f"- {s}" for s in learned_sentences)
-            final_prompt = template_content.format(learned_content=learned_content_str)
-        else:
-            final_prompt = template_content
-
-        return final_prompt
-    # ... (rest of exception handling) ...
-    except FileNotFoundError: print(f"Error: Prompt template file '{template_filename}' not found."); sys.exit(1)
-    except KeyError as e: print(f"Error: Placeholder {e} missing in template '{template_filename}'."); sys.exit(1)
-    except Exception as e: print(f"Error reading template '{template_filename}': {e}"); sys.exit(1)
-
-# ---vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv---
-# --- NEW FUNCTION FOR TEACHER EXPLANATIONS    ---
-# ---vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv---
-def get_teacher_explanation(query: str, model: genai.GenerativeModel) -> str:
-    """
-    Gets a detailed explanation in English for a Spanish query using the Teacher role.
-    Makes a separate, non-chat API call.
-    """
-    print(f"\n--- Requesting Teacher Explanation for: '{query}' ---")
-    try:
-        # 1. Load the teacher prompt (doesn't need flashcards)
-        teacher_instructions = create_system_prompt(None, TEACHER_PROMPT_TEMPLATE_FILE)
-
-        # 2. Construct the prompt for the single API call
-        # We combine the instructions and the specific user query.
-        # Using a clear structure helps the model understand the task.
-        prompt_for_teacher = f"""
-{teacher_instructions}
-
---- User Query ---
-Please explain the following Spanish word/phrase: "{query}"
-"""
-
-        # 3. Make a single, stateless generate_content call
-        print("Sending request to Teacher AI...")
-        response = model.generate_content(prompt_for_teacher) # No history needed here
-
-        # 4. Process the response
-        if response.text:
-            return response.text
-        elif hasattr(response, 'prompt_feedback') and response.prompt_feedback.block_reason:
-             return f"Teacher explanation blocked: {response.prompt_feedback.block_reason.name}"
-        elif not response.candidates:
-             return "Teacher explanation response was empty or blocked for an unknown reason."
-        else:
-             return "Received an empty explanation from the Teacher AI."
-
-    except Exception as e:
-        print(f"An error occurred during Teacher explanation call: {e}")
-        return "Sorry, I encountered an error trying to get the teacher explanation."
-# ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---
-# --- END OF NEW FUNCTION                      ---
-# ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---
 
 
-# --- main() function --- (Modified for role switching)
-def main():
-    print("--- Spanish Tandem Partner Script ---")
-    configure_api()
+    def _load_flashcards(self) -> None:
+        """Loads Spanish sentences from the flashcard JSON file."""
+        print(f"Loading learned content from '{FLASHCARD_FILE}'...")
+        # ... (same code) ...
+        sentences = []
+        try:
+            with open(FLASHCARD_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    for card in data:
+                         if isinstance(card, dict):
+                             sentence = card.get("front")
+                             if sentence and isinstance(sentence, str) and sentence.strip(): sentences.append(sentence.strip())
+                else: print(f"Warning: Expected '{FLASHCARD_FILE}' to be a JSON list.")
+        except FileNotFoundError: print(f"Warning: Flashcard file '{FLASHCARD_FILE}' not found.")
+        except json.JSONDecodeError as e: print(f"Warning: Could not decode JSON from '{FLASHCARD_FILE}'. Details: {e}")
+        except Exception as e: print(f"Warning: Error processing '{FLASHCARD_FILE}': {e}")
+        self.learned_sentences = sentences
+        if self.learned_sentences: print(f"Successfully loaded {len(self.learned_sentences)} sentences.")
+        else: print("Warning: No valid sentences loaded from flashcards.")
 
-    print(f"\n--- Loading learned content from {FLASHCARD_FILE} ---")
-    learned_sentences = load_spanish_sentences_from_json(FLASHCARD_FILE)
-    # Don't exit if loading fails, but tandem prompt will show warning
+    def _load_prompt_from_template(self, template_filename: str, inject_content: bool) -> str:
+        """Loads a prompt from a template file, optionally injecting learned sentences."""
+        print(f"Loading prompt template from '{template_filename}'...")
+        # ... (same code) ...
+        try:
+            with open(template_filename, 'r', encoding='utf-8') as f: template_content = f.read()
+            if inject_content and '{learned_content}' in template_content:
+                learned_content_str = "\n".join(f"- {s}" for s in self.learned_sentences) if self.learned_sentences else "(No learned sentences loaded)"
+                final_prompt = template_content.format(learned_content=learned_content_str)
+            elif '{learned_content}' in template_content and not inject_content:
+                 final_prompt = template_content.format(learned_content="(Content not applicable for this role)")
+            else: final_prompt = template_content
+            print(f"Successfully loaded prompt from '{template_filename}'.")
+            return final_prompt
+        except FileNotFoundError: raise FileNotFoundError(f"Prompt template file '{template_filename}' not found.")
+        except KeyError as e: raise KeyError(f"Placeholder {e} error in template '{template_filename}'.")
+        except Exception as e: raise IOError(f"Error reading/processing template '{template_filename}': {e}")
 
-    # --- Load Tandem prompt ---
-    # Pass learned sentences only to the tandem prompt creation
-    tandem_system_prompt = create_system_prompt(learned_sentences, TANDEM_PROMPT_TEMPLATE_FILE)
 
-    print(f"\n--- Initializing Model: {MODEL_NAME} ---")
-    try:
-        # Initialize the main model instance
-        # We'll use this instance for both Tandem chat and one-off Teacher calls
-        model = genai.GenerativeModel(MODEL_NAME) # System prompt applied to chat session
+    def _load_prompts(self):
+        """Loads system prompts for both Tandem and Teacher roles."""
+        # ... (same code) ...
+        self.tandem_system_prompt = self._load_prompt_from_template(TANDEM_PROMPT_TEMPLATE_FILE, inject_content=True)
+        self.teacher_system_prompt = self._load_prompt_from_template(TEACHER_PROMPT_TEMPLATE_FILE, inject_content=False)
 
-        # --- Initialize Tandem Chat Session ---
-        print("Initializing Tandem chat session...")
-        tandem_chat = model.start_chat(
-            history=[],
-            # Apply the tandem system prompt specifically to this chat session
-            # Note: Re-initializing model for chat seems necessary if system_instruction is per-model
-            # Let's try initializing the model WITH the tandem prompt first
-        )
-        # Re-initialize model specifically for chat with system prompt
-        # This is a slight adaptation as system_instruction is often tied to the model instance
-        tandem_model_instance = genai.GenerativeModel(
-             MODEL_NAME,
-             system_instruction=tandem_system_prompt
-        )
-        tandem_chat = tandem_model_instance.start_chat(history=[])
+    def _initialize_tandem_chat(self):
+        """Initializes or re-initializes the Tandem chat session."""
+        if not self.tandem_system_prompt: print("Error: Tandem system prompt not loaded."); return False
+        print("\nInitializing Tandem chat session...")
+        # ... (same code) ...
+        try:
+            tandem_model_instance = genai.GenerativeModel(MODEL_NAME, system_instruction=self.tandem_system_prompt)
+            self.tandem_chat = tandem_model_instance.start_chat(history=[])
+            print("Tandem chat initialized.")
+            return True
+        except Exception as e: print(f"Error initializing Tandem chat model: {e}"); self.tandem_chat = None; return False
 
-        print("Tandem chat initialized. Starting conversation.")
-        print(f"Type your Spanish message, or use '{TEACHER_COMMAND} [word/phrase]' for an English explanation.")
+    def get_teacher_explanation(self, query: str) -> str:
+        """Handles the Teacher role request using a non-chat API call."""
+        if not self.model or not self.teacher_system_prompt: return "Error: Teacher role components not initialized."
+        print(f"\n--- Requesting Teacher Explanation for: '{query}' ---")
+        # ... (same code) ...
+        try:
+            prompt_for_teacher = f"{self.teacher_system_prompt}\n\n--- User Query ---\nPlease explain: \"{query}\""
+            print("Sending request to Teacher AI...")
+            response = self.model.generate_content(prompt_for_teacher)
+            if response.text: return response.text
+            elif hasattr(response, 'prompt_feedback') and response.prompt_feedback.block_reason: return f"Teacher explanation blocked: {response.prompt_feedback.block_reason.name}"
+            else: return "Teacher explanation response was empty or blocked."
+        except Exception as e: print(f"An error occurred during Teacher explanation call: {e}"); return "Error getting teacher explanation."
+
+
+    def handle_tandem_message(self, user_input: str) -> str:
+        """Handles sending a message to the Tandem role's chat session."""
+        if not self.tandem_chat:
+             if not self._initialize_tandem_chat(): return "Error: Tandem chat is not available."
+        print("\nSending to Amigo Lingüístico (Tandem)...")
+        # ... (same code) ...
+        try:
+            response = self.tandem_chat.send_message(user_input)
+            if response.text: return response.text
+            elif not response.candidates: # Check if blocked
+                 feedback = response.prompt_feedback if hasattr(response, 'prompt_feedback') else None
+                 if feedback and feedback.block_reason: return f"Response blocked: {feedback.block_reason.name}"
+                 else: return "Response was empty or blocked."
+            else: return "Received an empty response."
+        except Exception as e: print(f"\nError during Tandem API call: {e}"); return "Error during conversation."
+
+
+    # ---vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv---
+    # --- MODIFIED run() method          ---
+    # ---vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv---
+    def run(self):
+        """Starts and manages the main chat loop."""
+        print("\n--- Starting Spanish Tandem Partner ---")
+        if not self._initialize_tandem_chat():
+            print("Failed to initialize Tandem chat. Exiting.")
+            return
+
+        # --- Updated user instruction ---
+        print(f"Type your Spanish message, or start with '? ' (question mark + space) followed by a word/phrase for an English explanation.")
         print("Type 'quit' to exit.")
         print("-" * 30)
 
-        print("\nAmigo Lingüístico is starting the conversation...")
-        # Send initial message to the TANDEM chat
-        initial_response = tandem_chat.send_message("Hola, Amigo Lingüístico.")
+        # Send initial greeting
+        try:
+            print("\nAmigo Lingüístico is starting the conversation...")
+            initial_response_text = self.handle_tandem_message("Hola, Amigo Lingüístico.")
+            print("\n🤖 Amigo Lingüístico (Tandem):")
+            print("-" * 20)
+            print(initial_response_text if initial_response_text else "(No initial response)")
+            print("-" * 20)
+        except Exception as e: print(f"Error sending initial message: {e}")
 
-        print("\n🤖 Amigo Lingüístico (Tandem):")
-        print("-" * 20)
-        if initial_response.text: print(initial_response.text)
-        # ... (rest of initial response handling) ...
-        else: print("(No initial response text received)")
-        print("-" * 20)
+        # Main Loop
+        try:
+            while True:
+                user_input = input("\nYou:\n> ")
 
-    except Exception as e:
-        print(f"Error initializing model or starting chat: {e}"); sys.exit(1)
+                if user_input.lower() == 'quit': break
+                # Strip leading/trailing whitespace for checks
+                user_input_stripped = user_input.strip()
+                if not user_input_stripped: continue
 
-    # --- Main conversation loop ---
-    try:
-        while True:
-            user_input = input("\nYou:\n> ")
+                # --- MODIFIED Command Handling ---
+                # Check if the input starts with '?' followed by a space
+                if user_input_stripped.startswith("? "):
+                    # Extract the query part after '? '
+                    # No regex needed if we just take the rest of the string
+                    query_to_explain = user_input_stripped[2:].strip() # Get substring after '? ' and strip again
 
-            if user_input.lower() == 'quit': break
-            if not user_input.strip(): continue # Skip empty input
-
-            # --- Check for Teacher Command ---
-            if user_input.lower().startswith(TEACHER_COMMAND):
-                # Extract the query part after the command
-                match = re.match(rf"^{TEACHER_COMMAND}\s+(.*)", user_input, re.IGNORECASE | re.DOTALL)
-                if match:
-                    query_to_explain = match.group(1).strip()
                     if query_to_explain:
-                        # Call the teacher explanation function (uses the base 'model' instance)
-                        explanation = get_teacher_explanation(query_to_explain, model)
+                        explanation = self.get_teacher_explanation(query_to_explain)
                         print("\n👩‍🏫 Teacher Explanation:")
                         print("-" * 25)
                         print(explanation)
                         print("-" * 25)
                     else:
-                        print(f"Please provide the word/phrase after {TEACHER_COMMAND}. Example: {TEACHER_COMMAND} como")
-                else:
-                     print(f"Usage: {TEACHER_COMMAND} [word or phrase to explain]")
-                # Continue loop to get next input, don't send command to tandem chat
-                continue
+                        # --- Updated usage message ---
+                        print("Please provide the word/phrase after '? '. Example: ? como estas")
+                    continue # Ask for next input
 
-            # --- If not a command, send to Tandem Chat ---
-            print("\nSending to Amigo Lingüístico (Tandem)...")
-            try:
-                # Send to the persistent tandem chat session
-                response = tandem_chat.send_message(user_input)
+                # --- Default: Send to Tandem Role ---
+                # Use the original user_input, not the stripped one, to preserve potential internal spacing
+                response_text = self.handle_tandem_message(user_input)
                 print("\n🤖 Amigo Lingüístico (Tandem):")
                 print("-" * 20)
-                if response.text: print(response.text)
-                # ... (rest of response handling) ...
-                elif not response.candidates:
-                    feedback = response.prompt_feedback if hasattr(response, 'prompt_feedback') else None
-                    if feedback and feedback.block_reason: print(f"Response blocked: {feedback.block_reason.name}")
-                    else: print("Response was empty or blocked.")
-                else: print("Received an empty response.")
+                print(response_text)
                 print("-" * 20)
 
-            except Exception as e:
-                 print(f"\nAn error occurred during Tandem API call: {e}")
-                 print("Please try again.")
+        except KeyboardInterrupt:
+            print("\nExiting script.")
+        finally:
+            print("\n--- Chat Finished ---")
+    # ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---
+    # --- END OF MODIFIED run() method     ---
+    # ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---
 
-    except KeyboardInterrupt:
-        print("\nExiting script.")
-    finally:
-        print("\n--- Chat Finished ---")
-
+# --- Main execution block ---
 if __name__ == "__main__":
-    main()
+    bot = Chatbot()
+    bot.run()
