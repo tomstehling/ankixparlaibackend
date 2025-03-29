@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Tandem Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-header">
+            <h2>AnkixParlai 🇪🇸</h2>
+            <span id="status-indicator" title="Connection Status">⚪</span>
+        </div>
+        <div id="chat-messages">
+            <!-- Chat messages will be appended here -->
+            <div class="message status">Connecting to server...</div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="message-input" placeholder="Type your message here (or '? query' for help)..." autocomplete="off">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Git files
+.git
+.gitignore
+
+# Python virtual environment
+.venv
+venv
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+
+# IDE files / OS files
+.idea
+.vscode
+*.DS_Store
+
+# Secrets file (should already be in .gitignore too)
+.env
+
+# Local output files (if any)
+# Example:
+# new_cards_to_import.txt
+
+# Other temporary/build files
+# *.log

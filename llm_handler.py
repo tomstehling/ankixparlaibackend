@@ -5,8 +5,13 @@ Encapsulates model initialization, chat session creation, and API calls.
 """
 
 import google.generativeai as genai
+import logging # Use logging instead of print for server messages
 from google.generativeai.types import HarmCategory, HarmBlockThreshold # For potential safety settings
 from typing import Optional, List, Dict, Any
+
+# --- Setup Logging ---
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 # Define safety settings (optional, adjust as needed)
 # You might want to block more harmful content, or less if it's overly sensitive
@@ -103,34 +108,37 @@ class GeminiHandler:
             print(f"Error sending message via Gemini API: {e}")
             return None # Indicate error
 
+    # Inside llm_handler.py -> GeminiHandler
+
     def generate_one_off(self, prompt: str) -> Optional[str]:
         """
         Generates content for a single, non-chat prompt (e.g., Teacher, Card Creator).
-
-        Args:
-            prompt: The full prompt including instructions and query.
-
-        Returns:
-            The AI's text response, or None if an error occurs or response is blocked/empty.
         """
         try:
-            print(f"Sending one-off generation request (first 80 chars): '{prompt[:80]}...'")
+            # --- vvv ENSURE THESE LOGS EXIST vvv ---
+            logger.info(f"Sending one-off generation request (first 80 chars): '{prompt[:80]}...'")
             response = self.model.generate_content(
                 prompt,
-                # safety_settings=SAFETY_SETTINGS # Apply safety here too
+                # safety_settings=SAFETY_SETTINGS
                 )
+            logger.info("Received one-off response object from Gemini.")
+            # --- ^^^ ENSURE THESE LOGS EXIST ^^^ ---
 
             # Basic response checking (similar to chat)
-            if response.text:
+            if hasattr(response, 'text') and response.text: # Check attribute exists first
+                logger.info("One-off response has text content.")
                 return response.text
             elif not response.candidates: # Check if blocked
                  feedback = response.prompt_feedback if hasattr(response, 'prompt_feedback') else None
                  block_reason = feedback.block_reason.name if (feedback and feedback.block_reason) else "Unknown"
-                 print(f"Warning: One-off generation response was empty or blocked. Reason: {block_reason}")
-                 return f"(Response blocked: {block_reason})" # Return indication of block
+                 logger.warning(f"One-off generation BLOCKED. Reason: {block_reason}")
+                 return f"(Response blocked: {block_reason})"
             else:
-                 print("Warning: One-off response had candidates but no text content.")
-                 return None # Indicate empty response
+                 logger.warning("One-off response has NO text content but was not blocked.")
+                 logger.warning(f"Response details (if any): candidates={response.candidates}, prompt_feedback={response.prompt_feedback}")
+                 return None
         except Exception as e:
-            print(f"Error during one-off generation via Gemini API: {e}")
-            return None # Indicate error
+            # --- vvv ENSURE THIS LOG EXISTS vvv ---
+            logger.exception(f"Exception during one-off generation: {e}")
+            # --- ^^^ ENSURE THIS LOG EXISTS ^^^ ---
+            return None
