@@ -149,3 +149,25 @@ html, body {
 #send-button:hover {
     background-color: #0056b3;
 }
+
+
+.add-card-button {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    padding: 3px 8px;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Space from text */
+    transition: background-color 0.2s;
+}
+
+.add-card-button:hover {
+    background-color: #218838;
+}
+
+.add-card-button:disabled {
+    background-color: #aaa;
+    cursor: default;
+}

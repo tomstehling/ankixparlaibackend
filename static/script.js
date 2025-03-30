@@ -6,20 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatMessages = document.getElementById('chat-messages');
     const statusIndicator = document.getElementById('status-indicator');
 
-    const API_BASE_URL = 'https://ankixparlai-380281608527.europe-southwest1.run.app/'; // Your Cloud Run URL
+    //const API_BASE_URL = 'https://ankixparlai-380281608527.europe-southwest1.run.app'; // Your Cloud Run URL
+    const API_BASE_URL = 'http://localhost:8000'; // Your Cloud Run URL
     let currentSessionId = null;
     let isRequestPending = false;
 
-    // --- addMessage Function (no changes needed) ---
-    function addMessage(text, sender) {
+    function addMessage(text, sender, data = {}) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender);
         messageDiv.textContent = text;
+
+        if (sender === 'teacher' && data.query) {
+            const button = document.createElement('button');
+            button.classList.add('add-card-button');
+            button.textContent = '💾 Add Card?';
+            button.dataset.query = data.query;
+            messageDiv.appendChild(document.createElement('br'));
+            messageDiv.appendChild(button);
+        }
+
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // --- updateStatus Function (no changes needed) ---
     function updateStatus(status) {
         switch(status) {
             case 'online':
@@ -42,15 +51,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
      }
 
-    // --- vvv NEW FUNCTION: Auto-resize Textarea vvv ---
     function autoResizeTextarea() {
-        // Reset height to auto first to get the correct scrollHeight
         messageInput.style.height = 'auto';
-        // Set the height to the scroll height (content height)
-        // Add a pixel or two buffer if needed, but scrollHeight usually works well
         messageInput.style.height = messageInput.scrollHeight + 'px';
     }
-    // --- ^^^ NEW FUNCTION ^^^ ---
+
+    async function handleAddCardClick(event) {
+        const button = event.target;
+        const query = button.dataset.query;
+        if (!query) return;
+
+        console.log(`Add card requested for query: "${query}"`);
+        button.textContent = 'Saving...';
+        button.disabled = true;
+
+        try {
+            const response = await fetch(API_BASE_URL + '/addcard', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: query }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                console.log('Add card success:', data.message);
+                addMessage(`✅ ${data.message} (Query: ${query})`, 'status');
+                button.textContent = 'Saved!';
+            } else {
+                console.error('Add card failed:', data.message);
+                addMessage(`❌ Error: ${data.message} (Query: ${query})`, 'status');
+                button.textContent = 'Error!';
+                button.disabled = false;
+                button.textContent = '💾 Add Card?';
+            }
+        } catch (error) {
+            console.error('Network Error during add card:', error);
+            addMessage('Network Error: Could not save card data.', 'status');
+            button.textContent = 'Network Error!';
+             button.disabled = false;
+             button.textContent = '💾 Add Card?';
+        }
+    }
 
     async function sendMessageToServer(messageText, isInitialGreeting = false) {
         if (isRequestPending) {
@@ -74,10 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!isInitialGreeting) {
             addMessage(messageText, 'user');
-            messageInput.value = ''; // Clear the textarea
-            // --- vvv CALL RESIZE AFTER CLEARING vvv ---
-            autoResizeTextarea(); // Reset height after sending/clearing
-            // --- ^^^ CALL RESIZE AFTER CLEARING ^^^ ---
+            messageInput.value = '';
+            autoResizeTextarea();
         } else {
             addMessage("Starting conversation...", "status");
         }
@@ -86,12 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let payload = {};
         let senderType = 'bot';
 
-        // --- Check for explain command FIRST --- (Corrected logic slightly)
         if (!isInitialGreeting && messageText.startsWith('? ')) {
             endpoint = '/explain';
             payload = { query: messageText.substring(2).trim() };
             senderType = 'teacher';
-        } else { // Default to chat
+        } else {
             endpoint = '/chat';
             payload = { message: messageText, session_id: currentSessionId };
             senderType = 'bot';
@@ -125,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     addMessage(data.reply, senderType);
                     currentSessionId = data.session_id;
                 } else if (endpoint === '/explain') {
-                    addMessage(data.explanation, senderType);
+                    addMessage(data.explanation, senderType, { query: data.query });
                 }
             }
         } catch (error) {
@@ -143,28 +182,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Event Listeners ---
     sendButton.addEventListener('click', () => sendMessageToServer(null, false));
 
-    // --- vvv MODIFIED keypress listener vvv ---
-    // Listen for keypress to handle Enter/Shift+Enter
     messageInput.addEventListener('keypress', (event) => {
-        // Send message on Enter press ONLY if Shift key is NOT held down
         if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault(); // Prevent default action (newline insertion)
-            sendMessageToServer(null, false); // Trigger send message
+            event.preventDefault();
+            sendMessageToServer(null, false);
         }
-        // If Shift+Enter, default action (newline) is allowed
     });
-    // --- ^^^ MODIFIED keypress listener ^^^ ---
 
-    // --- vvv ADD INPUT LISTENER FOR RESIZING vvv ---
-    // Listen for input to resize textarea automatically
     messageInput.addEventListener('input', autoResizeTextarea);
-    // --- ^^^ ADD INPUT LISTENER FOR RESIZING ^^^ ---
 
+    chatMessages.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('add-card-button')) {
+            handleAddCardClick(event);
+        }
+    });
 
-    // --- Initial Setup Function ---
     async function initializeChat() {
         console.log("Initializing chat...");
         updateStatus('connecting');
@@ -184,10 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
             await sendMessageToServer("Hola", true);
             console.log("Initial greeting process finished.");
 
-            // --- vvv CALL RESIZE INITIALLY vvv ---
-            autoResizeTextarea(); // Set initial height correctly
-            // --- ^^^ CALL RESIZE INITIALLY ^^^ ---
-            messageInput.focus(); // Focus input after initial sequence
+            autoResizeTextarea();
+            messageInput.focus();
 
         } catch (error) {
             console.error('Initialization failed:', error);
@@ -195,7 +227,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Start Initialization ---
     initializeChat();
-
-}); // End DOMContentLoaded
+});
