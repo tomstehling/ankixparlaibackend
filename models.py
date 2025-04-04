@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel, Field, EmailStr
 from typing import Optional, List, Dict, Any
+from typing import Literal # For grade type 
 
 # --- User Models ---
 class UserBase(BaseModel):
@@ -91,3 +92,28 @@ class GetNewCardsResponse(BaseModel):
 
 class MarkSyncedRequest(BaseModel):
     card_ids: List[int]
+
+
+
+# --- SRS / Card Models ---
+class CardGradeRequest(BaseModel):
+    grade: Literal['again', 'good', 'easy'] # Define allowed grades
+
+# Maybe a model for returning card details? (Could reuse GetNewCardsResponse.CardDetail)
+class CardPublic(BaseModel):
+     id: int
+     user_id: int
+     front: str
+     back: str
+     tags: Optional[str] = None # <<< Use Optional[str]
+     status: str
+     created_at: Any # Use 'Any' for datetime for now, or proper datetime handling
+     due_timestamp: int
+     interval_days: float
+     ease_factor: float
+
+     class Config:
+         orm_mode = True # Or from_attributes = True in Pydantic v2
+
+class DueCardsResponse(BaseModel):
+    cards: List[CardPublic]

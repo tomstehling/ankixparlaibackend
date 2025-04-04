@@ -1,5 +1,24 @@
+# requirements.txt
+
+# Core FastAPI framework and ASGI server
 fastapi
-uvicorn[standard]
+uvicorn[standard] # Includes uvicorn, uvloop, httptools, websockets - good performance defaults
+
+# LLM Interaction
 google-generativeai
+
+# Environment variable management
 python-dotenv
-pydantic # Often ne
+
+# Data validation and settings management
+pydantic[email] # Includes email-validator for EmailStr support
+
+# Authentication & Security
+passlib[bcrypt] # For password hashing (includes bcrypt)
+python-jose[cryptography] # For JWT handling (includes cryptography backend)
+
+# Needed by FastAPI/Starlette for handling form data (like in /token endpoint)
+python-multipart
+
+# Database (if using standard library's sqlite3, no extra package needed)
+# If you were using SQLAlchemy + asyncpg/psycopg2 for PostgreSQL, or other DB drivers, add them here.
