@@ -1,119 +1,106 @@
-# models.py
-
-from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List, Dict, Any
-from typing import Literal # For grade type 
+from pydantic import BaseModel, Field, EmailStr, field_validator
+from typing import Optional, List, Dict, Any, Union
+from typing import Literal # For grade type
+import datetime # Import datetime for proper type hint if needed
+import json # For optional validator
 
 # --- User Models ---
 class UserBase(BaseModel):
-    email: EmailStr # Use EmailStr for basic email format validation
+    email: EmailStr
 
 class UserCreate(UserBase):
-    password: str # Password will be handled by backend logic (hashing)
+    password: str
 
-class UserLogin(UserBase): # Often same as UserBase + password, but separate for clarity
+class UserLogin(UserBase):
     password: str
 
 class UserPublic(UserBase):
     id: int
-    # Add any other non-sensitive fields you might want to expose about a user
-    # email: EmailStr # Already inherited from UserBase
-
     class Config:
-        orm_mode = True # Helps Pydantic work with ORM objects if needed later
-
+        from_attributes = True
 
 # --- Token Models ---
 class Token(BaseModel):
     access_token: str
-    token_type: str # Typically "bearer"
+    token_type: str
 
 class TokenData(BaseModel):
-    # Represents the data encoded within the JWT token's payload
-    # 'sub' (subject) is standard for user identifier
-    user_id: Optional[int] = None # Match the type of your user ID (int)
-
+    user_id: Union[int, None] = None
 
 # --- /chat endpoint models ---
 class ChatMessage(BaseModel):
     message: str
-    session_id: Optional[str] = None # Allow frontend to maintain session
+    session_id: Optional[str] = None
 
 class ChatResponse(BaseModel):
     reply: str
-    session_id: str # Send back session ID (new or existing)
-
+    session_id: str
 
 # --- /explain endpoint models ---
 class ExplainRequest(BaseModel):
     topic: str
-    context: Optional[str] = None # Optional chat context
+    context: Optional[str] = None
 
 class ExplainResponse(BaseModel):
-    explanation_text: str             # The main explanation text
-    topic: str                        # The original topic requested (useful for frontend)
-    example_spanish: Optional[str] = None # Optional first example sentence (Spanish)
-    example_english: Optional[str] = None # Optional first example sentence (English)
-
+    explanation_text: str
+    topic: str
+    example_spanish: Optional[str] = None
+    example_english: Optional[str] = None
 
 # --- Interactive Card Creation Models ---
 class ProposeSentenceRequest(BaseModel):
-    target_word: str = Field(..., examples=["correr"]) # Required field with example
+    target_word: str = Field(..., examples=["correr"])
 
 class ValidateTranslateRequest(BaseModel):
     target_word: str = Field(..., examples=["libro"])
     user_sentence: str = Field(..., examples=["Quiero leer un libro.", "I want to read a book."])
-    # Use Literal type for stricter validation ('es' or 'en' only)
-    # from typing import Literal
-    # language: Literal['es', 'en'] = Field(...)
-    language: str = Field(..., pattern="^(es|en)$", examples=["es", "en"]) # Regex pattern works too
+    language: Literal['es', 'en'] = Field(..., examples=["es", "en"])
 
 class SaveCardRequest(BaseModel):
     spanish_front: str = Field(..., examples=["Me gusta el perro."])
     english_back: str = Field(..., examples=["I like the dog."])
-    tags: List[str] = Field(default_factory=list, examples=[["vocabulario", "chatbot"]]) # Default to empty list
+    tags: List[str] = Field(default_factory=list, examples=[["vocabulario", "chatbot"]])
 
-
-# --- Anki Sync Models (Potentially Deprecated/Needs Change) ---
-class AnkiDeckUpdateRequest(BaseModel):
-    sentences: List[str]
-
-class GetNewCardsResponse(BaseModel):
-    # Define the structure of a card as returned by the API
-    class CardDetail(BaseModel):
-        id: int
-        front: str
-        back: str
-        tags: str # Or List[str] depending on how DB stores/returns it
-        # Add other fields like 'status' if needed by Anki plugin
-        # status: str
-
-    cards: List[CardDetail] # List of card dictionaries/objects
-
-class MarkSyncedRequest(BaseModel):
-    card_ids: List[int]
-
-
+# --- Anki Sync Models (Deprecated) ---
+# ... (keep if needed, otherwise remove)
 
 # --- SRS / Card Models ---
 class CardGradeRequest(BaseModel):
-    grade: Literal['again', 'good', 'easy'] # Define allowed grades
+    grade: Literal['again', 'good', 'easy']
 
-# Maybe a model for returning card details? (Could reuse GetNewCardsResponse.CardDetail)
+# Model for returning card details, including SRS info
 class CardPublic(BaseModel):
      id: int
      user_id: int
      front: str
      back: str
-     tags: Optional[str] = None # <<< Use Optional[str]
+     tags: Optional[str] = None # DB stores as space-separated string
      status: str
-     created_at: Any # Use 'Any' for datetime for now, or proper datetime handling
+     created_at: Optional[datetime.datetime] = None # Allow None if sometimes missing
      due_timestamp: int
      interval_days: float
      ease_factor: float
+     learning_step: Optional[int] = 0
 
      class Config:
-         orm_mode = True # Or from_attributes = True in Pydantic v2
+         from_attributes = True
+
 
 class DueCardsResponse(BaseModel):
     cards: List[CardPublic]
+
+
+# --- Card Update Model ---
+class CardUpdate(BaseModel):
+    """Model for updating card front, back, and tags."""
+    # Use Optional if you want to allow partial updates, otherwise make them required
+    front: Optional[str] = Field(None, examples=["El gato duerme."])
+    back: Optional[str] = Field(None, examples=["The cat sleeps."])
+    tags: Optional[List[str]] = Field(None, examples=[["animales", "verbos"]])
+
+    # Add validator to ensure at least one field is provided for update? Optional.
+    # @field_validator('*') # Check if needed, requires more logic
+    # def check_at_least_one_field(cls, values):
+    #     if not any(values.values()):
+    #         raise ValueError("At least one field (front, back, tags) must be provided for update")
+    #     return values

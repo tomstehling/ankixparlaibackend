@@ -7,7 +7,7 @@ from typing import Dict, Any, Optional, List # Keep necessary basic types
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles # Keep if needed, but currently not used in provided code
 from fastapi.responses import FileResponse, HTMLResponse
 
 # --- Load Environment Variables ---
@@ -21,11 +21,14 @@ from llm_handler import GeminiHandler
 import database
 import security # Needed for SECRET_KEY check during startup
 # --- Import Routers ---
-from routers import authentication, chat, cards, sync
+# Remove or comment out the sync import
+# from routers import authentication, chat, cards, sync
+from routers import authentication, chat, cards # Import only active routers
 import dependencies # Import shared dependencies setup
 
 # --- Setup Logging ---
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') # Old line
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s') # New line - Changed level to DEBUG and added logger name
 logger = logging.getLogger(__name__)
 
 # --- Lifespan for Startup/Shutdown Logic ---
@@ -37,7 +40,8 @@ async def lifespan(app: FastAPI):
     # Initialize Database
     try:
         db_file = getattr(config, 'DATABASE_FILE', 'chatbot_cards.db')
-        database.DATABASE_FILE = db_file
+        # Ensure DATABASE_FILE in database module is updated if needed, though direct use is often better avoided
+        # database.DATABASE_FILE = db_file # This might not be necessary if database.py uses the import correctly
         database.initialize_database()
     except Exception as e:
         logger.exception("FATAL: Database initialization failed.")
@@ -71,9 +75,7 @@ async def lifespan(app: FastAPI):
         logger.error(f"FATAL: An unexpected error occurred loading prompts: {e}")
         sys.exit(1)
 
-    # Load initial 'learned' sentences (Optional - Consider if still needed globally)
-    # If needed, load and store in app.state.learned_sentences = ...
-    # For now, we'll assume it's not globally essential or managed differently
+    # Load initial 'learned' sentences (Optional - Check if still relevant)
     try:
         flashcard_file = getattr(config, 'ANKI_FLASHCARDS_FILE', None)
         if flashcard_file and os.path.exists(flashcard_file):
@@ -108,32 +110,33 @@ app = FastAPI(
 )
 
 # --- CORS Middleware ---
+# Define allowed origins explicitly or use "*" for development (less secure)
+# Ensure your frontend origins (localhost:5173, localhost:5500) are included
 origins = [
     "http://localhost:5173", # Vue Dev
     "http://127.0.0.1:5173",
-    "http://localhost:5500", # VS Code Live Server
+    "http://localhost:5500", # VS Code Live Server / Python http.server for static chat
     "http://127.0.0.1:5500",
-    "http://localhost:8080", # python http.server
-    "http://127.0.0.1:8080",
-    # Add production frontend/backend URLs here
+    # Add production frontend URL here when deployed
+    # e.g., "https://your-frontend-domain.com"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if "*" in origins else origins,
+    allow_origins=origins, # Use the defined list
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"], # Allows all methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"], # Allows all headers
 )
 
 # --- Include Routers ---
 app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
-app.include_router(chat.router, tags=["Chat & Explain"])
+app.include_router(chat.router, tags=["Chat & Explain"]) # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
-app.include_router(sync.router, prefix="/sync", tags=["Anki Sync (Deprecated?)"])
+# Remove or comment out the sync router inclusion
+# app.include_router(sync.router, prefix="/sync", tags=["Anki Sync (Deprecated?)"])
 
 
-# Simple root if no static files are served:
 @app.get("/", tags=["Root"], include_in_schema=True)
 async def read_root():
     """Provides a simple message indicating the API is running."""
@@ -143,5 +146,7 @@ async def read_root():
 # --- Main Execution Guard (for local testing) ---
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    logger.info(f"Starting Uvicorn server locally on http://0.0.0.0:{port} with reload enabled")
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+    # Use host="127.0.0.1" for local only or "0.0.0.0" to expose externally
+    host = os.environ.get("HOST", "127.0.0.1")
+    logger.info(f"Starting Uvicorn server locally on http://{host}:{port} with reload enabled")
+    uvicorn.run("main:app", host=host, port=port, reload=True)
