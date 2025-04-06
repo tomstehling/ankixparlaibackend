@@ -1,6 +1,6 @@
 """
 Handles SQLite database operations for storing user data and flashcards,
-including Spaced Repetition System (SRS) parameters.
+including Spaced Repetition System (SRS) parameters and WhatsApp linking.
 """
 import sqlite3
 import logging
@@ -18,7 +18,8 @@ DATABASE_FILE = getattr(__import__('config', fromlist=['DATABASE_FILE']), 'DATAB
 def get_db_connection() -> sqlite3.Connection:
     """Establishes a connection to the SQLite database."""
     try:
-        conn = sqlite3.connect(DATABASE_FILE, timeout=10) # Add timeout
+        # Increased timeout, added check_same_thread=False for potential multithreading scenarios with FastAPI
+        conn = sqlite3.connect(DATABASE_FILE, timeout=15, check_same_thread=False)
         conn.execute("PRAGMA foreign_keys = ON")
         conn.row_factory = sqlite3.Row
         return conn
@@ -31,7 +32,7 @@ def get_db_connection() -> sqlite3.Connection:
 def initialize_database():
     """
     Creates or updates the necessary tables ('users', 'cards') if they don't exist
-    or have missing columns required for user accounts and SRS.
+    or have missing columns required for user accounts, SRS, and WhatsApp linking.
     """
     logger.info(f"Initializing database '{DATABASE_FILE}'...")
     try:
@@ -39,16 +40,28 @@ def initialize_database():
             cursor = conn.cursor()
 
             # --- Users Table ---
+            # Create table statement includes UNIQUE constraint for fresh DBs
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     email TEXT UNIQUE NOT NULL,
                     hashed_password TEXT NOT NULL,
+                    whatsapp_number TEXT UNIQUE, -- Added for WhatsApp linking
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
+
+            # --- Add Columns (Idempotent) ---
+            # Add whatsapp_number column *without* UNIQUE constraint if it doesn't exist
+            # The UNIQUE constraint will be enforced by the index creation below.
+            _add_column_if_not_exists(cursor, "users", "whatsapp_number", "TEXT") # <<< CORRECTED HERE
+
+            # --- Add Indexes (Idempotent) ---
+            # These indexes enforce uniqueness. Creating the index handles the check on existing data (if any).
             cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users (email)")
-            logger.info("Table 'users' checked/created.")
+            cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_whatsapp_number ON users (whatsapp_number)") # <<< This adds the constraint
+            logger.info("Table 'users' checked/created/updated.")
+
 
             # --- Cards Table ---
             table_name = "cards"
@@ -70,7 +83,8 @@ def initialize_database():
             """)
             logger.info(f"Table '{table_name}' checked/created.")
 
-            # --- Add Columns (Idempotent) ---
+            # --- Add Columns to Cards (Idempotent) ---
+            # No changes needed here based on current plan
             _add_column_if_not_exists(cursor, table_name, "user_id", "INTEGER NOT NULL DEFAULT -1 REFERENCES users(id) ON DELETE CASCADE")
             _add_column_if_not_exists(cursor, table_name, "due_timestamp", "INTEGER NOT NULL DEFAULT 0")
             _add_column_if_not_exists(cursor, table_name, "interval_days", "REAL DEFAULT 0.0")
@@ -78,8 +92,7 @@ def initialize_database():
             _add_column_if_not_exists(cursor, table_name, "learning_step", "INTEGER DEFAULT 0")
             _add_column_if_not_exists(cursor, table_name, "created_at", "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 
-
-            # --- Add Indexes (Idempotent) ---
+            # --- Add Indexes to Cards (Idempotent) ---
             cursor.execute(f"CREATE INDEX IF NOT EXISTS idx_{table_name}_user_status_due ON {table_name} (user_id, status, due_timestamp)")
             cursor.execute(f"CREATE INDEX IF NOT EXISTS idx_{table_name}_user_id ON {table_name} (user_id)")
 
@@ -92,25 +105,36 @@ def initialize_database():
 def _add_column_if_not_exists(cursor: sqlite3.Cursor, table: str, column: str, col_type: str):
     """Helper function to add a column only if it doesn't exist."""
     try:
+        # Use fetchall() to properly retrieve results before making modifications
         cursor.execute(f"PRAGMA table_info({table})")
         columns = [info['name'] for info in cursor.fetchall()]
         if column in columns:
+             # logger.debug(f"Column '{column}' already exists in table '{table}'.") # Optionally log existence
              return
 
-        logger.info(f"Column '{column}' not found in table '{table}'. Adding it...")
-        cursor.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+        logger.info(f"Column '{column}' not found in table '{table}'. Attempting to add it with type '{col_type}'...")
+        # Split ALTER TABLE from ADD COLUMN for compatibility and clarity
+        alter_sql = f"ALTER TABLE {table} ADD COLUMN {column} {col_type}"
+        cursor.execute(alter_sql)
         logger.info(f"Successfully added column '{column}' to table '{table}'.")
 
     except sqlite3.Error as e:
-        logger.error(f"Error checking or adding column '{column}' to '{table}': {e}")
+        # Check for specific error messages if needed (e.g., "duplicate column name")
+        if "duplicate column name" in str(e).lower():
+             logger.warning(f"Attempted to add column '{column}' to '{table}', but it seems to already exist (Error: {e}).")
+        else:
+             # Log full traceback for unexpected errors during alter table
+             logger.error(f"Error adding column '{column}' to '{table}': {e}", exc_info=True)
+             raise # Re-raise the exception so initialization fails clearly
 
 
 # --- User Operations ---
+
 # (Keep add_user_to_db, get_user_by_email, get_user_by_id as they are)
 def add_user_to_db(email: str, hashed_password: str) -> Optional[int]:
-    # ... (implementation as before) ...
     logger.info(f"Attempting to add user with email: {email}")
-    sql = "INSERT INTO users (email, hashed_password) VALUES (?, ?)"
+    # Initialize whatsapp_number as NULL explicitly
+    sql = "INSERT INTO users (email, hashed_password, whatsapp_number) VALUES (?, ?, NULL)"
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -119,17 +143,21 @@ def add_user_to_db(email: str, hashed_password: str) -> Optional[int]:
             user_id = cursor.lastrowid
             logger.info(f"User added successfully with ID: {user_id}")
             return user_id
-    except sqlite3.IntegrityError:
-         logger.warning(f"Attempt failed: User with email '{email}' already exists.")
+    except sqlite3.IntegrityError as ie:
+         # Check if it's the email constraint
+         if 'users.email' in str(ie).lower() or 'unique constraint failed: users.email' in str(ie).lower():
+             logger.warning(f"Attempt failed: User with email '{email}' already exists.")
+         else:
+             logger.error(f"Integrity error adding user '{email}': {ie}", exc_info=True)
          return None
     except sqlite3.Error as e:
         logger.exception(f"Database error adding user '{email}': {e}")
         return None
 
 def get_user_by_email(email: str) -> Optional[Dict[str, Any]]:
-    # ... (implementation as before) ...
     logger.debug(f"Fetching user by email: {email}")
-    sql = "SELECT id, email, hashed_password FROM users WHERE email = ?"
+    # Include whatsapp_number in the selection
+    sql = "SELECT id, email, hashed_password, whatsapp_number FROM users WHERE email = ?"
     user = None
     try:
         with get_db_connection() as conn:
@@ -146,9 +174,9 @@ def get_user_by_email(email: str) -> Optional[Dict[str, Any]]:
     return user
 
 def get_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:
-    # ... (implementation as before) ...
     logger.debug(f"Fetching user by ID: {user_id}")
-    sql = "SELECT id, email, created_at FROM users WHERE id = ?"
+    # Include whatsapp_number in the selection
+    sql = "SELECT id, email, created_at, whatsapp_number FROM users WHERE id = ?"
     user = None
     try:
         with get_db_connection() as conn:
@@ -164,9 +192,67 @@ def get_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:
         logger.exception(f"Database error getting user by ID '{user_id}': {e}")
     return user
 
+# --- NEW: User Operations for WhatsApp ---
+
+def get_user_by_whatsapp_number(whatsapp_number: str) -> Optional[Dict[str, Any]]:
+    """Fetches a user record based on their linked WhatsApp number."""
+    logger.debug(f"Fetching user by WhatsApp number: {whatsapp_number}")
+    # Select all relevant fields needed for context or identification
+    sql = "SELECT id, email, created_at, whatsapp_number FROM users WHERE whatsapp_number = ?"
+    user = None
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, (whatsapp_number,))
+            user_row = cursor.fetchone()
+            if user_row:
+                user = dict(user_row)
+                logger.debug(f"User found for WhatsApp number: {whatsapp_number} (User ID: {user['id']})")
+            else:
+                logger.debug(f"No user found for WhatsApp number: {whatsapp_number}")
+    except sqlite3.Error as e:
+        logger.exception(f"Database error getting user by WhatsApp number '{whatsapp_number}': {e}")
+    return user
+
+def update_user_whatsapp_number(user_id: int, whatsapp_number: str) -> bool:
+    """Updates the whatsapp_number for a given user ID."""
+    logger.info(f"Attempting to link WhatsApp number {whatsapp_number} to User ID {user_id}")
+    sql = "UPDATE users SET whatsapp_number = ? WHERE id = ?"
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, (whatsapp_number, user_id))
+            conn.commit()
+            rows_affected = cursor.rowcount
+            if rows_affected == 1:
+                logger.info(f"Successfully linked WhatsApp number {whatsapp_number} to User ID {user_id}")
+                return True
+            else:
+                # This shouldn't happen if user_id exists, unless the number is already taken by someone else
+                # Let's check if the number is taken by another user
+                cursor.execute("SELECT id FROM users WHERE whatsapp_number = ? AND id != ?", (whatsapp_number, user_id))
+                existing_user = cursor.fetchone()
+                if existing_user:
+                     logger.warning(f"Update failed: WhatsApp number {whatsapp_number} is already linked to another User ID ({existing_user['id']}).")
+                else:
+                     logger.warning(f"Update failed for User ID {user_id}: User not found or no changes made.")
+                return False
+    except sqlite3.IntegrityError as ie:
+         # This will catch the UNIQUE constraint violation if the number is already linked
+         # Check specific SQLite error message for unique constraint
+         if 'users.whatsapp_number' in str(ie).lower() or 'unique constraint failed: users.whatsapp_number' in str(ie).lower():
+              logger.warning(f"Update failed: WhatsApp number {whatsapp_number} is already linked to another user account.")
+         else:
+              logger.error(f"Integrity error updating WhatsApp number for User ID {user_id}: {ie}", exc_info=True)
+         return False
+    except sqlite3.Error as e:
+        logger.exception(f"Database error updating WhatsApp number for User ID {user_id}: {e}")
+        return False
+
 
 # --- Card Operations ---
-
+# (No changes needed in add_new_card_to_db, get_all_cards_for_user, get_due_cards,
+#  update_card_srs, get_card_by_id, delete_card, update_card_details for this step)
 def add_new_card_to_db(user_id: int, front: str, back: str, tags: List[str]) -> Optional[int]:
     # ... (implementation as before) ...
     tags_str = " ".join(tags)
@@ -331,11 +417,7 @@ def update_card_details(
     back: Optional[str] = None,
     tags: Optional[List[str]] = None
 ) -> bool:
-    """
-    Updates the front, back, or tags of a specific card belonging to the user.
-    Only updates fields that are not None.
-    Returns True if the update was successful (card found and updated), False otherwise.
-    """
+    # ... (implementation as before) ...
     logger.info(f"Attempting to update details for Card ID {card_id} by User ID {user_id}")
 
     fields_to_update: Dict[str, Any] = {}
@@ -372,9 +454,8 @@ def update_card_details(
         logger.exception(f"Database error updating details for Card ID {card_id}: {e}")
         return False
 
-
 # --- Deprecated Functions ---
-# (get_pending_cards, mark_cards_as_synced can be removed or left as is)
+# (Keep as is for now)
 def get_pending_cards(user_id: int) -> List[Dict[str, Any]]:
     logger.warning(f"Function 'get_pending_cards' called for User ID {user_id} (Potentially Deprecated).")
     return []

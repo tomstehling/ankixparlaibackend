@@ -1,4 +1,3 @@
-# config.py
 """
 Configuration settings for the Spanish Chatbot application.
 """
@@ -38,6 +37,19 @@ if SECRET_KEY == "a_very_bad_default_secret_key_CHANGE_ME":
     print("         Example command: openssl rand -hex 32")
     print("*"*60 + "\n")
 
+# --- Twilio Configuration ---
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+TWILIO_WHATSAPP_NUMBER = os.getenv("TWILIO_WHATSAPP_NUMBER") # Your Twilio WhatsApp sender number (e.g., whatsapp:+14155238886)
+
+# Validate Twilio configuration
+if not all([TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_NUMBER]):
+     print("\n" + "*"*60)
+     print("WARNING: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, or TWILIO_WHATSAPP_NUMBER")
+     print("         environment variables are not set. WhatsApp integration will fail.")
+     print("*"*60 + "\n")
+# Optionally, you could raise an error or exit if Twilio is critical
+
 # --- File Paths ---
 # Directory for system prompts (adjust if your structure differs)
 PROMPT_DIR = "system_prompts"
@@ -60,15 +72,14 @@ LAPSE_INTERVAL_MULTIPLIER: float = 0.0    # Interval multiplier on 'again' (0=re
 DEFAULT_INTERVAL_MODIFIER: float = 1.0    # Base multiplier for 'good' reviews (adjust as needed, 1.0 is neutral)
 EASY_BONUS: float = 1.3                   # Extra multiplier for 'easy' reviews (Anki default)
 
-# --- Command Triggers (Potentially less relevant for pure API backend) ---
-CARD_COMMAND = "!card" # Command to trigger flashcard creation (if used elsewhere)
+# --- Command Triggers ---
+# Command prefix for linking account via WhatsApp
+WHATSAPP_LINK_COMMAND_PREFIX = "LINK"
+# Command prefix for creating flashcards via WhatsApp
+WHATSAPP_CARD_COMMAND_PREFIX = "/"
 
-# --- AnkiConnect Configuration (For external Anki integration scripts/tools) ---
-# Note: The core FastAPI backend does NOT directly use these for its internal SRS.
-# These are relevant if you have a separate script or plugin talking to AnkiConnect.
+# --- AnkiConnect Configuration (Deprecated - Internal SRS used) ---
 ANKICONNECT_URL = os.getenv("ANKICONNECT_URL", "http://localhost:8765") # Default AnkiConnect URL
-
-# !!! User must configure these if using external Anki integration !!!
 ANKI_DECK_NAME = os.getenv("ANKI_DECK_NAME", "ankixparlai") # Target deck name in Anki
 ANKI_MODEL_NAME = os.getenv("ANKI_MODEL_NAME", "Basic (and reversed card)") # Note type in Anki
 ANKI_FIELD_FRONT = os.getenv("ANKI_FIELD_FRONT", "Front") # Field name for the front of the card
@@ -76,11 +87,13 @@ ANKI_FIELD_BACK = os.getenv("ANKI_FIELD_BACK", "Back")   # Field name for the ba
 
 # --- Other Settings ---
 # (Add any other configuration constants here in the future)
+TEMP_CODE_STORAGE = {} # Simple in-memory storage for link codes (replace with Redis/DB for production)
+LINK_CODE_EXPIRY_SECONDS = 300 # 5 minutes
 
 print(f"--- Configuration Loaded ---")
 print(f"Database file: {DATABASE_FILE}")
 print(f"Gemini Model: {GEMINI_MODEL_NAME}")
 print(f"Prompt Directory: {PROMPT_DIR}")
+print(f"Twilio WhatsApp Number: {TWILIO_WHATSAPP_NUMBER}")
 # Add other print statements if helpful for debugging startup
-# print(f"Default Ease: {DEFAULT_EASE_FACTOR}")
 print(f"--------------------------")
