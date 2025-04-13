@@ -16,8 +16,11 @@ class UserLogin(UserBase):
 
 class UserPublic(UserBase):
     id: int
+    email: EmailStr # Make sure email is included here
+    whatsapp_number: Optional[str] = None # Include linked number if available
+    created_at: Optional[datetime.datetime] = None
     class Config:
-        from_attributes = True
+        from_attributes = True # Updated from orm_mode=True for Pydantic v2
 
 # --- Token Models ---
 class Token(BaseModel):
@@ -36,16 +39,22 @@ class ChatResponse(BaseModel):
     reply: str
     session_id: str
 
-# --- /explain endpoint models ---
 class ExplainRequest(BaseModel):
     topic: str
     context: Optional[str] = None
 
+# --- Define Response Models (Matching Frontend Expectation) ---
+class ExamplePair(BaseModel):
+    """Represents a single Spanish/English example pair."""
+    spanish: str
+    english: str
+
 class ExplainResponse(BaseModel):
-    explanation_text: str
+    """Structured response for an explanation."""
     topic: str
-    example_spanish: Optional[str] = None
-    example_english: Optional[str] = None
+    explanation_text: str # This should contain ONLY the text part
+    examples: Optional[List[ExamplePair]] = None # List of examples or None
+
 
 # --- Interactive Card Creation Models ---
 class ProposeSentenceRequest(BaseModel):
@@ -83,7 +92,7 @@ class CardPublic(BaseModel):
      learning_step: Optional[int] = 0
 
      class Config:
-         from_attributes = True
+         from_attributes = True # Updated from orm_mode=True for Pydantic v2
 
 
 class DueCardsResponse(BaseModel):
@@ -104,3 +113,15 @@ class CardUpdate(BaseModel):
     #     if not any(values.values()):
     #         raise ValueError("At least one field (front, back, tags) must be provided for update")
     #     return values
+
+# --- WhatsApp Linking Model ---
+class WhatsappLinkCodeResponse(BaseModel):
+    """Response model containing the generated WhatsApp link code."""
+    link_code: str = Field(..., examples=["LINK 123456"], description="The full code (prefix + numbers) to send via WhatsApp.")
+    expires_in_seconds: int = Field(..., examples=[300], description="Number of seconds the code is valid for.")
+
+class AnkiImportSummary(BaseModel):
+    imported_count: int
+    skipped_count: int # For future use (e.g., duplicates)
+    error_count: int
+    error_message: Optional[str] = None

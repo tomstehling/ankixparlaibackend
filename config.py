@@ -18,6 +18,8 @@ if not GEMINI_API_KEY:
     # sys.exit(1)
 
 DATABASE_FILE = os.getenv("DATABASE_FILE", "chatbot_cards.db") # Default DB name
+WEB_APP_BASE_URL = os.getenv("WEB_APP_BASE_URL", "http://localhost:5173") # Base URL for frontend
+
 
 # --- Gemini Model Configuration ---
 GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash-latest") # Your preferred model
@@ -86,12 +88,15 @@ ANKI_FIELD_FRONT = os.getenv("ANKI_FIELD_FRONT", "Front") # Field name for the f
 ANKI_FIELD_BACK = os.getenv("ANKI_FIELD_BACK", "Back")   # Field name for the back of the card
 
 # --- Other Settings ---
-# (Add any other configuration constants here in the future)
-TEMP_CODE_STORAGE = {} # Simple in-memory storage for link codes (replace with Redis/DB for production)
-LINK_CODE_EXPIRY_SECONDS = 300 # 5 minutes
+# Temporary storage for WhatsApp link codes. Structure: { "123456": {"user_id": 1, "expires_at": 1678886400.0}, ... }
+# WARNING: In-memory storage is lost on server restart. Use Redis/DB for production.
+TEMP_CODE_STORAGE: dict[str, dict] = {}
+LINK_CODE_EXPIRY_SECONDS = 300 # 5 minutes (300 seconds)
+LINK_CODE_LENGTH = 6 # Number of digits for the link code
 
 print(f"--- Configuration Loaded ---")
 print(f"Database file: {DATABASE_FILE}")
+print(f"Web App Base URL: {WEB_APP_BASE_URL}")
 print(f"Gemini Model: {GEMINI_MODEL_NAME}")
 print(f"Prompt Directory: {PROMPT_DIR}")
 print(f"Twilio WhatsApp Number: {TWILIO_WHATSAPP_NUMBER}")

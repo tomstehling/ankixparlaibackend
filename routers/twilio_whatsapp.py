@@ -2,6 +2,7 @@
 Router for handling incoming WhatsApp messages via Twilio webhook.
 """
 import logging
+import time # Added for expiry check
 from fastapi import APIRouter, Request, Response, Form, Depends, HTTPException
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.request_validator import RequestValidator # For signature validation
@@ -37,8 +38,12 @@ async def validate_twilio_request(request: Request):
              raise HTTPException(status_code=400, detail="Missing Twilio signature.")
 
         # Remove port for validation if running behind proxy like ngrok default behavior
-        if 'X-Forwarded-Proto' in request.headers and ':443' in url:
+        # Check both http and https common proxy headers
+        forwarded_proto = request.headers.get('X-Forwarded-Proto')
+        if forwarded_proto == 'https' and ':443' in url:
             url = url.replace(':443', '')
+        elif forwarded_proto == 'http' and ':80' in url:
+             url = url.replace(':80', '')
 
         logger.debug(f"Validating Twilio request: URL='{url}', Params='{form_dict}', Signature='{signature}'")
 
@@ -83,30 +88,25 @@ async def handle_whatsapp_webhook(
         user_email = user.get('email', 'Unknown Email')
         logger.info(f"User identified: ID={user_id}, Email={user_email}")
 
-        # Check for commands (Link, Card Add) - Although LINK shouldn't happen here ideally
+        # Check for LINK command (edge case, user already linked)
         if message_body.upper().startswith(config.WHATSAPP_LINK_COMMAND_PREFIX + " "):
-            # User is already linked, shouldn't send link code again
              twiml_response.message(f"¡Hola! Your WhatsApp number is already linked to the account {user_email}. You don't need to link it again. Let's chat!")
-             logger.warning(f"User {user_id} sent LINK command but is already linked.")
+             logger.warning(f"User {user_id} ({sender_id}) sent LINK command but is already linked.")
 
         elif message_body.startswith(config.WHATSAPP_CARD_COMMAND_PREFIX):
-            # Handle Card Creation command (Placeholder for now)
+            # Handle Card Creation command (Placeholder)
             term_to_add = message_body[len(config.WHATSAPP_CARD_COMMAND_PREFIX):].strip()
             if term_to_add:
                 logger.info(f"User {user_id} requested card creation for: '{term_to_add}'")
                 # TODO: Implement card creation logic using reusable functions
-                #       Call functions extracted from routers/cards.py
-                #       e.g., propose, validate, save
                 twiml_response.message(f"Okay, I'll try to create a flashcard for '{term_to_add}'. (Feature coming soon!)")
             else:
                 twiml_response.message(f"To add a card, use {config.WHATSAPP_CARD_COMMAND_PREFIX} followed by the word or phrase (e.g., '{config.WHATSAPP_CARD_COMMAND_PREFIX} hola').")
 
         else:
-            # Handle regular chat message (Placeholder for now)
+            # Handle regular chat message (Placeholder)
             logger.info(f"Passing message from User {user_id} to chat handler...")
             # TODO: Implement chat logic using reusable functions
-            #       Call function extracted from routers/chat.py (needs user_id, message)
-            #       Inject user's card context
             chatbot_reply = f"Received: '{message_body}'. Chat response coming soon!" # Placeholder reply
             twiml_response.message(chatbot_reply)
 
@@ -115,38 +115,79 @@ async def handle_whatsapp_webhook(
         logger.info(f"Sender {sender_id} is not linked to any user account.")
 
         # Check for LINK command
-        if message_body.upper().startswith(config.WHATSAPP_LINK_COMMAND_PREFIX + " "):
-            link_code = message_body[len(config.WHATSAPP_LINK_COMMAND_PREFIX):].strip().upper()
-            logger.info(f"Received LINK command from {sender_id} with code: '{link_code}'")
+        link_prefix_upper = config.WHATSAPP_LINK_COMMAND_PREFIX.upper() + " "
+        if message_body.upper().startswith(link_prefix_upper):
+            # Extract only the numeric code part
+            code_part = message_body[len(link_prefix_upper):].strip()
+            logger.info(f"Received LINK command from {sender_id} with code part: '{code_part}'")
 
-            # TODO: Implement Link Code Verification
-            #       1. Check the code against temporary storage (config.TEMP_CODE_STORAGE)
-            #       2. If valid & not expired:
-            #          - Get user_id associated with the code.
-            #          - Call database.update_user_whatsapp_number(user_id, sender_id)
-            #          - Remove code from storage.
-            #          - Send success message.
-            #       3. If invalid/expired:
-            #          - Send error message.
-            twiml_response.message(f"Received link code '{link_code}'. Verification coming soon!") # Placeholder
+            # Validate if it looks like our code format (e.g., 6 digits)
+            if not code_part.isdigit() or len(code_part) != getattr(config, 'LINK_CODE_LENGTH', 6):
+                 logger.warning(f"Invalid code format received from {sender_id}: '{code_part}'")
+                 twiml_response.message(f"Hmm, that code doesn't look right. Please make sure you enter the command '{config.WHATSAPP_LINK_COMMAND_PREFIX}' followed by the {getattr(config, 'LINK_CODE_LENGTH', 6)}-digit code from the website.")
+            else:
+                # --- Link Code Verification Logic ---
+                code_info = config.TEMP_CODE_STORAGE.get(code_part)
+                current_time = time.time()
+
+                if code_info and current_time < code_info.get("expires_at", 0):
+                    user_id_to_link = code_info.get("user_id")
+                    if not user_id_to_link:
+                         logger.error(f"Valid code '{code_part}' found but missing user_id in storage.")
+                         twiml_response.message("Sorry, there was an internal error processing your code. Please try requesting a new one.")
+                    else:
+                        logger.info(f"Valid code '{code_part}' found for User ID {user_id_to_link}. Attempting to link number {sender_id}.")
+                        # Attempt to link the number in the database
+                        success = database.update_user_whatsapp_number(user_id_to_link, sender_id)
+
+                        if success:
+                            # Remove code upon successful use
+                            try:
+                                del config.TEMP_CODE_STORAGE[code_part]
+                                logger.info(f"Removed used link code '{code_part}' from temporary storage.")
+                            except KeyError:
+                                logger.warning(f"Attempted to remove code '{code_part}' but it was already gone.") # Should not happen often
+
+                            # Fetch user email for confirmation message
+                            linked_user_info = database.get_user_by_id(user_id_to_link)
+                            user_email = linked_user_info.get('email', 'your account') if linked_user_info else 'your account'
+
+                            twiml_response.message(f"¡Perfecto! ✨ Your WhatsApp number is now linked to {user_email}. Let's start practicing!")
+                            logger.info(f"Successfully linked {sender_id} to User ID {user_id_to_link}.")
+                        else:
+                            # DB update failed (e.g., number already linked to *another* account, caught by UNIQUE constraint)
+                            logger.warning(f"Failed to link {sender_id} to User ID {user_id_to_link} in database (likely number already exists).")
+                            twiml_response.message("Sorry, I couldn't link this number. It might already be linked to a different account. Please contact support if you need help.")
+                            # Note: We don't remove the code here, maybe the user tries again from the correct account? Or maybe we should? Let's leave it for now.
+
+                elif code_info: # Code exists but expired
+                     logger.warning(f"Expired code '{code_part}' received from {sender_id}.")
+                     twiml_response.message("This link code has expired. Please request a new one from your Profile page on the website.")
+                     # Optionally remove expired code here
+                     # try: del config.TEMP_CODE_STORAGE[code_part] except KeyError: pass
+                else: # Code not found
+                     logger.warning(f"Invalid code '{code_part}' received from {sender_id}.")
+                     twiml_response.message(f"That code wasn't found or is incorrect. Please double-check the code from the website or request a new one. Remember to include '{config.WHATSAPP_LINK_COMMAND_PREFIX}'.")
 
         else:
-            # Initial Engagement / Prompt to Link
-            # Simple version for now:
+            # --- Initial Engagement / Prompt to Link ---
+            # Use WEB_APP_BASE_URL from config
+            base_url = config.WEB_APP_BASE_URL
+            profile_path = "/app/profile" # Assuming this will be the path to the profile page in Vue app
+
             welcome_message = (
                 "¡Hola! Welcome to your AI Spanish learning partner. 🇪🇸\n\n"
                 "I can help you practice conversations and explain grammar.\n\n"
                 "To save flashcards and your progress, please link this chat to your free account:\n"
-                f"1. Go to: [Your Web App URL - Add this to config later]\n" # Replace with actual URL
+                f"1. Go to: {base_url}\n"
                 "2. Login or Sign up (using your email).\n"
-                "3. Go to your Profile/Settings page.\n"
+                f"3. Go to your Profile page (usually at {base_url}{profile_path}).\n"
                 "4. Click 'Link WhatsApp' and get a code.\n"
                 f"5. Send the code back here like this: `{config.WHATSAPP_LINK_COMMAND_PREFIX} 123456`\n\n"
-                "Ready to chat a bit first?"
+                "You can start chatting with me now, but linking is needed to save anything!"
             )
             twiml_response.message(welcome_message)
 
 
     # Return the TwiML response
-    # Make sure the content type is 'text/xml' as required by Twilio
     return Response(content=str(twiml_response), media_type="text/xml")

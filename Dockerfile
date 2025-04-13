@@ -29,4 +29,4 @@ EXPOSE 8000
 # Define the command to run the application using Uvicorn
 # Use 0.0.0.0 to bind to all interfaces inside the container
 # Use the server:app convention
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
