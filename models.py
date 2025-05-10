@@ -70,8 +70,7 @@ class SaveCardRequest(BaseModel):
     english_back: str = Field(..., examples=["I like the dog."])
     tags: List[str] = Field(default_factory=list, examples=[["vocabulario", "chatbot"]])
 
-# --- Anki Sync Models (Deprecated) ---
-# ... (keep if needed, otherwise remove)
+
 
 # --- SRS / Card Models ---
 class CardGradeRequest(BaseModel):
@@ -95,24 +94,55 @@ class CardPublic(BaseModel):
          from_attributes = True # Updated from orm_mode=True for Pydantic v2
 
 
+
+
+
+class NotePublic(BaseModel):
+    id: int
+    user_id: int
+    field1: str # e.g., Spanish
+    field2: str # e.g., English
+    tags: Optional[str] = None # DB stores as space-separated string
+    created_at: Optional[datetime.datetime] = None
+
+    model_config = { # Pydantic v2 config
+        "from_attributes": True
+    }
+    # class Config: # Pydantic v1 config
+    #     orm_mode = True
+
+class DueCardResponseItem(BaseModel):
+    card_id: int # Specific ID of the card to be reviewed/graded
+    note_id: int
+    user_id: int
+    direction: int # 0 for forward (field1->field2), 1 for reverse (field2->field1)
+    status: str
+    due_timestamp: int
+    interval_days: float
+    ease_factor: float
+    learning_step: int
+    field1: str # Content from the joined note table
+    field2: str # Content from the joined note table
+    tags: Optional[str] = None # Tags from the joined note table
+    note_created_at: Optional[datetime.datetime] = None
+
+    model_config = { # Pydantic v2 config
+        "from_attributes": True
+    }
+    # class Config: # Pydantic v1 config
+    #     orm_mode = True
+
 class DueCardsResponse(BaseModel):
-    cards: List[CardPublic]
+    cards: List[DueCardResponseItem]
+
+# Optional: Rename CardUpdate to NoteUpdate for clarity, or keep as is and map fields
+class NoteUpdate(BaseModel):
+    field1: Optional[str] = None
+    field2: Optional[str] = None
+    tags: Optional[List[str]] = None # Keep accepting list, convert in endpoint/db func
 
 
-# --- Card Update Model ---
-class CardUpdate(BaseModel):
-    """Model for updating card front, back, and tags."""
-    # Use Optional if you want to allow partial updates, otherwise make them required
-    front: Optional[str] = Field(None, examples=["El gato duerme."])
-    back: Optional[str] = Field(None, examples=["The cat sleeps."])
-    tags: Optional[List[str]] = Field(None, examples=[["animales", "verbos"]])
 
-    # Add validator to ensure at least one field is provided for update? Optional.
-    # @field_validator('*') # Check if needed, requires more logic
-    # def check_at_least_one_field(cls, values):
-    #     if not any(values.values()):
-    #         raise ValueError("At least one field (front, back, tags) must be provided for update")
-    #     return values
 
 # --- WhatsApp Linking Model ---
 class WhatsappLinkCodeResponse(BaseModel):
@@ -125,3 +155,18 @@ class AnkiImportSummary(BaseModel):
     skipped_count: int # For future use (e.g., duplicates)
     error_count: int
     error_message: Optional[str] = None
+
+class QuickAddRequest(BaseModel):
+    topic: str
+    context: Optional[str] = None
+
+class QuickAddResponse(BaseModel):
+    """Response model for quick add operation."""
+    success: bool
+    message: str = Field(..., examples=["Word added successfully."])
+    note_id: Optional[int] = Field(None, examples=[1], description="ID of the added word, if applicable.")
+    user_id: int = Field(..., examples=[1], description="ID of the user")
+    field1: str = Field(..., examples=["perro"])
+    field2: str = Field(..., examples=["dog"])
+    created_at: Optional[datetime.datetime] = None
+    

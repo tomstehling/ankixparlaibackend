@@ -21,5 +21,7 @@ python-multipart
 # Twilio Integration
 twilio
 
+beautifulsoup4
+
 # Database (if using standard library's sqlite3, no extra package needed)
 # If you were using SQLAlchemy + asyncpg/psycopg2 for PostgreSQL, or other DB drivers, add them here.

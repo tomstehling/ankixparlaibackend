@@ -55,3 +55,34 @@ def load_prompt_from_template(template_filename: str) -> str:
     except Exception as e:
         logger.error(f"Error reading template '{template_filename}': {e}", exc_info=True)
         raise # Re-raise
+
+    import logging
+from bs4 import BeautifulSoup
+# You might need to install beautifulsoup4: pip install beautifulsoup4
+
+logger = logging.getLogger(__name__)
+
+def strip_html_bs4(html_content: str) -> str:
+    """Strips HTML tags from a string using BeautifulSoup."""
+    if not isinstance(html_content, str) or not html_content:
+        return ""
+    try:
+        # Use 'html.parser' which is built-in, requires no extra C libraries like lxml
+        soup = BeautifulSoup(html_content, "html.parser")
+
+        # Replace common block tags with newlines before getting text
+        # to preserve some basic structure (optional but often helpful)
+        for tag in soup(['br', 'p', 'div']):
+             tag.append('\n')
+
+        # Get text, joining pieces with space, and stripping leading/trailing whitespace
+        text = soup.get_text(separator=" ", strip=True)
+
+        # Optional: Normalize multiple newlines/spaces resulting from replacements
+        text = ' '.join(text.split()) # Replace multiple spaces/newlines with single space
+
+        return text
+    except Exception as e:
+        # Log the error but return the original (stripped) content as fallback
+        logger.warning(f"BeautifulSoup failed to parse/strip content. Returning raw (stripped). Error: {e}. Content: '{html_content[:100]}...'")
+        return html_content.strip()

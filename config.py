@@ -29,7 +29,7 @@ GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash-latest") # 
 # Store it in your .env file locally and in your Cloud Run secrets / environment variables
 SECRET_KEY = os.getenv("SECRET_KEY", "a_very_bad_default_secret_key_CHANGE_ME")
 ALGORITHM = "HS256" # Algorithm for JWT signing
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30)) # Access token lifetime
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCSS_TOKEN_EXPIRE_MINUTES", 42000)) # Access token lifetime
 
 # Warning for default secret key
 if SECRET_KEY == "a_very_bad_default_secret_key_CHANGE_ME":

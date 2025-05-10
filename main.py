@@ -21,12 +21,12 @@ from llm_handler import GeminiHandler
 import database
 import security # Needed for SECRET_KEY check during startup
 # --- Import Routers ---
-from routers import authentication, chat, cards, twilio_whatsapp, users, import_export # <-- ADD import_export
+from routers import authentication, chat, cards, twilio_whatsapp, users
 import dependencies # Import shared dependencies setup
 
 # --- Setup Logging ---
 # Use level from config if available, else default to INFO
-log_level = getattr(logging, getattr(config, 'LOG_LEVEL', 'INFO').upper(), logging.INFO)
+log_level = getattr(logging, getattr(config, 'LOG_LEVEL', 'DEBUG').upper(), logging.INFO)
 logging.basicConfig(level=log_level, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -135,8 +135,7 @@ app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(chat.router, tags=["Chat & Explain"]) # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(twilio_whatsapp.router, prefix="/whatsapp", tags=["WhatsApp"])
-app.include_router(import_export.router, prefix="/import", tags=["Import/Export"]) # <-- MOUNTED NEW ROUTER
-# app.include_router(sync.router, prefix="/sync", tags=["Anki Sync (Deprecated?)"]) # Kept commented out
+
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

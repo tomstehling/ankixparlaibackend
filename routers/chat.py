@@ -21,14 +21,13 @@ from dependencies import get_current_active_user, get_llm, get_prompt
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
-# MAX_HISTORY_LENGTH = 10 # Uncomment and use if re-implementing history later
+HISTORY_LOOKBACK = 10 
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(
     request_data: ChatMessage,
     current_user: dict = Depends(get_current_active_user),
-    llm_handler: GeminiHandler = Depends(get_llm),
-    # No prompt dependency needed here anymore
+    llm_handler: GeminiHandler = Depends(get_llm)
 ):
     """
     Handles chatbot conversation, incorporating user's flashcards into the system prompt.
@@ -36,8 +35,34 @@ async def chat_endpoint(
     """
     user_id = current_user.get("id")
     user_message = request_data.message
+    role= "user" # Default role for user messages
+    session_id= 'session_id' # Static session_id for now
     if not user_id: raise HTTPException(status_code=403, detail="Could not identify user.")
     logger.info(f"Received chat message from User ID {user_id}: '{user_message[:50]}...'")
+    
+    # --- Store User Message ---
+    store_user_message = database.add_chat_message(
+    user_id=user_id,
+    session_id=session_id,
+    role=role,
+    content=user_message)
+
+    if store_user_message is None: 
+        logger.error(f"Failed to store user message for User ID {user_id}.")
+        raise HTTPException(status_code=500, detail="Failed to store user message.")
+    
+    # --- Fetch Chat History ---
+    chat_history = database.get_chat_history(user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
+    formatted_history= []
+    if chat_history is not None:
+        logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
+        for message in chat_history:
+            formatted_history.append({
+                'role': message['role'],
+                'parts': [{'text': message['content']}]
+            })
+
+
 
     # --- Load System Prompt Template Directly ---
     system_prompt_template_content = "(Error: Template not loaded)"
@@ -65,8 +90,8 @@ async def chat_endpoint(
     # --- Fetch User's Flashcards ---
     formatted_card_list = "(Error fetching flashcards)"
     try:
-        user_cards = database.get_all_cards_for_user(user_id)
-        learned_sentences = [card.get('front', '').strip() for card in user_cards if card.get('front') and card.get('front').strip()]
+        user_notes = database.get_all_notes_for_user(user_id)
+        learned_sentences = [note.get('field1', '').strip() for note in user_notes if note.get('field1') and note.get('field1').strip()]
         logger.debug(f"Extracted learned_sentences list for user {user_id}: {learned_sentences}")
 
         MAX_LEARNED_SENTENCES = 50 # Limit number of cards sent in context
@@ -74,11 +99,11 @@ async def chat_endpoint(
              sentences_to_use = learned_sentences[:MAX_LEARNED_SENTENCES]
              # Format the list clearly for the prompt
              formatted_card_list = "START OF MY KNOWN SENTENCES:\n" + "\n".join(f"- {s}" for s in sentences_to_use) + "\nEND OF MY KNOWN SENTENCES."
-             logger.info(f"User {user_id} has {len(user_cards)} cards total. Formatted {len(sentences_to_use)} sentences.")
+             logger.info(f"User {user_id} has {len(user_notes)} cards total. Formatted {len(sentences_to_use)} sentences.")
              logger.debug(f"Generated formatted_card_list: {formatted_card_list[:100]}...")
         else:
              formatted_card_list = "(No flashcards with content found)" # Correct fallback
-             logger.warning(f"User {user_id} has {len(user_cards)} cards, but no non-empty 'front' fields found.")
+             logger.warning(f"User {user_id} has {len(user_notes)} cards, but no non-empty 'front' fields found.")
 
     except Exception as db_err:
         logger.error(f"Failed to fetch/format flashcards for user {user_id}: {db_err}", exc_info=True)
@@ -107,18 +132,19 @@ async def chat_endpoint(
 
     # --- Interact with LLM ---
     try:
-        model = llm_handler.get_model()
+        model = llm_handler.get_model() 
         # Construct context as list of dicts
         conversation_context = [
             {'role': 'user', 'parts': [ {'text': final_system_prompt} ]}, # Send combined prompt+cards
             {'role': 'model', 'parts': [ {'text': "¡Claro! Entendido. Estoy listo para practicar contigo. ¿Qué quieres decir?"} ]}, # Simulate model ack
-            {'role': 'user', 'parts': [ {'text': user_message} ]}, # Send current user message
-        ]
+              ]
+        complete_constructed_message=conversation_context+formatted_history
+
 
         logger.debug(f"Sending the following context structure to Gemini for user {user_id}:")
-        logger.debug(pprint.pformat(conversation_context)) # Log final context
+        logger.debug(pprint.pformat(complete_constructed_message)) # Log final context
 
-        response = await model.generate_content_async(contents=conversation_context)
+        response = await model.generate_content_async(contents=complete_constructed_message)
 
         # --- Safety Check & Response Extraction ---
         ai_reply = ""
