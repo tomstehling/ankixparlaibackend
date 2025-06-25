@@ -6,7 +6,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 # Import config settings AFTER they are defined/loaded
-from config import AUTH_MASTER_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from core.config import AUTH_MASTER_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Password Hashing Context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

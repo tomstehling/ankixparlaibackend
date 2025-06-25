@@ -6,8 +6,8 @@ import secrets
 import time
 from fastapi import APIRouter, Depends, HTTPException, status
 
-import config
-from models import UserPublic, WhatsappLinkCodeResponse
+import core.config as config
+from schemas import UserPublic, WhatsappLinkCodeResponse
 from dependencies import get_current_active_user
 
 logger = logging.getLogger(__name__)

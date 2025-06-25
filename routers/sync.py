@@ -4,8 +4,8 @@ from typing import List # Only needed for type hint if keeping learned_sentences
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 
-import database
-from models import AnkiDeckUpdateRequest, GetNewCardsResponse, MarkSyncedRequest
+import database.database as database
+from schemas import AnkiDeckUpdateRequest, GetNewCardsResponse, MarkSyncedRequest
 from dependencies import get_current_active_user, get_learned_sentences # Import dependencies
 
 logger = logging.getLogger(__name__)

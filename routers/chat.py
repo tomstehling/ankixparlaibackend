@@ -9,12 +9,12 @@ import os
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 
-import database
-import config
+import database.database as database
+import core.config as config
 # Import the corrected utility function
 from utils import load_prompt_from_template
-from llm_handler import GeminiHandler
-from models import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair
+from services.llm_handler import GeminiHandler
+from schemas import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair
 # Import get_prompt ONLY if needed for /explain (or load explain prompt directly too)
 from dependencies import get_current_active_user, get_llm, get_prompt
 

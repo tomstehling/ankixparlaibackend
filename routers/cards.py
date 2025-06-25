@@ -8,9 +8,9 @@ from typing import List, Optional # Ensure Optional is imported
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse, Response
 
-import database
-from llm_handler import GeminiHandler
-from models import (
+import database.database as database
+from services.llm_handler import GeminiHandler
+from schemas import (
     ProposeSentenceRequest, ValidateTranslateRequest, SaveCardRequest,
     DueCardsResponse, CardGradeRequest,
     NotePublic, 
@@ -19,7 +19,7 @@ from models import (
 
 )
 from dependencies import get_current_active_user, get_llm, get_prompt
-import config
+import core.config as config
 
 
 logger = logging.getLogger(__name__)

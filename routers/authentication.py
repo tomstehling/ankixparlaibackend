@@ -2,9 +2,9 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
-import database
-import security
-from models import UserCreate, UserPublic, Token
+import database.database as database
+import core.security as security
+from schemas import UserCreate, UserPublic, Token
 from dependencies import get_current_active_user # Import the shared dependency
 
 logger = logging.getLogger(__name__)

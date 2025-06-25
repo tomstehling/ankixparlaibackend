@@ -3,10 +3,10 @@ from typing import Dict, Any
 from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 
-import security # Handles password hashing, JWT
-import database # Handles database operations
-from llm_handler import GeminiHandler # Type hint for LLM handler
-from models import UserPublic # For response model in get_current_user
+import core.security as security # Handles password hashing, JWT
+import database.database as database # Handles database operations
+from services.llm_handler import GeminiHandler # Type hint for LLM handler
+from schemas import UserPublic # For response model in get_current_user
 
 logger = logging.getLogger(__name__)
 

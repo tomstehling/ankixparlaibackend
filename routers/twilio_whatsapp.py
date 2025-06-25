@@ -8,8 +8,8 @@ from twilio.twiml.messaging_response import MessagingResponse
 from twilio.request_validator import RequestValidator # For signature validation
 from typing import Annotated, Optional
 
-import config # To access Twilio settings and command prefixes
-import database # To query user based on WhatsApp number
+import core.config as config # To access Twilio settings and command prefixes
+import database.database as database # To query user based on WhatsApp number
 
 logger = logging.getLogger(__name__)
 

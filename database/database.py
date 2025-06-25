@@ -5,7 +5,7 @@ import time # Import time for timestamps
 from typing import List, Tuple, Optional, Dict, Any, cast
 
 # Import config for DATABASE_FILE, assuming it's defined there
-import config as app_config
+import core.config as app_config
 
 logger = logging.getLogger(__name__)
 

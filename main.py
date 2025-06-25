@@ -15,11 +15,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- Project Imports ---
-import config
+import core.config as config
 import utils
-from llm_handler import GeminiHandler
-import database
-import security # Needed for SECRET_KEY check during startup
+from services.llm_handler import GeminiHandler
+import database.database as database
+import core.security as security # Needed for SECRET_KEY check during startup
 # --- Import Routers ---
 from routers import authentication, chat, cards, twilio_whatsapp, users
 import dependencies # Import shared dependencies setup
