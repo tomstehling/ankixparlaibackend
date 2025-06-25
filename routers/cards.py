@@ -194,6 +194,7 @@ async def get_due_cards_for_user(
         # Use the updated DB function which joins notes and cards
         due_cards_data = database.get_due_cards(user_id, limit=limit)
         # The data should now match the structure of DueCardResponseItem
+        
         return DueCardsResponse(cards=due_cards_data)
     except sqlite3.Error as db_err:
         logger.exception(f"Database error retrieving due cards for User ID {user_id}: {db_err}")

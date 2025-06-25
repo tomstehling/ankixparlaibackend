@@ -32,12 +32,14 @@ class TokenData(BaseModel):
 
 # --- /chat endpoint models ---
 class ChatMessage(BaseModel):
-    message: str
-    session_id: Optional[str] = None
-
-class ChatResponse(BaseModel):
-    reply: str
+    id: int
+    user_id: int
     session_id: str
+    role: str
+    content: str
+    timestamp: datetime.datetime
+    message_type: Optional[str]=None
+    
 
 class ExplainRequest(BaseModel):
     topic: str

@@ -1,9 +1,3 @@
-.git
-.gitignore
-Dockerfile
-.dockerignore
-cloudbuild.yaml
-README.md
 .env
 .env.*
 *.env

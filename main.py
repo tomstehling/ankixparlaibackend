@@ -51,7 +51,7 @@ async def lifespan(app: FastAPI):
         if not api_key:
             raise ValueError("GEMINI_API_KEY environment variable not set.")
         # Check secret key during startup for security warning
-        _ = config.SECRET_KEY # Trigger warning from config.py if default
+        _ = config.AUTH_MASTER_KEY # Trigger warning from config.py if default
         llm_handler = GeminiHandler(api_key=api_key, model_name=config.GEMINI_MODEL_NAME)
         app.state.llm_handler = llm_handler # Store handler in app state
         logger.info(f"Gemini Handler initialized successfully with model '{config.GEMINI_MODEL_NAME}'.")

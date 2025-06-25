@@ -633,8 +633,28 @@ def get_chat_history(
     """
     params = (user_id, session_id)
     if limit is not None:
-        sql += " LIMIT ?"
+        sql = """
+            SELECT * FROM (
+                SELECT id, user_id, session_id, role, content, timestamp, message_type
+                FROM chat_messages
+                WHERE user_id = ? AND session_id = ?
+                ORDER BY timestamp DESC
+                LIMIT ?
+            ) AS latest_messages
+            ORDER BY timestamp ASC;
+        """
         params += (limit,)
+    else:
+        # If no limit is given, fetch all messages in chronological order.
+        sql = """
+            SELECT id, user_id, session_id, role, content, timestamp, message_type
+            FROM chat_messages
+            WHERE user_id = ? AND session_id = ?
+            ORDER BY timestamp ASC;
+        """
+    
+
+
     chat_history = []
     try:
         with get_db_connection() as conn:
@@ -646,3 +666,26 @@ def get_chat_history(
     except sqlite3.Error as e:
         logger.exception(f"Database error fetching chat history for User ID {user_id}, Session ID {session_id}: {e}")
     return chat_history
+
+
+def get_latest_chat_message_for_session(user_id: int, session_id: str) -> Optional[Dict[str, Any]]:
+    """Fetches the single most recent message for a given user and session."""
+    logger.debug(f"Fetching latest chat message for UserID: {user_id}, SessionID: {session_id[:8]}...")
+    sql = """
+        SELECT id, user_id, session_id, role, content, timestamp, message_type
+        FROM chat_messages
+        WHERE user_id = ? AND session_id = ?
+        ORDER BY timestamp DESC
+        LIMIT 1
+    """
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, (user_id, session_id))
+            row = cursor.fetchone() # Fetch a single row
+            if row:
+                return dict(row)
+            return None
+    except sqlite3.Error as e:
+        logger.exception(f"DB error fetching latest chat message for UserID {user_id}, SessionID {session_id}: {e}")
+        return None

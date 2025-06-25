@@ -6,7 +6,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 # Import config settings AFTER they are defined/loaded
-from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from config import AUTH_MASTER_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Password Hashing Context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -27,13 +27,13 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     else:
         expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, AUTH_MASTER_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 def decode_access_token(token: str) -> Optional[dict]:
     """Decodes a JWT access token. Returns payload or None if invalid/expired."""
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, AUTH_MASTER_KEY, algorithms=[ALGORITHM])
         # Optionally check for specific claims like 'sub' here if needed
         # Check expiration manually just to be explicit (though decode should handle it)
         if payload.get("exp") is None or datetime.fromtimestamp(payload["exp"], timezone.utc) < datetime.now(timezone.utc):

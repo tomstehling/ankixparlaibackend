@@ -14,7 +14,7 @@ import config
 # Import the corrected utility function
 from utils import load_prompt_from_template
 from llm_handler import GeminiHandler
-from models import ChatMessage, ChatResponse, ExplainRequest, ExplainResponse, ExamplePair
+from models import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair
 # Import get_prompt ONLY if needed for /explain (or load explain prompt directly too)
 from dependencies import get_current_active_user, get_llm, get_prompt
 
@@ -23,20 +23,48 @@ router = APIRouter()
 
 HISTORY_LOOKBACK = 10 
 
-@router.post("/chat", response_model=ChatResponse)
+
+@router.get("/chat-history", response_model=list[ChatMessage])
+async def get_chat_history(
+    current_user: dict = Depends(get_current_active_user),
+    session_id: str = None,
+    limit: int = HISTORY_LOOKBACK
+):
+    """
+    Fetches chat history for the authenticated user.
+    Returns a structured response with chat messages.
+    """
+    user_id = current_user.get("id")
+    if not user_id: raise HTTPException(status_code=403, detail="Could not identify user.")
+    logger.info(f"Fetching chat history for User ID {user_id} with session ID {session_id}")
+
+    # Fetch chat history from the database
+    chat_history = database.get_chat_history(user_id=user_id, session_id=session_id, limit=limit)
+    if chat_history is None:
+        logger.error(f"Failed to fetch chat history for User ID {user_id}.")
+        raise HTTPException(status_code=500, detail="Failed to fetch chat history.")
+    return chat_history
+
+
+@router.post("/chat", response_model=ChatMessage)
 async def chat_endpoint(
     request_data: ChatMessage,
     current_user: dict = Depends(get_current_active_user),
-    llm_handler: GeminiHandler = Depends(get_llm)
+    llm_handler: GeminiHandler = Depends(get_llm),
+    
 ):
-    """
-    Handles chatbot conversation, incorporating user's flashcards into the system prompt.
-    Requires authentication. Sends context + user message for each turn.
-    """
-    user_id = current_user.get("id")
-    user_message = request_data.message
+# --- 1. Stores incoming messages in the database.
+# --- 2. Constructs a promt consisting of the latest user message, the system prompt, and the user's flashcards.
+# --- 2. Sends the prompt to the LLM and receives a response.
+# --- 3. Stores the LLM response or an Error in the database.
+# --- 4. Fetches the LLM response from the database to have the timestamp and return it to the user.
+
+
+    #---get user
+    user_id = current_user.get("id")    
+    user_message = request_data.content
     role= "user" # Default role for user messages
-    session_id= 'session_id' # Static session_id for now
+    session_id= request_data.session_id
     if not user_id: raise HTTPException(status_code=403, detail="Could not identify user.")
     logger.info(f"Received chat message from User ID {user_id}: '{user_message[:50]}...'")
     
@@ -46,7 +74,7 @@ async def chat_endpoint(
     session_id=session_id,
     role=role,
     content=user_message)
-
+    logger.debug(f"Stored user message for User ID {user_id}: {store_user_message}")
     if store_user_message is None: 
         logger.error(f"Failed to store user message for User ID {user_id}.")
         raise HTTPException(status_code=500, detail="Failed to store user message.")
@@ -167,8 +195,43 @@ async def chat_endpoint(
 
 
         logger.info(f"LLM Reply for User ID {user_id}: '{ai_reply[:50]}...'")
-        # Return session_id as user_id string for potential client use (though not strictly needed now)
-        return ChatResponse(reply=ai_reply, session_id=str(user_id))
+
+
+        # --- Store AI Response ---
+        store_ai_message = database.add_chat_message(
+            user_id=user_id,
+            session_id=session_id,
+            role="model", # Role for AI response
+            content=ai_reply,
+            message_type="chat" # Type of message
+        )
+        logger.debug(f"Stored AI message for User ID {user_id}: {store_ai_message}")
+
+        if store_ai_message is None:
+            logger.error(f"Failed to store AI message for User ID {user_id}.")
+            raise HTTPException(status_code=500, detail="Failed to store AI response.")
+
+        # --- Fetch the stored AI message with timestamp ---
+       
+        stored_ai_message = database.get_latest_chat_message_for_session(user_id, session_id)
+        logger.debug(f"Fetched stored AI message for User ID {user_id}: {stored_ai_message}")
+
+
+        if not stored_ai_message:
+            logger.error(f"Failed to fetch stored AI message for User ID {user_id}.")
+            raise HTTPException(status_code=500, detail="Failed to fetch stored AI message.")
+        
+
+        # Return ChatMessage object
+        return ChatMessage(
+            user_id=stored_ai_message["user_id"],    
+            id=stored_ai_message["id"], # ID of the message
+            session_id=stored_ai_message["session_id"], # Session ID
+            role=stored_ai_message["role"], # Role of the message
+            content=stored_ai_message["content"], # Content of the message
+            timestamp=stored_ai_message["timestamp"], # Timestamp of the message
+            message_type=stored_ai_message["message_type"] # Type of the message
+        )
 
     except HTTPException as http_exc:
         raise http_exc # Re-raise specific HTTP exceptions
