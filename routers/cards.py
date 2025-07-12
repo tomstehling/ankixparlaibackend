@@ -19,20 +19,20 @@ from schemas import (
 
 )
 from dependencies import get_current_active_user, get_llm, get_prompt
-import core.config as config
+from core.config import settings
 
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # --- SRS Constants (from config) ---
-LEARNING_STEPS_MINUTES = getattr(config, 'LEARNING_STEPS_MINUTES', [1, 10])
-DEFAULT_EASY_INTERVAL_DAYS = getattr(config, 'DEFAULT_EASY_INTERVAL_DAYS', 4.0)
-MIN_EASE_FACTOR = getattr(config, 'MIN_EASE_FACTOR', 1.3)
-LAPSE_INTERVAL_MULTIPLIER = getattr(config, 'LAPSE_INTERVAL_MULTIPLIER', 0.0)
-DEFAULT_INTERVAL_MODIFIER = getattr(config, 'DEFAULT_INTERVAL_MODIFIER', 1.0)
-DEFAULT_EASE_FACTOR = getattr(config, 'DEFAULT_EASE_FACTOR', 2.5)
-EASY_BONUS = getattr(config, 'EASY_BONUS', 1.3)
+LEARNING_STEPS_MINUTES = getattr(settings, 'LEARNING_STEPS_MINUTES', [1, 10])
+DEFAULT_EASY_INTERVAL_DAYS = getattr(settings, 'DEFAULT_EASY_INTERVAL_DAYS', 4.0)
+MIN_EASE_FACTOR = getattr(settings, 'MIN_EASE_FACTOR', 1.3)
+LAPSE_INTERVAL_MULTIPLIER = getattr(settings, 'LAPSE_INTERVAL_MULTIPLIER', 0.0)
+DEFAULT_INTERVAL_MODIFIER = getattr(settings, 'DEFAULT_INTERVAL_MODIFIER', 1.0)
+DEFAULT_EASE_FACTOR = getattr(settings, 'DEFAULT_EASE_FACTOR', 2.5)
+EASY_BONUS = getattr(settings, 'EASY_BONUS', 1.3)
 
 
 # --- Card/Note Creation Endpoints ---

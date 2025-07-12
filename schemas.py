@@ -39,6 +39,14 @@ class ChatMessage(BaseModel):
     content: str
     timestamp: datetime.datetime
     message_type: Optional[str]=None
+
+class ChatMessageCreate(BaseModel):
+    user_id: int
+    session_id: str
+    role: str
+    content: str
+    message_type: Optional[str]=None
+
     
 
 class ExplainRequest(BaseModel):

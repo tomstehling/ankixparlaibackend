@@ -8,15 +8,19 @@ import os
 
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
-
-import database.database as database
-import core.config as config
+import database.crud as crud
+import database.models as models
+from core.config import settings
 # Import the corrected utility function
 from utils import load_prompt_from_template
 from services.llm_handler import GeminiHandler
-from schemas import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair
+from schemas import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair, ChatMessageCreate
 # Import get_prompt ONLY if needed for /explain (or load explain prompt directly too)
 from dependencies import get_current_active_user, get_llm, get_prompt
+from sqlalchemy.ext.asyncio import AsyncSession
+from database.session import get_db_session
+
+import database.models as models
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -26,20 +30,26 @@ HISTORY_LOOKBACK = 10
 
 @router.get("/chat-history", response_model=list[ChatMessage])
 async def get_chat_history(
-    current_user: dict = Depends(get_current_active_user),
+    db_session: AsyncSession = Depends(get_db_session),
+    current_user: models.User = Depends(get_current_active_user),
     session_id: str = None,
-    limit: int = HISTORY_LOOKBACK
+    limit: int = HISTORY_LOOKBACK,
 ):
     """
     Fetches chat history for the authenticated user.
     Returns a structured response with chat messages.
     """
-    user_id = current_user.get("id")
+    user_id = current_user.id
     if not user_id: raise HTTPException(status_code=403, detail="Could not identify user.")
     logger.info(f"Fetching chat history for User ID {user_id} with session ID {session_id}")
 
+    if session_id is None:
+        # If no session ID provided, generate a new one
+        session_id = str(uuid.uuid4())
+        logger.info(f"No session ID provided. Generated new session ID: {session_id}")
     # Fetch chat history from the database
-    chat_history = database.get_chat_history(user_id=user_id, session_id=session_id, limit=limit)
+
+    chat_history = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=limit)
     if chat_history is None:
         logger.error(f"Failed to fetch chat history for User ID {user_id}.")
         raise HTTPException(status_code=500, detail="Failed to fetch chat history.")
@@ -49,8 +59,9 @@ async def get_chat_history(
 @router.post("/chat", response_model=ChatMessage)
 async def chat_endpoint(
     request_data: ChatMessage,
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.user = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
+    db_session: AsyncSession = Depends(get_db_session)
     
 ):
 # --- 1. Stores incoming messages in the database.
@@ -61,7 +72,7 @@ async def chat_endpoint(
 
 
     #---get user
-    user_id = current_user.get("id")    
+    user_id = current_user.id  
     user_message = request_data.content
     role= "user" # Default role for user messages
     session_id= request_data.session_id
@@ -69,33 +80,38 @@ async def chat_endpoint(
     logger.info(f"Received chat message from User ID {user_id}: '{user_message[:50]}...'")
     
     # --- Store User Message ---
-    store_user_message = database.add_chat_message(
+    chat_message = ChatMessageCreate(
     user_id=user_id,
     session_id=session_id,
     role=role,
     content=user_message)
+
+    store_user_message = await crud.add_chat_message(chat_message=chat_message, db_session=db_session)
+
     logger.debug(f"Stored user message for User ID {user_id}: {store_user_message}")
+
     if store_user_message is None: 
         logger.error(f"Failed to store user message for User ID {user_id}.")
         raise HTTPException(status_code=500, detail="Failed to store user message.")
     
     # --- Fetch Chat History ---
-    chat_history = database.get_chat_history(user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
+    chat_history = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
     formatted_history= []
-    if chat_history is not None:
-        logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
-        for message in chat_history:
-            formatted_history.append({
-                'role': message['role'],
-                'parts': [{'text': message['content']}]
-            })
+    
+    logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
+
+    for message in chat_history:
+        formatted_history.append({
+            'role': message.role,
+            'parts': [{'text': message.content}]
+        })
 
 
 
     # --- Load System Prompt Template Directly ---
     system_prompt_template_content = "(Error: Template not loaded)"
     try:
-        system_prompt_template_path = config.SYSTEM_PROMPT_TEMPLATE
+        system_prompt_template_path = settings.SYSTEM_PROMPT_TEMPLATE
         logger.debug(f"Attempting to load template from: {system_prompt_template_path}")
         # Call the simple load function from utils
         system_prompt_template_content = load_prompt_from_template(system_prompt_template_path)
@@ -118,8 +134,8 @@ async def chat_endpoint(
     # --- Fetch User's Flashcards ---
     formatted_card_list = "(Error fetching flashcards)"
     try:
-        user_notes = database.get_all_notes_for_user(user_id)
-        learned_sentences = [note.get('field1', '').strip() for note in user_notes if note.get('field1') and note.get('field1').strip()]
+        user_notes: list[models.Note] = await crud.get_all_notes_for_user(user_id,db_session=db_session)
+        learned_sentences = [note.field1.strip() for note in user_notes ]
         logger.debug(f"Extracted learned_sentences list for user {user_id}: {learned_sentences}")
 
         MAX_LEARNED_SENTENCES = 50 # Limit number of cards sent in context
@@ -198,40 +214,18 @@ async def chat_endpoint(
 
 
         # --- Store AI Response ---
-        store_ai_message = database.add_chat_message(
+        ai_message=ChatMessageCreate(
             user_id=user_id,
             session_id=session_id,
             role="model", # Role for AI response
             content=ai_reply,
-            message_type="chat" # Type of message
+            message_type="chat" # Type of message)
         )
+        reply = await crud.add_chat_message(chat_message=ai_message, db_session=db_session)
         logger.debug(f"Stored AI message for User ID {user_id}: {store_ai_message}")
 
-        if store_ai_message is None:
-            logger.error(f"Failed to store AI message for User ID {user_id}.")
-            raise HTTPException(status_code=500, detail="Failed to store AI response.")
-
-        # --- Fetch the stored AI message with timestamp ---
-       
-        stored_ai_message = database.get_latest_chat_message_for_session(user_id, session_id)
-        logger.debug(f"Fetched stored AI message for User ID {user_id}: {stored_ai_message}")
-
-
-        if not stored_ai_message:
-            logger.error(f"Failed to fetch stored AI message for User ID {user_id}.")
-            raise HTTPException(status_code=500, detail="Failed to fetch stored AI message.")
         
-
-        # Return ChatMessage object
-        return ChatMessage(
-            user_id=stored_ai_message["user_id"],    
-            id=stored_ai_message["id"], # ID of the message
-            session_id=stored_ai_message["session_id"], # Session ID
-            role=stored_ai_message["role"], # Role of the message
-            content=stored_ai_message["content"], # Content of the message
-            timestamp=stored_ai_message["timestamp"], # Timestamp of the message
-            message_type=stored_ai_message["message_type"] # Type of the message
-        )
+        return reply
 
     except HTTPException as http_exc:
         raise http_exc # Re-raise specific HTTP exceptions

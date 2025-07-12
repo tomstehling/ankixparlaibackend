@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- Project Imports ---
-import core.config as config
+from core.config import settings
 import utils
 from services.llm_handler import GeminiHandler
 import database.database as database
@@ -26,7 +26,7 @@ import dependencies # Import shared dependencies setup
 
 # --- Setup Logging ---
 # Use level from config if available, else default to INFO
-log_level = getattr(logging, getattr(config, 'LOG_LEVEL', 'DEBUG').upper(), logging.INFO)
+log_level = getattr(logging, getattr(settings, 'LOG_LEVEL', 'DEBUG').upper(), logging.INFO)
 logging.basicConfig(level=log_level, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -51,10 +51,10 @@ async def lifespan(app: FastAPI):
         if not api_key:
             raise ValueError("GEMINI_API_KEY environment variable not set.")
         # Check secret key during startup for security warning
-        _ = config.AUTH_MASTER_KEY # Trigger warning from config.py if default
-        llm_handler = GeminiHandler(api_key=api_key, model_name=config.GEMINI_MODEL_NAME)
+        _ = settings.AUTH_MASTER_KEY # Trigger warning from config.py if default
+        llm_handler = GeminiHandler(api_key=api_key, model_name=settings.GEMINI_MODEL_NAME)
         app.state.llm_handler = llm_handler # Store handler in app state
-        logger.info(f"Gemini Handler initialized successfully with model '{config.GEMINI_MODEL_NAME}'.")
+        logger.info(f"Gemini Handler initialized successfully with model '{settings.GEMINI_MODEL_NAME}'.")
     except Exception as e:
         logger.exception("FATAL: Failed to initialize Gemini Handler.")
         app.state.llm_handler = None
@@ -63,10 +63,10 @@ async def lifespan(app: FastAPI):
 
     # Load prompts
     try:
-        app.state.system_prompt = utils.load_prompt_from_template(config.SYSTEM_PROMPT_TEMPLATE)
-        app.state.teacher_prompt = utils.load_prompt_from_template(config.TEACHER_PROMPT_TEMPLATE)
-        app.state.sentence_proposer_prompt = utils.load_prompt_from_template(config.SENTENCE_PROPOSER_PROMPT)
-        app.state.sentence_validator_prompt = utils.load_prompt_from_template(config.SENTENCE_VALIDATOR_PROMPT)
+        app.state.system_prompt = utils.load_prompt_from_template(settings.SYSTEM_PROMPT_TEMPLATE)
+        app.state.teacher_prompt = utils.load_prompt_from_template(settings.TEACHER_PROMPT_TEMPLATE)
+        app.state.sentence_proposer_prompt = utils.load_prompt_from_template(settings.SENTENCE_PROPOSER_PROMPT)
+        app.state.sentence_validator_prompt = utils.load_prompt_from_template(settings.SENTENCE_VALIDATOR_PROMPT)
         logger.info("Core prompts loaded successfully and stored in app state.")
     except FileNotFoundError as e:
         logger.error(f"FATAL: Failed to load prompts - {e}")
@@ -77,7 +77,7 @@ async def lifespan(app: FastAPI):
 
     # Deprecated: Load initial 'learned' sentences (Consider removing)
     try:
-        flashcard_file = getattr(config, 'ANKI_FLASHCARDS_FILE', None)
+        flashcard_file = getattr(settings, 'ANKI_FLASHCARDS_FILE', None)
         if flashcard_file and os.path.exists(flashcard_file):
              app.state.learned_sentences = utils.load_flashcards(flashcard_file)
              logger.info(f"(Deprecated feature) Loaded {len(app.state.learned_sentences)} sentences from {flashcard_file}.")
@@ -92,7 +92,7 @@ async def lifespan(app: FastAPI):
         app.state.learned_sentences = []
 
     # Initialize temporary storage from config
-    app.state.temp_code_storage = config.TEMP_CODE_STORAGE # Make storage accessible if needed
+    app.state.temp_code_storage = settings.TEMP_CODE_STORAGE # Make storage accessible if needed
     logger.info("Temporary code storage initialized (in-memory).")
 
     logger.info("--- Server startup complete ---")
@@ -147,21 +147,21 @@ async def read_root():
 # --- Main Execution Guard (for local testing) ---
 if __name__ == "__main__":
     # Use port/host from config or environment variables
-    port = config.PORT
-    host = config.HOST # Use HOST from config (e.g., "0.0.0.0")
+    port = settings.PORT
+    host = settings.HOST # Use HOST from config (e.g., "0.0.0.0")
 
     # Log effective settings
     logger.info(f"Starting Uvicorn server configuration:")
     logger.info(f"  - Host: {host}")
     logger.info(f"  - Port: {port}")
-    logger.info(f"  - Reload: {config.RELOAD}")
+    logger.info(f"  - Reload: {settings.RELOAD}")
     logger.info(f"  - Log Level: {log_level}")
 
     uvicorn.run(
         "main:app",
         host=host,
         port=port,
-        reload=config.RELOAD, # Use RELOAD from config
+        reload=settings.RELOAD, # Use RELOAD from config
         log_level=log_level # Pass log level to uvicorn
         )
     

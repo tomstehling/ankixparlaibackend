@@ -5,13 +5,13 @@ import time # Import time for timestamps
 from typing import List, Tuple, Optional, Dict, Any, cast
 
 # Import config for DATABASE_FILE, assuming it's defined there
-import core.config as app_config
+from core.config import settings
 
 logger = logging.getLogger(__name__)
 
 # --- Database Configuration ---
 # Use DATABASE_FILE from config if available, otherwise default
-DATABASE_FILE = getattr(app_config, 'DATABASE_FILE', 'chatbot_cards.db')
+DATABASE_FILE = getattr(settings, 'DATABASE_FILE', 'chatbot_cards.db')
 logger.info(f"Using database file: {DATABASE_FILE}")
 
 # --- Constants ---

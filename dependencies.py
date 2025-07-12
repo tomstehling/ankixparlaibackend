@@ -2,11 +2,11 @@ import logging
 from typing import Dict, Any
 from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
-
+import database.models as models
 import core.security as security # Handles password hashing, JWT
-import database.database as database # Handles database operations
+
 from services.llm_handler import GeminiHandler # Type hint for LLM handler
-from schemas import UserPublic # For response model in get_current_user
+import database.database as database
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 # The tokenUrl MUST match the path where the login endpoint is mounted
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> models.User:
     """
     Dependency: Decodes token, validates user, returns user data (as dict).
     Raises HTTPException 401 if token invalid/expired or user not found.
@@ -41,15 +41,15 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
          raise credentials_exception
 
     # Fetch user details (excluding password!) from database
-    user = database.get_user_by_id(user_id)
+    user = await database.get_user_by_id(user_id)
     if user is None:
         logger.warning(f"User ID {user_id} from token not found in database.")
         raise credentials_exception
 
     logger.info(f"Authenticated user ID: {user_id} via get_current_user")
-    return user # Return user dict {id, email, created_at, hashed_password} - careful!
+    return user 
 
-async def get_current_active_user(current_user: dict = Depends(get_current_user)):
+async def get_current_active_user(current_user: models.User = Depends(get_current_user)):
     """
     Dependency: Gets user from token via get_current_user.
     Placeholder for future 'is_active' checks. Returns user dict.

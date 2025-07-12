@@ -6,7 +6,7 @@ import secrets
 import time
 from fastapi import APIRouter, Depends, HTTPException, status
 
-import core.config as config
+from core.config import settings
 from schemas import UserPublic, WhatsappLinkCodeResponse
 from dependencies import get_current_active_user
 
@@ -15,7 +15,7 @@ router = APIRouter()
 
 def _generate_link_code() -> str:
     """Generates a secure random numeric code of configured length."""
-    code_length = getattr(config, 'LINK_CODE_LENGTH', 6)
+    code_length = getattr(settings, 'LINK_CODE_LENGTH', 6)
     if not isinstance(code_length, int) or code_length <= 0:
         code_length = 6 # Fallback to default
         logger.warning(f"Invalid LINK_CODE_LENGTH in config, defaulting to {code_length}.")
@@ -53,11 +53,11 @@ async def generate_whatsapp_link_code(
 
     # Generate code
     numeric_code = _generate_link_code()
-    expiry_timestamp = time.time() + config.LINK_CODE_EXPIRY_SECONDS
+    expiry_timestamp = time.time() + settings.LINK_CODE_EXPIRY_SECONDS
 
     # Store the code (use numeric part as key for easy lookup)
     # WARNING: Overwrites previous code if user requests again quickly. This is generally fine.
-    config.TEMP_CODE_STORAGE[numeric_code] = {
+    settings.TEMP_CODE_STORAGE[numeric_code] = {
         "user_id": user_id,
         "expires_at": expiry_timestamp
     }
@@ -65,11 +65,11 @@ async def generate_whatsapp_link_code(
     logger.info(f"Generated WhatsApp link code {numeric_code} for User ID {user_id}. Expires at {expiry_timestamp:.0f}.")
 
     # Construct the full code string for the user
-    full_link_code = f"{config.WHATSAPP_LINK_COMMAND_PREFIX} {numeric_code}"
+    full_link_code = f"{settings.WHATSAPP_LINK_COMMAND_PREFIX} {numeric_code}"
 
     return WhatsappLinkCodeResponse(
         link_code=full_link_code,
-        expires_in_seconds=config.LINK_CODE_EXPIRY_SECONDS
+        expires_in_seconds=settings.LINK_CODE_EXPIRY_SECONDS
     )
 
 @router.get("/me", response_model=UserPublic)
