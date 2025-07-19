@@ -2,9 +2,10 @@
 import logging
 import uuid
 import json
-from typing import Dict, Any
+from typing import Dict, Any, Optional,List
 import pprint
 import os
+
 
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
@@ -222,7 +223,7 @@ async def chat_endpoint(
             message_type="chat" # Type of message)
         )
         reply = await crud.add_chat_message(chat_message=ai_message, db_session=db_session)
-        logger.debug(f"Stored AI message for User ID {user_id}: {store_ai_message}")
+        logger.debug(f"Stored AI message for User ID {user_id}: {ai_message}")
 
         
         return reply

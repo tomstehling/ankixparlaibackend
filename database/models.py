@@ -4,6 +4,7 @@ from typing import List, Optional
 from sqlalchemy import (
     ForeignKey,
     String,
+    Integer,
     Text,
     Boolean,
     DateTime,
@@ -36,6 +37,7 @@ class Note(Base):
     field1: Mapped[str] = mapped_column(Text, nullable=False)
     field2: Mapped[str] = mapped_column(Text, nullable=False)
     user: Mapped["User"] = relationship("User", back_populates="notes")
+    tags: Mapped[str] = mapped_column(Text, default="", server_default="", nullable=False)
     cards: Mapped[List["Card"]] = relationship("Card", back_populates="note", cascade="all, delete-orphan")
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False, index=True
@@ -46,7 +48,10 @@ class Card(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     note_id: Mapped[int] = mapped_column(ForeignKey("notes.id"), nullable=False, index=True)
     direction: Mapped[str] = mapped_column(String(3), nullable=False)
-    due: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    status: Mapped[str] = mapped_column(
+        String(10), default="new", server_default="new", nullable=False
+    )
+    due: Mapped[int] = mapped_column(Integer, nullable=False)
     ivl: Mapped[int] = mapped_column(default=0, server_default="0", nullable=False)
     ease: Mapped[float] = mapped_column(Float, default=2.5, server_default="2.5", nullable=False)
     reps: Mapped[int] = mapped_column(default=0, server_default="0", nullable=False)

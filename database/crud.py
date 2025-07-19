@@ -1,30 +1,34 @@
 #function to see if user already exists
-from database.models import User, ChatMessage,Note
+import database.models as models
 from sqlalchemy.future import select
 from core.security import get_password_hash
 from sqlalchemy.ext.asyncio import AsyncSession
-from schemas import UserCreate, ChatMessageCreate
+import schemas
 from typing import Optional
 import logging
+import time
 logger = logging.getLogger(__name__)
 
+DIRECTION_FORWARD = 0 # field1 -> field2
+DIRECTION_REVERSE = 1 # field2 -> field1
+
 async def get_user_by_email(db_session: AsyncSession,email: str):
-    query = select(User).where(User.email == email)
+    query = select(schemas.User).where(schemas.User.email == email)
     result = await db_session.execute(query)
     user = result.scalar_one_or_none()
     return user
 
-async def create_user(db_session:AsyncSession,user:UserCreate):
+async def create_user(db_session:AsyncSession,user:schemas.UserCreate):
     # Create a new User instance
     hashed_password = get_password_hash(user.password)
-    new_user = User (email=user.email, hashed_password=hashed_password)
+    new_user = models.User (email=user.email, hashed_password=hashed_password)
     db_session.add(new_user)
     await db_session.commit()
     await db_session.refresh(new_user)
     return new_user
 
 async def get_user_by_id(db_session: AsyncSession, user_id: int):
-    query = select(User).where(User.id == user_id)
+    query = select(models.User).where(models.User.id == user_id)
     result = await db_session.execute(query)
     user = result.scalar_one_or_none()
     return user
@@ -38,16 +42,16 @@ async def get_chat_history(
     Returns a list of chat messages.
     """
     if limit is None:
-        query = select(ChatMessage).where(
-            ChatMessage.user_id == user_id,
-            ChatMessage.session_id == session_id
-        ).order_by(ChatMessage.timestamp.asc())
+        query = select(models.ChatMessage).where(
+            models.ChatMessage.user_id == user_id,
+            models.ChatMessage.session_id == session_id
+        ).order_by(models.ChatMessage.timestamp.asc())
        
     else:
-        subquery = select(ChatMessage).where(
-                ChatMessage.user_id == user_id,
-                ChatMessage.session_id == session_id
-            ).order_by(ChatMessage.timestamp.desc()).subquery()
+        subquery = select(models.ChatMessage).where(
+                models.ChatMessage.user_id == user_id,
+                models.ChatMessage.session_id == session_id
+            ).order_by(models.ChatMessage.timestamp.desc()).subquery()
         
         query = select(subquery).order_by(subquery.c.timestamp.asc())
 
@@ -60,8 +64,8 @@ async def get_chat_history(
 
 async def add_chat_message(
     db_session: AsyncSession,
-    chat_message: ChatMessageCreate,
-) -> ChatMessage:
+    chat_message: schemas.ChatMessageCreate,
+) -> models.ChatMessage:
     """
     Adds a chat message to the database.
     Returns the ID of the inserted message or None on failure.
@@ -69,7 +73,7 @@ async def add_chat_message(
     logger.info(f"Adding chat message for User ID {chat_message.user_id}, Session ID {chat_message.session_id}, Role '{chat_message.role}'")
 
     #insert new chat message 
-    new_message= ChatMessage(
+    new_message= models.ChatMessage(
         user_id=chat_message.user_id,
         session_id=chat_message.session_id,
         role=chat_message.role,
@@ -85,7 +89,172 @@ async def get_all_notes_for_user(
         db_session: AsyncSession,
         user_id: int
 ):
-    query=select(Note).where(Note.user_id == user_id).order_by(Note.created_at.desc())
+    query=select(models.Note).where(models.Note.user_id == user_id).order_by(models.Note.created_at.desc())
     result= await db_session.execute(query)
     return result.scalars().all()
     
+
+
+async def add_note_with_cards(
+        db_session: AsyncSession, 
+        user_id: int,  
+        note_to_add: schemas.NoteContent
+) -> Optional[int]:
+    """
+    Adds a new note and its corresponding forward and reverse cards to the database.
+    The reverse card (field2 -> field1, direction 1) is made due immediately.
+    The forward card (field1 -> field2, direction 0) is made due the next day (buried).
+    Returns the note_id on success, None on failure.
+    """
+    tags_str = " ".join(tag.strip() for tag in note_to_add.tags if tag.strip())
+    current_timestamp = int(time.time())
+    tomorrow_timestamp = current_timestamp + 86400 # Simple 1 day bury
+
+    status = 'new'
+    default_ease = 2.5
+    default_interval = 0.0
+    default_learning_step = 0
+
+    logger.info(f"Attempting to add note and cards for User ID {user_id}: Field1='{note_to_add.field1[:30]}...'")
+
+
+    new_note = models.Note(
+        user_id=note_to_add.user_id,
+        field1=note_to_add.field1,
+        field2=note_to_add.field2
+    )
+
+    #create cards
+    card1= models.Card(
+    
+        direction= DIRECTION_FORWARD,
+        due= current_timestamp,
+        ivl=default_interval,
+        ease=default_ease,
+        reps=default_learning_step,
+        note=new_note
+    )
+
+    #create cards
+    card2= models.Card(
+       
+        direction= DIRECTION_REVERSE,
+        due= tomorrow_timestamp,
+        ivl=default_interval,
+        ease=default_ease,
+        reps=default_learning_step,
+        note=new_note
+    
+    )
+
+    await db_session.add_all([card1, card2, new_note])
+    await db_session.commit()
+    await db_session.refresh(new_note)
+    logger.info(f"Note added with ID {new_note.id} for User ID {note_to_add.user_id}")
+
+    return new_note
+    
+
+
+    
+
+async def get_due_cards(
+        db_session: AsyncSession,
+        user_id: int,
+        limit:int=20
+) -> list[models.Card]:
+    
+
+    query = select(models.Card).join(models.Note).where(models.Card.due <= int(time.time())).where(models.Note.user_id == user_id).order_by(models.Card.due.asc()).limit(limit)
+
+    result = await db_session.execute(query)
+    due_cards = result.scalars().all()
+    logger.info(f"Retrieved {len(due_cards)} due cards for User ID {user_id}")
+    return due_cards
+
+
+async def get_card_by_id(
+    db_session: AsyncSession, 
+    user_id: int,
+    card_id: int
+)->models.Card:
+    query = select(models.Card).join(models.Note).where(user_id == models.Note.user_id).where(models.Card.id == card_id)
+    result = await db_session.execute(query)
+    card = result.scalar_one_or_none()
+    if card is None:
+        logger.warning(f"Card with ID {card_id} not found for User ID {user_id}")
+    else:
+        logger.info(f"Retrieved card with ID {card_id} for User ID {user_id}")
+    return card
+
+async def get_note_by_id(
+        db_session: AsyncSession,
+        user_id: int,
+        note_id: int
+) -> Optional[models.Note]:
+    query = select(models.Note).where(models.Note.id == note_id, models.Note.user_id == user_id)
+    result = await db_session.execute(query)
+    note = result.scalar_one_or_none()
+    if note is None:
+        logger.warning(f"Note with ID {note_id} not found for User ID {user_id}")
+    else:
+        logger.info(f"Retrieved note with ID {note_id} for User ID {user_id}")
+    return note
+
+async def delete_note(
+        db_session: AsyncSession,
+        user_id: int,
+        note_id: int) -> bool:
+    note_to_delete=await get_note_by_id(db_session, user_id, note_id)
+    if note_to_delete:
+        await db_session.delete(note_to_delete)
+        await db_session.commit()
+        logger.info(f"Deleted Note ID {note_id} for User ID {user_id}")
+        return True
+    else:
+        logger.warning(f"Note ID {note_id} not found for User ID {user_id}")
+        return False
+    
+
+
+async def update_card_srs(
+        db_session: AsyncSession,
+        user_id: int,
+        card_id: int,
+        card_srs:schemas.SRS
+) -> Optional[models.Card]:
+    result = await get_card_by_id(db_session, user_id, card_id)
+    if result:
+        result.status=card_srs.status
+        result.due=card_srs.due_timestamp
+        result.ivl=card_srs.interval_days
+        result.ease=card_srs.ease_factor
+        result.reps=card_srs.learning_step
+        await db_session.commit()
+        await db_session.refresh(result)
+        logger.info(f"Updated SRS for Card ID {card_id} for User ID {user_id}")
+        return result
+    else:
+        return None
+
+
+async def update_note_details(
+        db_session: AsyncSession,
+        user_id: int,
+        note_id: int,
+        note_details: schemas.NoteContent
+) -> Optional[models.Note]:
+    note_to_update = await get_note_by_id(db_session, user_id, note_id)
+    if note_to_update:
+        note_to_update.field1 = note_details.field1
+        note_to_update.field2 = note_details.field2
+        note_to_update.tags = " ".join(tag.strip() for tag in note_details.tags if tag.strip())
+        await db_session.commit()
+        await db_session.refresh(note_to_update)
+        logger.info(f"Updated Note ID {note_id} for User ID {user_id}")
+        return note_to_update
+    else:
+        logger.warning(f"Note ID {note_id} not found for User ID {user_id}")
+        return None
+
+

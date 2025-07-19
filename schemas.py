@@ -86,51 +86,51 @@ class SaveCardRequest(BaseModel):
 class CardGradeRequest(BaseModel):
     grade: Literal['again', 'good', 'easy']
 
+class SRS(BaseModel):
+    status: str
+    due_timestamp: int
+    interval_days: float
+    ease_factor: float
+    learning_step: int
+    class Config:
+         from_attributes = True 
+
+
 # Model for returning card details, including SRS info
 class CardPublic(BaseModel):
      id: int
      user_id: int
      front: str
      back: str
-     tags: Optional[str] = None # DB stores as space-separated string
-     status: str
-     created_at: Optional[datetime.datetime] = None # Allow None if sometimes missing
-     due_timestamp: int
-     interval_days: float
-     ease_factor: float
-     learning_step: Optional[int] = 0
-
+     tags: Optional[str] = None 
+     
+     created_at: Optional[datetime.datetime] = None 
+     srs: SRS
      class Config:
-         from_attributes = True # Updated from orm_mode=True for Pydantic v2
+         from_attributes = True 
 
-
-
-
-
-class NotePublic(BaseModel):
-    id: int
-    user_id: int
+class NoteContent(BaseModel):
     field1: str # e.g., Spanish
     field2: str # e.g., English
     tags: Optional[str] = None # DB stores as space-separated string
     created_at: Optional[datetime.datetime] = None
 
+class NotePublic(BaseModel):
+    id: int
+    user_id: int
+    note_data: NoteContent
     model_config = { # Pydantic v2 config
         "from_attributes": True
     }
-    # class Config: # Pydantic v1 config
-    #     orm_mode = True
+   
+
 
 class DueCardResponseItem(BaseModel):
     card_id: int # Specific ID of the card to be reviewed/graded
     note_id: int
     user_id: int
     direction: int # 0 for forward (field1->field2), 1 for reverse (field2->field1)
-    status: str
-    due_timestamp: int
-    interval_days: float
-    ease_factor: float
-    learning_step: int
+    srs: SRS # SRS info for the card
     field1: str # Content from the joined note table
     field2: str # Content from the joined note table
     tags: Optional[str] = None # Tags from the joined note table
@@ -139,8 +139,8 @@ class DueCardResponseItem(BaseModel):
     model_config = { # Pydantic v2 config
         "from_attributes": True
     }
-    # class Config: # Pydantic v1 config
-    #     orm_mode = True
+   
+
 
 class DueCardsResponse(BaseModel):
     cards: List[DueCardResponseItem]
