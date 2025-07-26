@@ -3,10 +3,13 @@ from typing import Dict, Any
 from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 import database.models as models
+import database.crud as crud # CRUD operations for database
+from sqlalchemy.ext.asyncio import AsyncSession
+from database.session import get_db_session
 import core.security as security # Handles password hashing, JWT
 
 from services.llm_handler import GeminiHandler # Type hint for LLM handler
-import database.database as database
+
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +17,7 @@ logger = logging.getLogger(__name__)
 # The tokenUrl MUST match the path where the login endpoint is mounted
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> models.User:
+async def get_current_user(token: str = Depends(oauth2_scheme),db_session: AsyncSession=Depends(get_db_session)) -> models.User:
     """
     Dependency: Decodes token, validates user, returns user data (as dict).
     Raises HTTPException 401 if token invalid/expired or user not found.
@@ -41,7 +44,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> models.User:
          raise credentials_exception
 
     # Fetch user details (excluding password!) from database
-    user = await database.get_user_by_id(user_id)
+    user = await crud.get_user_by_id(db_session=db_session,user_id=user_id)
     if user is None:
         logger.warning(f"User ID {user_id} from token not found in database.")
         raise credentials_exception
@@ -58,7 +61,7 @@ async def get_current_active_user(current_user: models.User = Depends(get_curren
     # Example: Add check if you add an 'is_active' field later
     # if not current_user.get("is_active", True): # Default to active if field missing
     #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user")
-    logger.info(f"Authenticated active user ID: {current_user.get('id')}")
+    logger.info(f"Authenticated active user ID: {current_user.id}")
     # Return the full user dictionary fetched by get_current_user for now
     # If you only need public data, fetch/convert to UserPublic here.
     return current_user

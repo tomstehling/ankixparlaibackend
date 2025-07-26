@@ -3,7 +3,7 @@ import logging
 import time
 import sqlite3 # Import sqlite3 for specific error handling
 # import math
-from typing import List, Optional # Ensure Optional is imported
+from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse, Response
@@ -11,14 +11,15 @@ from fastapi.responses import JSONResponse, Response
 
 import database.crud as crud
 import database.session as session
+import database.models as models
 from sqlalchemy.ext.asyncio import AsyncSession
 from services.llm_handler import GeminiHandler
 from schemas import (
     ProposeSentenceRequest, ValidateTranslateRequest, SaveCardRequest,
     DueCardsResponse, CardGradeRequest,
     NotePublic, 
-    DueCardsResponse, DueCardResponseItem,NoteUpdate,
-    QuickAddRequest, QuickAddResponse
+    DueCardResponseItem,
+    QuickAddRequest, QuickAddResponse, NoteContent,SRS
 
 )
 from dependencies import get_current_active_user, get_llm, get_prompt
@@ -43,12 +44,11 @@ EASY_BONUS = getattr(settings, 'EASY_BONUS', 1.3)
 @router.post("/propose_sentence", response_class=JSONResponse)
 async def propose_sentence_endpoint(
     request_data: ProposeSentenceRequest,
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     sentence_proposer_prompt: str = Depends(get_prompt("sentence_proposer_prompt"))
 ):
-    # --- No changes needed based on Note/Card schema ---
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"--- Entering /propose_sentence endpoint by User ID: {user_id} ---")
     logger.info(f"Received sentence proposal request for word: '{request_data.target_word}'")
     target_word = request_data.target_word
@@ -94,12 +94,12 @@ async def propose_sentence_endpoint(
 @router.post("/validate_translate_sentence", response_class=JSONResponse)
 async def validate_translate_sentence_endpoint(
     request_data: ValidateTranslateRequest,
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     sentence_validator_prompt: str = Depends(get_prompt("sentence_validator_prompt"))
 ):
     # --- No changes needed based on Note/Card schema ---
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"--- Entering /validate_translate_sentence endpoint by User ID: {user_id} ---")
     logger.info(f"Received validation/translation request for word: '{request_data.target_word}'")
     formatted_prompt = sentence_validator_prompt.format(
@@ -154,29 +154,33 @@ async def validate_translate_sentence_endpoint(
         raise HTTPException(status_code=500, detail=f"Error validating/translating sentence: {e}")
 
 
-@router.post("/save_final_card", response_class=JSONResponse)
-async def save_final_note_endpoint( # Renamed function for clarity
+@router.post("/save_note", response_class=JSONResponse)
+async def save_note(
     request_data: SaveCardRequest, # Keep input model, map fields below
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User= Depends(get_current_active_user),
     db_session: AsyncSession=Depends(session.get_db_session)
 ):
     """Saves the final Spanish/English pair as a Note with two Cards."""
-    user_id = current_user.get("id")
-    logger.info(f"--- Entering /save_final_card endpoint (saving Note) by User ID: {user_id} ---")
+    user_id = current_user.id
+    logger.info(f"--- Entering /save_note endpoint by User ID: {user_id} ---")
     logger.info(f"Received request to save final note. Field1: '{request_data.spanish_front[:30]}...'")
+
+    new_note=NoteContent(
+        field1=request_data.spanish_front,  # Spanish front
+        field2=request_data.english_back,   # English back
+        tags=request_data.tags      # Tags as a space-separated string
+    )
+
     try:
-        # Call the updated database function
-        note_id = await crud.add_note_with_cards(
+        note = await crud.add_note_with_cards(
             db_session=db_session,
             user_id=user_id,
-            field1=request_data.spanish_front, # Map front -> field1
-            field2=request_data.english_back,  # Map back -> field2
-            tags=request_data.tags
+            note_to_add = new_note
         )
-        if note_id is not None: # Check if note_id is not None
-            logger.info(f"Successfully saved new Note to DB with ID: {note_id} (and its cards) for User ID: {user_id}")
+        if note: # Check if note_id is not None
+            logger.info(f"Successfully saved new Note to DB with ID: {note} (and its cards) for User ID: {user_id}")
             # Return the note_id instead of card_id
-            return JSONResponse(content={"success": True, "note_id": note_id, "message": "Note and cards saved to database."})
+            return JSONResponse(content={"success": True, "note_id": note.id, "message": "Note and cards saved to database."})
         else:
             logger.error(f"Failed to save note to database for user {user_id}, add_note_with_cards returned None.")
             raise HTTPException(status_code=500, detail="Failed to save note to database. Check server logs.")
@@ -191,20 +195,41 @@ async def save_final_note_endpoint( # Renamed function for clarity
 async def get_due_cards_for_user(
     db_session: AsyncSession=Depends(session.get_db_session),
     limit: int = 20,
-    current_user: dict = Depends(get_current_active_user)
+    current_user: models.User = Depends(get_current_active_user)
 ):
     """Fetches due cards for the user, including necessary note content for review."""
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"Fetching due cards for User ID {user_id} (limit {limit})...")
     try:
         # Use the updated DB function which joins notes and cards
-        due_cards_data = await crud.get_due_cards(db_session=db_session,user_id=user_id, limit=limit)
+        due_cards_data: list[models.Card] = await crud.get_due_cards(db_session=db_session,user_id=user_id, limit=limit)
         # The data should now match the structure of DueCardResponseItem
-        
-        return DueCardsResponse(cards=due_cards_data)
-    except sqlite3.Error as db_err:
-        logger.exception(f"Database error retrieving due cards for User ID {user_id}: {db_err}")
-        raise HTTPException(status_code=500, detail="Database error retrieving due cards.")
+
+        due_cards_response:DueCardsResponse=DueCardsResponse(cards=[])
+        for card in due_cards_data:
+            mapped_card=DueCardResponseItem(
+                card_id=card.id,
+                note_id=card.note_id,
+                user_id=card.id,
+                direction=card.direction,
+                srs=SRS(
+                    status=card.status,
+                    due_timestamp=card.due,
+                    interval_days=card.ivl,
+                    ease_factor=card.ease,
+                    learning_step=card.reps
+                ),
+                note_content=NoteContent(
+                    field1=card.note.field1,
+                    field2=card.note.field2,
+                    tags=card.note.tags.split(" "),
+                    created_at=card.note.created_at
+                )
+            )
+            due_cards_response.cards.append(mapped_card)
+
+
+        return due_cards_response
     except Exception as e:
         logger.exception(f"Unexpected error retrieving due cards for User ID {user_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to retrieve due cards.")
@@ -214,11 +239,11 @@ async def get_due_cards_for_user(
 async def grade_card(
     card_id: int, 
     grade_data: CardGradeRequest,
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     db_session: AsyncSession = Depends(session.get_db_session)
 ):
     """Grades a specific card instance after review."""
-    user_id = current_user.get("id")
+    user_id = current_user.id
     grade = grade_data.grade
     logger.info(f"Received grade '{grade}' for Card ID {card_id} from User ID {user_id}")
 
@@ -228,11 +253,11 @@ async def grade_card(
         logger.warning(f"Grade attempt failed: Card ID {card_id} not found or doesn't belong to User ID {user_id}.")
         raise HTTPException(status_code=404, detail="Card not found or access denied.")
 
-    # --- SRS Calculation Logic (remains largely the same, uses card's SRS fields) ---
-    current_status = card_data.get("status", "new")
-    current_interval = float(card_data.get("interval_days", 0.0))
-    current_ease = float(card_data.get("ease_factor", DEFAULT_EASE_FACTOR))
-    learning_step_index = int(card_data.get("learning_step", 0))
+    # --- SRS Calculation Logic 
+    current_status =getattr( card_data,"status", "new")
+    current_interval = float(getattr(card_data,"interval_days", 0.0))
+    current_ease = float(getattr(card_data,"ease_factor", DEFAULT_EASE_FACTOR))
+    learning_step_index = int(getattr(card_data,"learning_step", 0))
     now = int(time.time())
     seconds_per_day = 86400
     seconds_per_minute = 60
@@ -300,8 +325,15 @@ async def grade_card(
     # Update the specific card's SRS state
     success = await crud.update_card_srs(
         db_session=db_session,
-        card_id=card_id, user_id=user_id, new_status=new_status, new_due_timestamp=next_due,
-        new_interval_days=new_interval, new_ease_factor=new_ease, new_learning_step=new_learning_step
+        card_id=card_id, 
+        user_id=user_id, 
+        card_srs=SRS(
+            status=new_status,
+            due_timestamp=next_due,
+            interval_days=new_interval,
+            ease_factor=new_ease,
+            learning_step=new_learning_step
+        )
     )
 
     if not success:
@@ -314,17 +346,31 @@ async def grade_card(
 
 @router.get("/my-notes", response_model=List[NotePublic]) # Changed path and response model
 async def get_my_notes( # Renamed function
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     db_session: AsyncSession = Depends(session.get_db_session) # Added db_session dependency
-):
+)->list[NotePublic]:
     """Fetches all notes owned by the current user."""
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"Fetching all notes for User ID {user_id} via /my-notes endpoint.")
     try:
         # Call the function to get notes
-        user_notes_data = await crud.get_all_notes_for_user(user_id=user_id, db_session=db_session)
+        notes = await crud.get_all_notes_for_user(user_id=user_id, db_session=db_session)
         # Validate data against NotePublic model
-        return user_notes_data
+        user_notes:list[NotePublic]=[]
+        for note in notes:
+            mapped=NotePublic(
+                id=note.id,
+                user_id=note.user_id,
+                note_content=NoteContent(
+                    field1=note.field1,
+                    field2=note.field2,
+                    tags=note.tags.split(" ") if note.tags else [],
+                    created_at=note.created_at
+                )
+            )
+            user_notes.append(mapped)
+
+        return user_notes
     except sqlite3.Error as db_err:
         logger.exception(f"Database error retrieving all notes for User ID {user_id}: {db_err}")
         raise HTTPException(status_code=500, detail="Database error retrieving your notes.")
@@ -336,47 +382,30 @@ async def get_my_notes( # Renamed function
 @router.delete("/notes/{note_id}", status_code=status.HTTP_204_NO_CONTENT) # Changed path
 async def delete_note_endpoint( # Renamed function
     note_id: int, # Changed parameter name
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     db_session: AsyncSession = Depends(session.get_db_session) # Added db_session dependency
 ):
     """Deletes a specific note (and its associated cards) owned by the user."""
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"Received request to delete Note ID {note_id} from User ID {user_id}")
-    try:
-        # Call the database function to delete the note
-        deleted = await crud.delete_note(note_id=note_id, user_id=user_id)
-        if not deleted:
-            # Check if the note existed before claiming failure
-            existing_note = await crud.get_note_by_id(note_id, user_id) # Requires get_note_by_id
-            if not existing_note:
-                 logger.warning(f"Delete failed for Note ID {note_id} by User ID {user_id}: Note not found.")
-                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
-            else:
-                 # Note exists but deletion failed - internal error?
-                 logger.error(f"Delete failed for Note ID {note_id} by User ID {user_id}, but note exists. DB function issue?")
-                 raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to delete note.")
-        else:
-            logger.info(f"Successfully deleted Note ID {note_id} for User ID {user_id}.")
-            return Response(status_code=status.HTTP_204_NO_CONTENT)
-    except sqlite3.Error as db_err:
-        logger.exception(f"Database error deleting Note ID {note_id} for User ID {user_id}: {db_err}")
-        raise HTTPException(status_code=500, detail="Database error deleting note.")
-    except HTTPException as http_exc:
-        raise http_exc
-    except Exception as e:
-        logger.exception(f"Unexpected error deleting Note ID {note_id} for User ID {user_id}: {e}")
-        raise HTTPException(status_code=500, detail="Failed to delete note due to a server error.")
+   
+    # Call the database function to delete the note
+    deleted = await crud.delete_note(db_session=db_session,note_id=note_id, user_id=user_id)
+    if not deleted:
+        # Check if the note existed before claiming failure
+        logger.warning(f"Delete failed for Note ID {note_id} by User ID {user_id}: Note not found.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
+    
 
-
-@router.put("/notes/{note_id}", response_model=NotePublic) # Changed path and response model
-async def update_note_endpoint( # Renamed function
-    note_id: int, # Changed parameter name
-    note_update_data: NoteUpdate, # Using existing model name for input
-    current_user: dict = Depends(get_current_active_user),
-    db_session: AsyncSession = Depends(session.get_db_session) # Added db_session dependency
+# update note
+@router.put("/notes/{note_id}", response_model=NotePublic) 
+async def update_note_endpoint( 
+    note_id: int, 
+    note_update_data: NoteContent, 
+    current_user: models.User = Depends(get_current_active_user),
+    db_session: AsyncSession = Depends(session.get_db_session) 
 ):
-    """Updates the content (field1, field2, tags) of a specific note owned by the user."""
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"Received request to update Note ID {note_id} from User ID {user_id}")
 
     # Check if at least one field is being updated
@@ -386,21 +415,18 @@ async def update_note_endpoint( # Renamed function
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="No fields provided for update. Please provide 'front', 'back', or 'tags'.",
         )
-
     try:
         # Attempt to update the note details in the database
-        updated = await crud.update_note_details(\
+        updated_note: NotePublic | None = await crud.update_note_details(
             db_session=db_session,
             note_id=note_id,
             user_id=user_id,
-            field1=note_update_data.front, # Map front -> field1
-            field2=note_update_data.back,   # Map back -> field2
-            tags=note_update_data.tags
+            note_details=note_update_data
         )
 
-        if not updated:
-            # Check if the note exists at all for this user before returning 404
-            existing_note = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id) # Requires get_note_by_id
+        if not updated_note:
+            # Check if the note exists 
+            existing_note: NotePublic | None = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id) 
             if not existing_note:
                  logger.warning(f"Update failed for Note ID {note_id} by User ID {user_id}: Note not found.")
                  raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
@@ -409,14 +435,14 @@ async def update_note_endpoint( # Renamed function
                  raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update note details.")
 
         # If update was successful, fetch the updated note data to return
-        updated_note_data = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id)
+        updated_note_data: NotePublic | None = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id)
         if not updated_note_data:
              logger.error(f"Failed to retrieve Note ID {note_id} immediately after successful update.")
              raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Note updated but could not be retrieved.")
-
-        logger.info(f"Successfully updated Note ID {note_id} for User ID {user_id}.")
-        # Validate and return the updated note using NotePublic model
-        return NotePublic(**updated_note_data)
+        else:
+            logger.info(f"Successfully updated Note ID {note_id} for User ID {user_id}.")
+            # Validate and return the updated note using NotePublic model
+            return updated_note_data
 
     except sqlite3.Error as db_err:
         logger.exception(f"Database error updating Note ID {note_id} for User ID {user_id}: {db_err}")
@@ -432,7 +458,7 @@ async def update_note_endpoint( # Renamed function
 @router.post('/quick_add', response_model=QuickAddResponse)
 async def quick_add_from_word_endpoint(
     request_data: QuickAddRequest,
-    current_user: dict = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     sentence_proposer_prompt: str = Depends(get_prompt("sentence_proposer_prompt")),
     db_session: AsyncSession = Depends(session.get_db_session)
@@ -490,21 +516,22 @@ async def quick_add_from_word_endpoint(
         logger.error(f"LLM returned empty proposal for word: {target_word}")
         raise HTTPException(status_code=500, detail="AI returned an empty proposal.")
     try:
-        note_id = await crud.add_note_with_cards(
+        note: models.Note = await crud.add_note_with_cards(
             db_session=db_session,
             user_id=user_id,
-            field1=proposed_spanish, # Map front -> field1
-            field2=proposed_english,  # Map back -> field2
-            tags= [] # Use existing tags or empty list
-            )
+            note_to_add= NoteContent(
+                field1=proposed_spanish,  # Spanish front
+                field2=proposed_english,   # English back
+                tags=["quick_add"] # Tags as a space-separated string
+            ))
         
-        if note_id is not None: # Check if note_id is not None
-            logger.info(f"Successfully saved new Note to DB with ID: {note_id} (and its cards) for User ID: {user_id}")
+        if note: # Check if note_id is not None
+            logger.info(f"Successfully saved new Note to DB with ID: {note.id} (and its cards) for User ID: {user_id}")
             # Return the note_id instead of card_id
             return QuickAddResponse(
             success=True,
             message="Quick Add was sucessfully added",
-            note_id=note_id,    
+            note_id=note.id,    
             user_id=user_id,
             field1=proposed_spanish,
             field2=proposed_english
@@ -517,4 +544,10 @@ async def quick_add_from_word_endpoint(
     except sqlite3.Error as db_err:
             logger.exception(f"Database error saving note to database for user {user_id}: {db_err}")
             raise HTTPException(status_code=500, detail="Database error saving note.")
+       
+
+
+
+
+
        

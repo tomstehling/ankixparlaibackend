@@ -1,49 +1,35 @@
+import uvicorn
 import sys
 import os
 import logging
 from contextlib import asynccontextmanager
-from typing import Dict, Any, Optional, List
 
-import uvicorn
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles # Keep if needed for future
-from fastapi.responses import FileResponse, HTMLResponse
-
-# --- Load Environment Variables ---
 from dotenv import load_dotenv
-load_dotenv()
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.sql import text
 
-# --- Project Imports ---
+
+# --- project imports
 from core.config import settings
 import utils
 from services.llm_handler import GeminiHandler
-import database.database as database
-import core.security as security # Needed for SECRET_KEY check during startup
-# --- Import Routers ---
-from routers import authentication, chat, cards, twilio_whatsapp, users
-import dependencies # Import shared dependencies setup
+from routers import authentication, chat, cards
 
-# --- Setup Logging ---
-# Use level from config if available, else default to INFO
+# --- Logging Configuration ---
 log_level = getattr(logging, getattr(settings, 'LOG_LEVEL', 'DEBUG').upper(), logging.INFO)
 logging.basicConfig(level=log_level, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# --- Lifespan for Startup/Shutdown Logic ---
+# --- load evironment variables from .env file
+load_dotenv()
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize resources when the server starts and clean up."""
     logger.info("--- Server starting up ---")
-
-    # Initialize Database
-    try:
-        # Using the function directly from the imported database module
-        database.initialize_database()
-        logger.info("Database initialization verified.") # Log success after call
-    except Exception as e:
-        logger.exception("FATAL: Database initialization failed.")
-        sys.exit(1) # Exit if DB fails
 
     # Initialize Gemini Handler
     try:
@@ -73,32 +59,35 @@ async def lifespan(app: FastAPI):
         sys.exit(1) # Exit if prompts missing
     except Exception as e:
         logger.error(f"FATAL: An unexpected error occurred loading prompts: {e}")
-        sys.exit(1) # Exit on other prompt errors
+        sys.exit(1) 
 
-    # Deprecated: Load initial 'learned' sentences (Consider removing)
+    # check database connection
+    test_engine= create_async_engine(settings.DATABASE_URL, echo=True)
     try:
-        flashcard_file = getattr(settings, 'ANKI_FLASHCARDS_FILE', None)
-        if flashcard_file and os.path.exists(flashcard_file):
-             app.state.learned_sentences = utils.load_flashcards(flashcard_file)
-             logger.info(f"(Deprecated feature) Loaded {len(app.state.learned_sentences)} sentences from {flashcard_file}.")
-        elif flashcard_file:
-             logger.info(f"(Deprecated feature) {flashcard_file} not found, starting empty.")
-             app.state.learned_sentences = []
-        else:
-             # logger.info("ANKI_FLASHCARDS_FILE not defined.") # Less noisy
-             app.state.learned_sentences = []
+        async with test_engine.connect() as conn:
+            await conn.execute(text("SELECT 1")) 
+        logger.info("Database connection successful.")
     except Exception as e:
-        logger.error(f"(Deprecated feature) Failed to load initial learned sentences: {e}", exc_info=True)
-        app.state.learned_sentences = []
+        logger.error(f"FATAL: Database connection failed - {e}")
+        sys.exit(1)
+    finally:
+        logger.info("Disposing of temporary test engine.")
+        await test_engine.dispose()
 
     # Initialize temporary storage from config
-    app.state.temp_code_storage = settings.TEMP_CODE_STORAGE # Make storage accessible if needed
+    app.state.temp_code_storage = settings.TEMP_CODE_STORAGE 
     logger.info("Temporary code storage initialized (in-memory).")
 
     logger.info("--- Server startup complete ---")
     yield # Application runs here
-    # --- Shutdown Logic (if any) ---
+    
+    # --- Shutdown Logic ---
     logger.info("--- Server shutting down ---")
+
+
+   
+
+
 
 
 # --- FastAPI Application Instance ---
@@ -113,13 +102,6 @@ origins = ["*"]
 # Filter out None/empty strings
 origins = [origin for origin in origins if origin and origin.strip()]
 
-# Add ngrok URL for testing if running via ngrok
-NGROK_TUNNEL_URL = os.getenv("NGROK_TUNNEL_URL")
-if NGROK_TUNNEL_URL:
-    if NGROK_TUNNEL_URL not in origins: # Avoid duplicates
-         origins.append(NGROK_TUNNEL_URL)
-         logger.info(f"Allowing CORS for ngrok tunnel: {NGROK_TUNNEL_URL}")
-
 logger.info(f"Configuring CORS for origins: {origins}")
 app.add_middleware(
     CORSMiddleware,
@@ -131,11 +113,8 @@ app.add_middleware(
 
 # --- Include Routers ---
 app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
-app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(chat.router, tags=["Chat & Explain"]) # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
-app.include_router(twilio_whatsapp.router, prefix="/whatsapp", tags=["WhatsApp"])
-
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

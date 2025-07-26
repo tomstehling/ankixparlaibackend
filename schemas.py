@@ -1,8 +1,8 @@
-from pydantic import BaseModel, Field, EmailStr, field_validator
-from typing import Optional, List, Dict, Any, Union
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional, List, Union
 from typing import Literal # For grade type
 import datetime # Import datetime for proper type hint if needed
-import json # For optional validator
+
 
 # --- User Models ---
 class UserBase(BaseModel):
@@ -17,7 +17,6 @@ class UserLogin(UserBase):
 class UserPublic(UserBase):
     id: int
     email: EmailStr # Make sure email is included here
-    whatsapp_number: Optional[str] = None # Include linked number if available
     created_at: Optional[datetime.datetime] = None
     class Config:
         from_attributes = True # Updated from orm_mode=True for Pydantic v2
@@ -109,16 +108,16 @@ class CardPublic(BaseModel):
      class Config:
          from_attributes = True 
 
-class NoteContent(BaseModel):
+class NoteContent(BaseModel):   
     field1: str # e.g., Spanish
     field2: str # e.g., English
-    tags: Optional[str] = None # DB stores as space-separated string
+    tags: Optional[List[str]]= None # DB stores as space-separated string
     created_at: Optional[datetime.datetime] = None
 
 class NotePublic(BaseModel):
     id: int
     user_id: int
-    note_data: NoteContent
+    note_content: NoteContent
     model_config = { # Pydantic v2 config
         "from_attributes": True
     }
@@ -131,11 +130,7 @@ class DueCardResponseItem(BaseModel):
     user_id: int
     direction: int # 0 for forward (field1->field2), 1 for reverse (field2->field1)
     srs: SRS # SRS info for the card
-    field1: str # Content from the joined note table
-    field2: str # Content from the joined note table
-    tags: Optional[str] = None # Tags from the joined note table
-    note_created_at: Optional[datetime.datetime] = None
-
+    note_content: NoteContent # Content of the note associated with the card
     model_config = { # Pydantic v2 config
         "from_attributes": True
     }
@@ -146,19 +141,6 @@ class DueCardsResponse(BaseModel):
     cards: List[DueCardResponseItem]
 
 # Optional: Rename CardUpdate to NoteUpdate for clarity, or keep as is and map fields
-class NoteUpdate(BaseModel):
-    field1: Optional[str] = None
-    field2: Optional[str] = None
-    tags: Optional[List[str]] = None # Keep accepting list, convert in endpoint/db func
-
-
-
-
-# --- WhatsApp Linking Model ---
-class WhatsappLinkCodeResponse(BaseModel):
-    """Response model containing the generated WhatsApp link code."""
-    link_code: str = Field(..., examples=["LINK 123456"], description="The full code (prefix + numbers) to send via WhatsApp.")
-    expires_in_seconds: int = Field(..., examples=[300], description="Number of seconds the code is valid for.")
 
 class AnkiImportSummary(BaseModel):
     imported_count: int

@@ -6,7 +6,6 @@ from sqlalchemy import (
     String,
     Integer,
     Text,
-    Boolean,
     DateTime,
     Float,
     CheckConstraint,
@@ -18,11 +17,8 @@ from database.session import Base
 class User(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     email: Mapped[str] = mapped_column(String(120), unique=True, index=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
-    
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
@@ -47,12 +43,15 @@ class Card(Base):
     __tablename__ = "cards"
     id: Mapped[int] = mapped_column(primary_key=True)
     note_id: Mapped[int] = mapped_column(ForeignKey("notes.id"), nullable=False, index=True)
-    direction: Mapped[str] = mapped_column(String(3), nullable=False)
+    direction: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[str] = mapped_column(
         String(10), default="new", server_default="new", nullable=False
     )
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False, index=True
+    )
     due: Mapped[int] = mapped_column(Integer, nullable=False)
-    ivl: Mapped[int] = mapped_column(default=0, server_default="0", nullable=False)
+    ivl: Mapped[float] = mapped_column(default=0, server_default="0", nullable=False)
     ease: Mapped[float] = mapped_column(Float, default=2.5, server_default="2.5", nullable=False)
     reps: Mapped[int] = mapped_column(default=0, server_default="0", nullable=False)
     note: Mapped["Note"] = relationship("Note", back_populates="cards")

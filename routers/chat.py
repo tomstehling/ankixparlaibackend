@@ -60,7 +60,7 @@ async def get_chat_history(
 @router.post("/chat", response_model=ChatMessage)
 async def chat_endpoint(
     request_data: ChatMessage,
-    current_user: models.user = Depends(get_current_active_user),
+    current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     db_session: AsyncSession = Depends(get_db_session)
     
@@ -95,12 +95,11 @@ async def chat_endpoint(
         logger.error(f"Failed to store user message for User ID {user_id}.")
         raise HTTPException(status_code=500, detail="Failed to store user message.")
     
-    # --- Fetch Chat History ---
-    chat_history = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
+    # --- Fetch Chat History amd extract role and message content to build prompt ---
+    chat_history: list[models.ChatMessage] = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
     formatted_history= []
     
     logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
-
     for message in chat_history:
         formatted_history.append({
             'role': message.role,
@@ -248,7 +247,7 @@ async def explain_endpoint(
     Explains a topic using the LLM. Parses the LLM response to extract
     explanation text and structured examples. Requires authentication.
     """
-    user_id = current_user.get("id")
+    user_id = current_user.id
     topic = request_data.topic
     context = request_data.context
     if not user_id: raise HTTPException(status_code=403, detail="Could not identify user.")
