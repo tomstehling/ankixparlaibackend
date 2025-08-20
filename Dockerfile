@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -10,7 +10,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Install system dependencies if needed (e.g., for libraries that compile C code)
-# RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
 # We likely don't need extra system dependencies for these libraries
 
 # Install Python dependencies
@@ -24,9 +23,13 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . .
 
 # Expose the port the app runs on (should match Uvicorn command)
-EXPOSE 8000
+ENV PORT 8080
+
+# Expose the port
+EXPOSE 8080
+
+# Command to run the application, using the $PORT variable
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
 
 # Define the command to run the application using Uvicorn
 # Use 0.0.0.0 to bind to all interfaces inside the container
-# Use the server:app convention
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -2,26 +2,24 @@
 import logging
 import uuid
 import json
-from typing import Dict, Any, Optional,List
+from typing import List,Optional, Dict, Any
 import pprint
-import os
+
 
 
 from fastapi import APIRouter, HTTPException, Depends
-from fastapi.responses import JSONResponse
 import database.crud as crud
 import database.models as models
 from core.config import settings
 # Import the corrected utility function
 from utils import load_prompt_from_template
 from services.llm_handler import GeminiHandler
-from schemas import ChatMessage, ExplainRequest, ExplainResponse, ExamplePair, ChatMessageCreate
+import schemas
 # Import get_prompt ONLY if needed for /explain (or load explain prompt directly too)
 from dependencies import get_current_active_user, get_llm, get_prompt
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import get_db_session
 
-import database.models as models
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -29,11 +27,11 @@ router = APIRouter()
 HISTORY_LOOKBACK = 10 
 
 
-@router.get("/chat-history", response_model=list[ChatMessage])
+@router.get("/chat-history", response_model=list[schemas.ChatMessage])
 async def get_chat_history(
     db_session: AsyncSession = Depends(get_db_session),
     current_user: models.User = Depends(get_current_active_user),
-    session_id: str = None,
+    session_id: Optional[str]= None,
     limit: int = HISTORY_LOOKBACK,
 ):
     """
@@ -50,16 +48,14 @@ async def get_chat_history(
         logger.info(f"No session ID provided. Generated new session ID: {session_id}")
     # Fetch chat history from the database
 
-    chat_history = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=limit)
-    if chat_history is None:
-        logger.error(f"Failed to fetch chat history for User ID {user_id}.")
-        raise HTTPException(status_code=500, detail="Failed to fetch chat history.")
-    return chat_history
+    chat_history: list[models.ChatMessage] = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=limit)
+
+    return chat_history 
 
 
-@router.post("/chat", response_model=ChatMessage)
+@router.post("/chat", response_model=schemas.ChatMessage)
 async def chat_endpoint(
-    request_data: ChatMessage,
+    request_data: schemas.ChatMessage,
     current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     db_session: AsyncSession = Depends(get_db_session)
@@ -81,7 +77,7 @@ async def chat_endpoint(
     logger.info(f"Received chat message from User ID {user_id}: '{user_message[:50]}...'")
     
     # --- Store User Message ---
-    chat_message = ChatMessageCreate(
+    chat_message = schemas.ChatMessageCreate(
     user_id=user_id,
     session_id=session_id,
     role=role,
@@ -91,17 +87,13 @@ async def chat_endpoint(
 
     logger.debug(f"Stored user message for User ID {user_id}: {store_user_message}")
 
-    if store_user_message is None: 
-        logger.error(f"Failed to store user message for User ID {user_id}.")
-        raise HTTPException(status_code=500, detail="Failed to store user message.")
-    
     # --- Fetch Chat History amd extract role and message content to build prompt ---
     chat_history: list[models.ChatMessage] = await crud.get_chat_history(db_session=db_session,user_id=user_id, session_id=session_id, limit=HISTORY_LOOKBACK)
-    formatted_history= []
+    formatted_history: list[Dict[str,Any]]= []
     
     logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
     for message in chat_history:
-        formatted_history.append({
+        formatted_history.insert(0,{
             'role': message.role,
             'parts': [{'text': message.content}]
         })
@@ -110,8 +102,8 @@ async def chat_endpoint(
 
     # --- Load System Prompt Template Directly ---
     system_prompt_template_content = "(Error: Template not loaded)"
+    system_prompt_template_path = settings.SYSTEM_PROMPT_TEMPLATE
     try:
-        system_prompt_template_path = settings.SYSTEM_PROMPT_TEMPLATE
         logger.debug(f"Attempting to load template from: {system_prompt_template_path}")
         # Call the simple load function from utils
         system_prompt_template_content = load_prompt_from_template(system_prompt_template_path)
@@ -134,7 +126,7 @@ async def chat_endpoint(
     # --- Fetch User's Flashcards ---
     formatted_card_list = "(Error fetching flashcards)"
     try:
-        user_notes: list[models.Note] = await crud.get_all_notes_for_user(user_id,db_session=db_session)
+        user_notes: list[models.Note] = await crud.get_all_notes_for_user(user_id=user_id,db_session=db_session)
         learned_sentences = [note.field1.strip() for note in user_notes ]
         logger.debug(f"Extracted learned_sentences list for user {user_id}: {learned_sentences}")
 
@@ -178,7 +170,7 @@ async def chat_endpoint(
     try:
         model = llm_handler.get_model() 
         # Construct context as list of dicts
-        conversation_context = [
+        conversation_context: list[dict[Any,Any]]= [
             {'role': 'user', 'parts': [ {'text': final_system_prompt} ]}, # Send combined prompt+cards
             {'role': 'model', 'parts': [ {'text': "¡Claro! Entendido. Estoy listo para practicar contigo. ¿Qué quieres decir?"} ]}, # Simulate model ack
               ]
@@ -214,7 +206,7 @@ async def chat_endpoint(
 
 
         # --- Store AI Response ---
-        ai_message=ChatMessageCreate(
+        ai_message=schemas.ChatMessageCreate(
             user_id=user_id,
             session_id=session_id,
             role="model", # Role for AI response
@@ -236,10 +228,10 @@ async def chat_endpoint(
 
 # --- Explain Endpoint ---
 # Use the *new* ExplainResponse for the response_model
-@router.post("/explain", response_model=ExplainResponse)
+@router.post("/explain", response_model=schemas.ExplainResponse)
 async def explain_endpoint(
-    request_data: ExplainRequest,
-    current_user: dict = Depends(get_current_active_user),
+    request_data: schemas.ExplainRequest,
+    current_user: models.User = Depends(get_current_active_user),
     llm_handler: GeminiHandler = Depends(get_llm),
     teacher_prompt: str = Depends(get_prompt("teacher_prompt"))
 ):
@@ -313,7 +305,7 @@ async def explain_endpoint(
                             if isinstance(item, dict) and "spanish" in item and "english" in item:
                                 try:
                                     # Validate/create ExamplePair to ensure types
-                                    valid_examples.append(ExamplePair(**item))
+                                    valid_examples.append(schemas.ExamplePair(**item))
                                 except Exception as pair_exc:
                                      logger.warning(f"Skipping invalid example item during parsing: {item}. Error: {pair_exc}")
                                      continue # Skip this invalid example item
@@ -357,7 +349,7 @@ async def explain_endpoint(
             raise HTTPException(status_code=500, detail="Failed to process the explanation response from AI.")
 
         # 4. Construct and return the structured response
-        return ExplainResponse(
+        return schemas.ExplainResponse(
             topic=topic,
             explanation_text=explanation_content,
             examples=example_list

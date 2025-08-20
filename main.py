@@ -9,13 +9,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.sql import text
+from sqlalchemy.pool import NullPool
 
 
 # --- project imports
 from core.config import settings
 import utils
 from services.llm_handler import GeminiHandler
-from routers import authentication, chat, cards
+from routers import authentication, chat, cards, feedback
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 # --- Logging Configuration ---
 log_level = getattr(logging, getattr(settings, 'LOG_LEVEL', 'DEBUG').upper(), logging.INFO)
@@ -62,21 +64,34 @@ async def lifespan(app: FastAPI):
         sys.exit(1) 
 
     # check database connection
-    test_engine= create_async_engine(settings.DATABASE_URL, echo=True)
+    # pooled transaction on supabase needs the cache removed, but local postgres doesnt know the connect args so they are added conditionally
+    if settings.DATABASE_URL:
+    # --- Database Connection with VERBOSE LOGGING ---
+        logger.info("--- Preparing Database Connection ---")
+
+        engine = create_async_engine(
+            settings.DATABASE_URL,
+            echo=False
+        )
+    else:
+        logger.error(f"FATAL: No Database URL found")
+        sys.exit(1) 
+
+
+
+
+
     try:
-        async with test_engine.connect() as conn:
+        async with engine.connect() as conn:
             await conn.execute(text("SELECT 1")) 
         logger.info("Database connection successful.")
+        app.state.db_engine = engine
+        app.state.db_session_factory = async_sessionmaker(bind=engine)
+
     except Exception as e:
         logger.error(f"FATAL: Database connection failed - {e}")
         sys.exit(1)
-    finally:
-        logger.info("Disposing of temporary test engine.")
-        await test_engine.dispose()
-
-    # Initialize temporary storage from config
-    app.state.temp_code_storage = settings.TEMP_CODE_STORAGE 
-    logger.info("Temporary code storage initialized (in-memory).")
+    
 
     logger.info("--- Server startup complete ---")
     yield # Application runs here
@@ -84,7 +99,9 @@ async def lifespan(app: FastAPI):
     # --- Shutdown Logic ---
     logger.info("--- Server shutting down ---")
 
-
+    if hasattr(app.state, 'db_engine'):
+        logger.info("Disposing of database engine connection pool.")
+        await app.state.db_engine.dispose()
    
 
 
@@ -115,6 +132,7 @@ app.add_middleware(
 app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
 app.include_router(chat.router, tags=["Chat & Explain"]) # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
+app.include_router(feedback.router, tags=["Feedback"])
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

@@ -3,7 +3,7 @@ import logging
 import time
 import sqlite3 # Import sqlite3 for specific error handling
 # import math
-from typing import List
+
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse, Response
@@ -22,8 +22,10 @@ from schemas import (
     QuickAddRequest, QuickAddResponse, NoteContent,SRS
 
 )
+import schemas
 from dependencies import get_current_active_user, get_llm, get_prompt
 from core.config import settings
+from typing import List, Optional
 
 
 logger = logging.getLogger(__name__)
@@ -191,7 +193,7 @@ async def save_note(
 
 # --- SRS & Card/Note Management Endpoints ---
 
-@router.get("/due", response_model=DueCardsResponse) # Use the new response model
+@router.get("/due", response_model=DueCardsResponse) 
 async def get_due_cards_for_user(
     db_session: AsyncSession=Depends(session.get_db_session),
     limit: int = 20,
@@ -339,9 +341,22 @@ async def grade_card(
     if not success:
         logger.error(f"Failed to update SRS state for Card ID {card_id} in database.")
         raise HTTPException(status_code=500, detail="Failed to update card state.")
+    logger.info(f"Successfully updated Card ID {card_id}.")
+    try:
+        await crud.update_streak_on_grade(db_session=db_session, user=current_user, timezone=grade_data.timezone)
+    except Exception as e:
+        logger.error(f"Error updating streak for User ID {user_id}: {e}", exc_info=True)
 
-    logger.info(f"Successfully updated Card ID {card_id}. New state: Status='{new_status}', Due='{next_due}', Interval='{new_interval:.2f}', Ease='{new_ease:.2f}', Step='{new_learning_step}'")
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    return schemas.GradeCardResponse(
+                success=True,
+                message="Card graded successfully",
+                current_streak=user.awards.current_streak,
+                longest_streak=user..awards.longest_streak,
+            )
+
+    
+    
 
 
 @router.get("/my-notes", response_model=List[NotePublic]) # Changed path and response model
@@ -417,38 +432,28 @@ async def update_note_endpoint(
         )
     try:
         # Attempt to update the note details in the database
-        updated_note: NotePublic | None = await crud.update_note_details(
+        updated_note: Optional[models.Note] = await crud.update_note_details(
             db_session=db_session,
             note_id=note_id,
             user_id=user_id,
             note_details=note_update_data
         )
-
         if not updated_note:
-            # Check if the note exists 
-            existing_note: NotePublic | None = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id) 
-            if not existing_note:
-                 logger.warning(f"Update failed for Note ID {note_id} by User ID {user_id}: Note not found.")
-                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
-            else:
-                 logger.error(f"Update attempt failed for Note ID {note_id} by User ID {user_id}, but note exists. DB function issue?")
-                 raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update note details.")
-
-        # If update was successful, fetch the updated note data to return
-        updated_note_data: NotePublic | None = await crud.get_note_by_id(db_session=db_session,user_id=user_id,note_id=note_id)
-        if not updated_note_data:
-             logger.error(f"Failed to retrieve Note ID {note_id} immediately after successful update.")
-             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Note updated but could not be retrieved.")
+            logger.warning(f"Update failed for Note ID {note_id} by User ID {user_id}")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
         else:
-            logger.info(f"Successfully updated Note ID {note_id} for User ID {user_id}.")
-            # Validate and return the updated note using NotePublic model
-            return updated_note_data
-
-    except sqlite3.Error as db_err:
-        logger.exception(f"Database error updating Note ID {note_id} for User ID {user_id}: {db_err}")
-        raise HTTPException(status_code=500, detail="Database error updating note details.")
-    except HTTPException as http_exc:
-        raise http_exc
+            logger.info(f"Successfully updated Note ID {note_id} for User ID {user_id}")
+            # Map the updated note to the response model
+            return NotePublic(
+                id=updated_note.id,
+                user_id=updated_note.user_id,
+                note_content=NoteContent(
+                    field1=updated_note.field1,
+                    field2=updated_note.field2,
+                    tags=updated_note.tags.split(" ") if updated_note.tags else [],
+                    created_at=updated_note.created_at
+                )
+            )
     except Exception as e:
         logger.exception(f"Unexpected error updating Note ID {note_id} for User ID {user_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to update note due to a server error.")
@@ -464,7 +469,7 @@ async def quick_add_from_word_endpoint(
     db_session: AsyncSession = Depends(session.get_db_session)
     ):
 
-    user_id = current_user.get("id")
+    user_id = current_user.id
     logger.info(f"--- Entering /quick_add_from word endpoint by User ID: {user_id} ---")
     logger.info(f"Received quick add request for word: '{request_data.topic}'")
     target_word = request_data.topic

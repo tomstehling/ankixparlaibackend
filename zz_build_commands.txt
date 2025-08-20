@@ -1,0 +1,59 @@
+Docker
+BACKEND
+
+Build Image (new)
+gcloud builds submit --tag europe-southwest1-docker.pkg.dev/ankixparlai/ankixparlai-repo/my-app-backend:latest . --project=ankixparlai                        
+
+Push Image 
+
+PROJECT_ID="ankixparlai"
+REGION="europe-southwest1"
+IMAGE_NAME="europe-southwest1-docker.pkg.dev/${PROJECT_ID}/ankixparlai-repo/my-app-backend:latest"
+SERVICE_NAME="ankixparlai"
+CONTAINER_PORT="8000"      
+SECRET_NAME_GEMINI="chatbot-google-api-key" 
+SECRET_NAME_TWILIO_SID="TWILIO_ACCOUNT_SID"
+SECRET_NAME_TWILIO_TOKEN="TWILIO_AUTH_TOKEN"
+SECRET_NAME_TWILIO_NUMBER="TWILIO_WHATSAPP_NUMBER" 
+SECRET_NAME_DB_URL="DATABASE_URL_PROD" 
+AUTH_MASTER_KEY="AUTH_MASTER_KEY" 
+gcloud run deploy "${SERVICE_NAME}" \
+    --project="${PROJECT_ID}" \
+    --region="${REGION}" \
+    --image="${IMAGE_NAME}" \
+    --platform=managed \
+    --port="${CONTAINER_PORT}" \
+    --allow-unauthenticated \
+    --set-secrets="GEMINI_API_KEY=${SECRET_NAME_GEMINI}:latest" \
+    --set-secrets="TWILIO_ACCOUNT_SID=${SECRET_NAME_TWILIO_SID}:latest" \
+    --set-secrets="TWILIO_AUTH_TOKEN=${SECRET_NAME_TWILIO_TOKEN}:latest" \
+    --set-secrets="TWILIO_WHATSAPP_NUMBER=${SECRET_NAME_TWILIO_NUMBER}:latest" \
+    --set-secrets="DATABASE_URL_PROD=${SECRET_NAME_DB_URL}:latest" \
+    --set-secrets="AUTH_MASTER_KEY=${AUTH_MASTER_KEY}:latest" \
+    --set-env-vars="RELOAD=false,LOG_LEVEL=info"
+
+
+
+FRONTEND
+Build Image
+PROJECT_ID="ankixparlai"
+REGION="europe-southwest1"
+BACKEND_API_URL="https://ankixparlai-380281608527.europe-southwest1.run.app"
+FRONTEND_SERVICE_NAME="ankixparlai-frontend"
+FRONTEND_IMAGE_NAME="europe-southwest1-docker.pkg.dev/${PROJECT_ID}/ankixparlai-repo/my-app-frontend:latest"
+FRONTEND_CONTAINER_PORT="80"
+gcloud builds submit \
+  --project="${PROJECT_ID}" \
+  --config=cloudbuild.yaml \
+  --substitutions=_API_URL="${BACKEND_API_URL}"
+ --no-cache
+
+Push Image
+gcloud run deploy "${FRONTEND_SERVICE_NAME}" \
+    --project="${PROJECT_ID}" \
+    --region="${REGION}" \
+    --image="${FRONTEND_IMAGE_NAME}" \
+    --platform=managed \
+    --port="${FRONTEND_CONTAINER_PORT}" \
+    --allow-unauthenticated
+

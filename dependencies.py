@@ -1,13 +1,13 @@
 import logging
 from typing import Dict, Any
-from fastapi import Depends, HTTPException, status, Request
+from fastapi import Depends, HTTPException, status, Request,Header
 from fastapi.security import OAuth2PasswordBearer
 import database.models as models
 import database.crud as crud # CRUD operations for database
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import get_db_session
 import core.security as security # Handles password hashing, JWT
-
+import database.crud as crud
 from services.llm_handler import GeminiHandler # Type hint for LLM handler
 
 
@@ -52,18 +52,16 @@ async def get_current_user(token: str = Depends(oauth2_scheme),db_session: Async
     logger.info(f"Authenticated user ID: {user_id} via get_current_user")
     return user 
 
-async def get_current_active_user(current_user: models.User = Depends(get_current_user)):
-    """
-    Dependency: Gets user from token via get_current_user.
-    Placeholder for future 'is_active' checks. Returns user dict.
-    NOTE: Consider returning UserPublic model directly if password hash isn't needed downstream.
-    """
-    # Example: Add check if you add an 'is_active' field later
-    # if not current_user.get("is_active", True): # Default to active if field missing
-    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user")
+async def get_current_active_user(
+        current_user: models.User = Depends(get_current_user),
+        db_session: AsyncSession = Depends(get_db_session),
+        timezone_from_header: str = Header(None, alias="X-User-Timezone", description="User's timezone from request header")
+
+                                  ):
     logger.info(f"Authenticated active user ID: {current_user.id}")
-    # Return the full user dictionary fetched by get_current_user for now
-    # If you only need public data, fetch/convert to UserPublic here.
+
+    # make sure streak is up-to-date
+    await crud.get_streak(db_session=db_session, user=current_user, timezone=timezone_from_header)
     return current_user
 
 # --- Dependencies to access shared resources from app.state ---

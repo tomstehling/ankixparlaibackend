@@ -1,15 +1,14 @@
 import logging
 import google.generativeai as genai
 from google.generativeai.generative_models import GenerativeModel, ChatSession
-# --- ADD Any HERE ---
-from typing import Any # Import Any for type hinting
+from typing import Any 
 
 logger = logging.getLogger(__name__)
 
 class GeminiHandler:
     """Handles interactions with the Google Gemini API."""
 
-    def __init__(self, api_key: str, model_name: str = "gemini-pro"):
+    def __init__(self, api_key: str, model_name: str = "gemini-2.5-flash-lite"):
         """
         Initializes the Gemini client.
 

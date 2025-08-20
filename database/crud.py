@@ -4,11 +4,13 @@ from sqlalchemy.future import select
 from core.security import get_password_hash
 from sqlalchemy.ext.asyncio import AsyncSession
 import schemas
-from typing import Optional,List, cast
+from typing import Optional,List    
 import logging
 import time
 logger = logging.getLogger(__name__)
 from sqlalchemy.orm import joinedload
+import pytz
+import datetime
 
 
 DIRECTION_FORWARD = 0 # field1 -> field2
@@ -25,6 +27,12 @@ async def create_user(db_session:AsyncSession,user:schemas.UserCreate):
     hashed_password = get_password_hash(user.password)
     new_user = models.User (email=user.email, hashed_password=hashed_password)
     db_session.add(new_user)
+   
+
+    #create awards row
+    new_award = models.UserAwards(user=new_user)
+    db_session.add(new_award)
+
     await db_session.commit()
     await db_session.refresh(new_user)
     return new_user
@@ -35,33 +43,51 @@ async def get_user_by_id(db_session: AsyncSession, user_id: int):
     user = result.scalar_one_or_none()
     return user
 
+
+
+
 async def get_chat_history(
         db_session: AsyncSession, 
         user_id: int, session_id: str,  
         limit: Optional[int])-> List[models.ChatMessage]:
-    """
-    Fetches chat messages for a specific user and session.
-    Returns a list of chat messages.
-    """
-    if limit is None:
-        query = select(models.ChatMessage).where(
-            models.ChatMessage.user_id == user_id,
-            models.ChatMessage.session_id == session_id
-        ).order_by(models.ChatMessage.timestamp.asc())
+    # """
+    # Fetches chat messages for a specific user and session.
+    # Returns a list of chat messages.
+    # """
+    # if limit is None:
+    #     query = select(models.ChatMessage).where(
+    #         models.ChatMessage.user_id == user_id,
+    #         models.ChatMessage.session_id == session_id
+    #     ).order_by(models.ChatMessage.timestamp.asc())
        
-    else:
-        subquery = select(models.ChatMessage).where(
-                models.ChatMessage.user_id == user_id,
-                models.ChatMessage.session_id == session_id
-            ).order_by(models.ChatMessage.timestamp.desc()).subquery()
+    # else:
+    #     subquery = select(models.ChatMessage).where(
+    #             models.ChatMessage.user_id == user_id,
+    #             models.ChatMessage.session_id == session_id
+    #         ).order_by(models.ChatMessage.timestamp.desc()).limit(limit).subquery()
         
-        query = select(models.ChatMessage).select_from(subquery).order_by(subquery.c.timestamp.asc())
+    #     query = select(models.ChatMessage).select_from(subquery).order_by(models.ChatMessage.timestamp.asc())
 
+    """
+    Fetches chat messages for a user and session, ordered NEWEST first.
+    This is optimized for frontend UIs that use 'column-reverse'.
+    """
+    # 1. Start with the base query to find the right messages.
+    query = select(models.ChatMessage).where(
+        models.ChatMessage.user_id == user_id,
+        models.ChatMessage.session_id == session_id
+    )
+
+    # 2. ALWAYS sort by newest first. This is the only order you need.
+    query = query.order_by(models.ChatMessage.timestamp.desc())
+
+    # 3. If a limit is provided, apply it.
+    if limit:
+        query = query.limit(limit)
 
     result= await db_session.execute(query)
-
-
-    return cast(List[models.ChatMessage], result.scalars().all())
+    as_list = list(result.unique().scalars().all())
+    return as_list
 
 async def add_chat_message(
     db_session: AsyncSession,
@@ -89,10 +115,11 @@ async def add_chat_message(
 async def get_all_notes_for_user(
         db_session: AsyncSession,
         user_id: int
-):
+)-> List[models.Note]:
     query=select(models.Note).where(models.Note.user_id == user_id).order_by(models.Note.created_at.desc())
     result= await db_session.execute(query)
-    return result.scalars().all()
+    as_list = list(result.scalars().all())
+    return as_list
     
 
 
@@ -194,25 +221,15 @@ async def get_note_by_id(
         db_session: AsyncSession,
         user_id: int,
         note_id: int
-) -> Optional[schemas.NotePublic]:
+) -> Optional[models.Note]:
     query = select(models.Note).options(joinedload(models.Note.cards)).where(models.Note.id == note_id, models.Note.user_id == user_id)
     result = await db_session.execute(query)
     note = result.unique().scalar_one_or_none()
     if note is None:
         logger.warning(f"Note with ID {note_id} not found for User ID {user_id}")
         return None
-    else:
-        logger.info(f"Retrieved note with ID {note_id} for User ID {user_id}")
-        note_mapped=schemas.NotePublic(
-        id=note.id,
-        user_id=note.user_id,
-        note_content=schemas.NoteContent(
-            field1=note.field1,
-            field2=note.field2,
-            tags=note.tags.split() if note.tags else []
-        ),
-    )
-    return note_mapped
+    else:   
+        return note
 
 
     
@@ -258,12 +275,12 @@ async def update_note_details(
         user_id: int,
         note_id: int,
         note_details: schemas.NoteContent
-) -> Optional[schemas.NotePublic]:
+) -> Optional[models.Note]:
     note_to_update = await get_note_by_id(db_session, user_id, note_id)
     if note_to_update:
-        note_to_update.note_content.field1 = note_details.field1
-        note_to_update.note_content.field2 = note_details.field2
-        note_to_update.note_content.tags = note_details.tags
+        note_to_update.field1 = note_details.field1
+        note_to_update.field2 = note_details.field2
+        note_to_update.tags = " ".join(tag.strip() for tag in note_details.tags) if note_details.tags else ""
         await db_session.commit()
         await db_session.refresh(note_to_update)
         logger.info(f"Updated Note ID {note_id} for User ID {user_id}")
@@ -273,5 +290,54 @@ async def update_note_details(
     else:
         logger.warning(f"Note ID {note_id} not found for User ID {user_id}")
         return None
+
+
+async def create_feedback(feedback:models.Feedback, db_session:AsyncSession)->models.Feedback:
+    db_session.add(feedback)
+    await db_session.commit()
+    await db_session.refresh(feedback)
+    return feedback
+
+
+# consistency function, resets streak if applicable and returns correct streak
+async def get_streak(db_session:AsyncSession, user: models.User, timezone:str)->models.User:
+    timezone_object = pytz.timezone(timezone)
+    today= datetime.datetime.now(timezone_object).date()
+    yesterday= today - datetime.timedelta(days=1)
+    if user.awards.streak_last_updated_date is None or user.awards.streak_last_updated_date < yesterday:
+        # If no last review date, return current streak
+        user.awards.current_streak = 0
+        await db_session.commit()
+        await db_session.refresh(user)
+    return user
+            
+ 
+async def update_streak_on_grade(db_session:AsyncSession, user: models.User, timezone:str)->models.User:
+    timezone_object = pytz.timezone(timezone)
+    today= datetime.datetime.now(timezone_object).date()
+    yesterday= today - datetime.timedelta(days=1)
+
+    # if current_date is not today, set to today, reset current_count  ---- this block only runs the first time of the day
+    if user.awards.current_review_date is None or user.awards.current_review_date < today:
+        user.awards.current_review_date = today
+        user.awards.current_review_count = 0
+        if user.awards.streak_last_updated_date is None or user.awards.streak_last_updated_date < yesterday:
+            # if last session was before yesterday, reset streak to 
+            user.awards.current_streak = 0
+    user.awards.current_review_count +=1
+    # if current_count is great enough, update streak
+    if user.awards.current_review_count == 10:
+        if user.awards.streak_last_updated_date is None:
+            user.awards.current_streak = 0
+        user.awards.streak_last_updated_date = today
+        user.awards.current_streak += 1
+
+    if user.awards.current_streak > user.awards.longest_streak:
+        user.awards.longest_streak = user.awards.current_streak
+    await db_session.commit()
+    await db_session.refresh(user)
+    return user
+
+
 
 
