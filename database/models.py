@@ -17,6 +17,19 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database.session import Base
 
+class UserAwards(Base):
+    __tablename__ = 'user_awards'
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('users.id'), primary_key=True)
+    current_streak: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
+    longest_streak: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
+    current_review_date: Mapped[Optional[datetime.date]] = mapped_column(Date, nullable=True)
+    current_review_count: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
+    streak_last_updated_date:Mapped[Optional[datetime.date]] = mapped_column(Date, nullable=True)
+
+    user: Mapped["User"] = relationship(back_populates="awards")
+
+    def __repr__(self) -> str:
+        return f"<UserAwards(user_id={self.user_id}, current_streak={self.current_streak})>"
 
 class User(Base):
     __tablename__ = "users"
@@ -117,16 +130,3 @@ class Feedback(Base):
         return f"<Feedback(id={self.id}, user_id={self.user_id}, status='{self.status}')>"
 
 
-class UserAwards(Base):
-    __tablename__ = 'user_awards'
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('users.id'), primary_key=True)
-    current_streak: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
-    longest_streak: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
-    current_review_date: Mapped[Optional[datetime.date]] = mapped_column(Date, nullable=True)
-    current_review_count: Mapped[int] = mapped_column(default=0, server_default='0', nullable=False)
-    streak_last_updated_date:Mapped[Optional[datetime.date]] = mapped_column(Date, nullable=True)
-
-    user: Mapped["User"] = relationship(back_populates="awards")
-
-    def __repr__(self) -> str:
-        return f"<UserAwards(user_id={self.user_id}, current_streak={self.current_streak})>"

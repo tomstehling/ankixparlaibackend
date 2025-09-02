@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 from sqlalchemy.orm import joinedload
 import pytz
 import datetime
+import uuid
 
 
 DIRECTION_FORWARD = 0 # field1 -> field2
@@ -37,7 +38,7 @@ async def create_user(db_session:AsyncSession,user:schemas.UserCreate):
     await db_session.refresh(new_user)
     return new_user
 
-async def get_user_by_id(db_session: AsyncSession, user_id: int):
+async def get_user_by_id(db_session: AsyncSession, user_id: uuid.UUID):
     query = select(models.User).where(models.User.id == user_id)
     result = await db_session.execute(query)
     user = result.scalar_one_or_none()
@@ -48,40 +49,15 @@ async def get_user_by_id(db_session: AsyncSession, user_id: int):
 
 async def get_chat_history(
         db_session: AsyncSession, 
-        user_id: int, session_id: str,  
+        user_id: uuid.UUID, session_id: str,  
         limit: Optional[int])-> List[models.ChatMessage]:
-    # """
-    # Fetches chat messages for a specific user and session.
-    # Returns a list of chat messages.
-    # """
-    # if limit is None:
-    #     query = select(models.ChatMessage).where(
-    #         models.ChatMessage.user_id == user_id,
-    #         models.ChatMessage.session_id == session_id
-    #     ).order_by(models.ChatMessage.timestamp.asc())
-       
-    # else:
-    #     subquery = select(models.ChatMessage).where(
-    #             models.ChatMessage.user_id == user_id,
-    #             models.ChatMessage.session_id == session_id
-    #         ).order_by(models.ChatMessage.timestamp.desc()).limit(limit).subquery()
-        
-    #     query = select(models.ChatMessage).select_from(subquery).order_by(models.ChatMessage.timestamp.asc())
 
-    """
-    Fetches chat messages for a user and session, ordered NEWEST first.
-    This is optimized for frontend UIs that use 'column-reverse'.
-    """
-    # 1. Start with the base query to find the right messages.
     query = select(models.ChatMessage).where(
         models.ChatMessage.user_id == user_id,
         models.ChatMessage.session_id == session_id
     )
-
-    # 2. ALWAYS sort by newest first. This is the only order you need.
     query = query.order_by(models.ChatMessage.timestamp.desc())
 
-    # 3. If a limit is provided, apply it.
     if limit:
         query = query.limit(limit)
 
@@ -114,7 +90,7 @@ async def add_chat_message(
 
 async def get_all_notes_for_user(
         db_session: AsyncSession,
-        user_id: int
+        user_id: uuid.UUID
 )-> List[models.Note]:
     query=select(models.Note).where(models.Note.user_id == user_id).order_by(models.Note.created_at.desc())
     result= await db_session.execute(query)
@@ -125,7 +101,7 @@ async def get_all_notes_for_user(
 
 async def add_note_with_cards(
         db_session: AsyncSession, 
-        user_id: int,  
+        user_id: uuid.UUID,  
         note_to_add: schemas.NoteContent
 ) -> models.Note:
     """
@@ -190,7 +166,7 @@ async def add_note_with_cards(
 
 async def get_due_cards(
         db_session: AsyncSession,
-        user_id: int,
+        user_id: uuid.UUID,
         limit:int=20
 ) -> list[models.Card]:
     
@@ -205,7 +181,7 @@ async def get_due_cards(
 
 async def get_card_by_id(
     db_session: AsyncSession, 
-    user_id: int,
+    user_id: uuid.UUID,
     card_id: int
 )->models.Card:
     query = select(models.Card).join(models.Note).where(models.Note.user_id==user_id).where(models.Card.id == card_id)
@@ -219,7 +195,7 @@ async def get_card_by_id(
 
 async def get_note_by_id(
         db_session: AsyncSession,
-        user_id: int,
+        user_id: uuid.UUID,
         note_id: int
 ) -> Optional[models.Note]:
     query = select(models.Note).options(joinedload(models.Note.cards)).where(models.Note.id == note_id, models.Note.user_id == user_id)
@@ -235,7 +211,7 @@ async def get_note_by_id(
     
 async def delete_note(
         db_session: AsyncSession,
-        user_id: int,
+        user_id: uuid.UUID,
         note_id: int) -> bool:
     note_to_delete=await get_note_by_id(db_session, user_id, note_id)
     if note_to_delete:
@@ -251,7 +227,7 @@ async def delete_note(
 
 async def update_card_srs(
         db_session: AsyncSession,
-        user_id: int,
+        user_id: uuid.UUID,
         card_id: int,
         card_srs:schemas.SRS
 ) -> Optional[models.Card]:
@@ -272,7 +248,7 @@ async def update_card_srs(
 
 async def update_note_details(
         db_session: AsyncSession,
-        user_id: int,
+        user_id: uuid.UUID,
         note_id: int,
         note_details: schemas.NoteContent
 ) -> Optional[models.Note]:
@@ -312,32 +288,24 @@ async def get_streak(db_session:AsyncSession, user: models.User, timezone:str)->
     return user
             
  
-async def update_streak_on_grade(db_session:AsyncSession, user: models.User, timezone:str)->models.User:
+async def update_streak_on_grade(db_session:AsyncSession, user: models.User, timezone:str):
     timezone_object = pytz.timezone(timezone)
     today= datetime.datetime.now(timezone_object).date()
-    yesterday= today - datetime.timedelta(days=1)
-
-    # if current_date is not today, set to today, reset current_count  ---- this block only runs the first time of the day
-    if user.awards.current_review_date is None or user.awards.current_review_date < today:
+    if user.awards.current_review_date != today:
         user.awards.current_review_date = today
         user.awards.current_review_count = 0
-        if user.awards.streak_last_updated_date is None or user.awards.streak_last_updated_date < yesterday:
-            # if last session was before yesterday, reset streak to 
-            user.awards.current_streak = 0
-    user.awards.current_review_count +=1
-    # if current_count is great enough, update streak
-    if user.awards.current_review_count == 10:
-        if user.awards.streak_last_updated_date is None:
-            user.awards.current_streak = 0
+
+    user.awards.current_review_count += 1
+    if user.awards.current_review_count == 10 and user.awards.streak_last_updated_date != today:
+        user.awards.current_streak += 1 
         user.awards.streak_last_updated_date = today
-        user.awards.current_streak += 1
 
-    if user.awards.current_streak > user.awards.longest_streak:
-        user.awards.longest_streak = user.awards.current_streak
+
+        if user.awards.current_streak > user.awards.longest_streak:
+            user.awards.longest_streak = user.awards.current_streak
+    
+
     await db_session.commit()
-    await db_session.refresh(user)
-    return user
-
 
 
 

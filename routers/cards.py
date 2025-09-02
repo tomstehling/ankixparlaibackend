@@ -6,7 +6,7 @@ import sqlite3 # Import sqlite3 for specific error handling
 
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 
 
 import database.crud as crud
@@ -212,7 +212,7 @@ async def get_due_cards_for_user(
             mapped_card=DueCardResponseItem(
                 card_id=card.id,
                 note_id=card.note_id,
-                user_id=card.id,
+                user_id=current_user.id,
                 direction=card.direction,
                 srs=SRS(
                     status=card.status,
@@ -342,18 +342,14 @@ async def grade_card(
         logger.error(f"Failed to update SRS state for Card ID {card_id} in database.")
         raise HTTPException(status_code=500, detail="Failed to update card state.")
     logger.info(f"Successfully updated Card ID {card_id}.")
-    try:
-        await crud.update_streak_on_grade(db_session=db_session, user=current_user, timezone=grade_data.timezone)
-    except Exception as e:
-        logger.error(f"Error updating streak for User ID {user_id}: {e}", exc_info=True)
-
-
+    await db_session.refresh(current_user, attribute_names=["awards"])
+    await crud.update_streak_on_grade(db_session=db_session, user=current_user, timezone=grade_data.timezone)
+    await db_session.refresh(current_user, attribute_names=["awards"])
     return schemas.GradeCardResponse(
                 success=True,
                 message="Card graded successfully",
-                current_streak=user.awards.current_streak,
-                longest_streak=user..awards.longest_streak,
-            )
+                current_streak=current_user.awards.current_streak,
+                longest_streak=current_user.awards.longest_streak)
 
     
     

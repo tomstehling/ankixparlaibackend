@@ -4,6 +4,16 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import Optional, List, Union
 from typing import Literal
 
+class TokenPayload(BaseModel):
+    sub: str  
+    exp: datetime.datetime
+
+class UserAwardsPublic(BaseModel):
+    current_streak: int
+    longest_streak: int
+    class Config:
+        from_attributes = True
+
 class UserBase(BaseModel):
     email: EmailStr
 
@@ -17,6 +27,7 @@ class UserPublic(UserBase):
     id: uuid.UUID
     email: EmailStr
     created_at: Optional[datetime.datetime] = None
+    awards: UserAwardsPublic
     class Config:
         from_attributes = True
 
@@ -154,3 +165,4 @@ class GradeCardResponse(BaseModel):
     message: str
     current_streak: int
     longest_streak: int
+

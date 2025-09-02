@@ -9,7 +9,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.sql import text
-from sqlalchemy.pool import NullPool
 
 
 # --- project imports

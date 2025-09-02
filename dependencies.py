@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from fastapi import Depends, HTTPException, status, Request,Header
 from fastapi.security import OAuth2PasswordBearer
 import database.models as models
@@ -9,59 +9,61 @@ from database.session import get_db_session
 import core.security as security # Handles password hashing, JWT
 import database.crud as crud
 from services.llm_handler import GeminiHandler # Type hint for LLM handler
+import schemas
+import uuid
 
 
 logger = logging.getLogger(__name__)
-
-# OAuth2 Scheme - points to the /auth/token endpoint (note the prefix)
-# The tokenUrl MUST match the path where the login endpoint is mounted
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-async def get_current_user(token: str = Depends(oauth2_scheme),db_session: AsyncSession=Depends(get_db_session)) -> models.User:
+
+
+async def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db_session: AsyncSession = Depends(get_db_session)
+) -> models.User:
     """
-    Dependency: Decodes token, validates user, returns user data (as dict).
-    Raises HTTPException 401 if token invalid/expired or user not found.
+    Dependency: Decodes token, validates user, and returns the User ORM object.
+    Raises HTTPException 401 if token is invalid, expired, or user not found.
     """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    payload = security.decode_access_token(token)
+    
+    payload: Optional[schemas.TokenPayload] = security.decode_access_token(token)
     if payload is None:
         logger.warning("Token decoding failed or token is invalid/expired.")
         raise credentials_exception
 
-    user_id_str: str | None = payload.get("sub") # Assumes user_id stored in 'sub'
-    if user_id_str is None:
-        logger.warning("Token payload missing 'sub' (user ID).")
-        raise credentials_exception
-
+    user_id_from_token = payload.sub
     try:
-        user_id = int(user_id_str)
-    except (ValueError, TypeError):
-         logger.warning(f"Invalid user ID format in token 'sub': {user_id_str}")
-         raise credentials_exception
+        user_id = uuid.UUID(user_id_from_token)
+    except ValueError:
 
-    # Fetch user details (excluding password!) from database
-    user = await crud.get_user_by_id(db_session=db_session,user_id=user_id)
-    if user is None:
-        logger.warning(f"User ID {user_id} from token not found in database.")
+        logger.warning(f"Invalid UUID format in token 'sub': {user_id_from_token}")
         raise credentials_exception
 
-    logger.info(f"Authenticated user ID: {user_id} via get_current_user")
-    return user 
+    user = await crud.get_user_by_id(db_session=db_session, user_id=user_id)
+    if user is None:
+        logger.warning(f"User with UUID {user_id} from token not found in database.")
+        raise credentials_exception
+
+    logger.info(f"Authenticated user ID: {user.id} via get_current_user")
+    return user
 
 async def get_current_active_user(
         current_user: models.User = Depends(get_current_user),
         db_session: AsyncSession = Depends(get_db_session),
-        timezone_from_header: str = Header(None, alias="X-User-Timezone", description="User's timezone from request header")
+        timezone_from_header: str = Header("Europe/Berlin", alias="X-User-Timezone", description="User's timezone from request header")
 
-                                  ):
+                                 ):
     logger.info(f"Authenticated active user ID: {current_user.id}")
 
     # make sure streak is up-to-date
     await crud.get_streak(db_session=db_session, user=current_user, timezone=timezone_from_header)
+    await db_session.refresh(current_user, attribute_names=["awards"])
     return current_user
 
 # --- Dependencies to access shared resources from app.state ---
