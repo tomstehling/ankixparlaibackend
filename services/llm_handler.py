@@ -1,9 +1,57 @@
 import logging
+import httpx
+import openai
+from fastapi import HTTPException
 import google.generativeai as genai
 from google.generativeai.generative_models import GenerativeModel, ChatSession
-from typing import Any 
+from typing import Any
 
 logger = logging.getLogger(__name__)
+
+
+class OpenRouterHandler:
+    """Handles interactions with the OpenRouter API using the openai SDK."""
+
+    def __init__(self, api_key: str, model_name: str):
+        """
+        Initializes the OpenRouter client using the openai SDK.
+
+        Args:
+            api_key: The OpenRouter API key.
+            model_name: The specific model to use (e.g., 'openai/gpt-3.5-turbo').
+        """
+        self.api_key = api_key
+        self.model_name = model_name
+        self.client = openai.AsyncOpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=self.api_key,
+        )
+        logger.info(f"OpenRouterHandler initialized with model: {self.model_name}")
+
+    async def generate_one_off(self, prompt: str) -> str:
+        """Generates content based on a single prompt."""
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            logger.debug(f"OpenRouter Raw Response: {response}")
+            if response.choices:
+                return response.choices[0].message.content
+            else:
+                return "(Received empty response from AI)"
+        except openai.APIError as e:
+            logger.exception(f"OpenRouter API error: {e}")
+            raise HTTPException(
+                status_code=e.status_code,
+                detail=f"OpenRouter API error: {e.message}",
+            )
+        except Exception as e:
+            logger.exception(f"Error during OpenRouter one-off generation: {e}")
+            raise HTTPException(
+                status_code=500, detail=f"OpenRouter generation failed: {e}"
+            )
+
 
 class GeminiHandler:
     """Handles interactions with the Google Gemini API."""
@@ -42,16 +90,20 @@ class GeminiHandler:
             response = await self.model.generate_content_async(prompt)
 
             if not response.candidates:
-                 logger.warning(f"No candidates returned from Gemini for prompt: {prompt[:100]}...")
-                 reason = getattr(response.prompt_feedback, 'block_reason', 'Unknown')
-                 return f"(Response blocked, reason: {reason})"
+                logger.warning(
+                    f"No candidates returned from Gemini for prompt: {prompt[:100]}..."
+                )
+                reason = getattr(response.prompt_feedback, "block_reason", "Unknown")
+                return f"(Response blocked, reason: {reason})"
 
             content = response.candidates[0].content
             if content and content.parts:
-                 return content.parts[0].text
+                return content.parts[0].text
             else:
-                 logger.warning(f"Received empty response or unexpected structure from Gemini: {response}")
-                 return "(Received empty response from AI)"
+                logger.warning(
+                    f"Received empty response or unexpected structure from Gemini: {response}"
+                )
+                return "(Received empty response from AI)"
 
         except Exception as e:
             logger.exception(f"Error during Gemini one-off generation: {e}")
@@ -68,15 +120,19 @@ class GeminiHandler:
             logger.error("Cannot send message, Gemini model not initialized.")
             raise RuntimeError("Gemini model is not available.")
         try:
-            logger.debug(f"Sending message to existing chat session with {self.model_name}...")
+            logger.debug(
+                f"Sending message to existing chat session with {self.model_name}..."
+            )
             response = await chat_session.send_message_async(message)
 
             if not response.candidates:
-                 logger.warning(f"No candidates returned from Gemini chat message: {message[:100]}...")
-                 reason = getattr(response.prompt_feedback, 'block_reason', 'Unknown')
-                 raise ValueError(f"Chat response blocked, reason: {reason}")
+                logger.warning(
+                    f"No candidates returned from Gemini chat message: {message[:100]}..."
+                )
+                reason = getattr(response.prompt_feedback, "block_reason", "Unknown")
+                raise ValueError(f"Chat response blocked, reason: {reason}")
 
-            return response # Return the full response object (type Any is acceptable)
+            return response  # Return the full response object (type Any is acceptable)
 
         except Exception as e:
             logger.exception(f"Error during Gemini chat message sending: {e}")

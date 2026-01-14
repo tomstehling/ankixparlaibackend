@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "name": "gender-of-nouns",
+    "description": "Spanish nouns are grammatically masculine or feminine; agreement for articles, adjectives, and some determiners follows noun gender."
+  },
+  {
+    "id": 2,
+    "name": "plural-formation",
+    "description": "Spanish marks singular vs plural in nouns, articles, adjectives and verbs through regular suffixation and agreement."
+  },
+  {
+    "id": 3,
+    "name": "definite-indefinite-articles",
+    "description": "Articles mark definiteness (the vs a/an) and agree in gender/number with nouns."
+  },
+  {
+    "id": 4,
+    "name": "neuter-article-lo",
+    "description": "Lo is a neuter nominaliser used before adjectives/participles to form abstract nouns or to mean 'what/that which'."
+  },
+  {
+    "id": 5,
+    "name": "adjective-agreement-position",
+    "description": "Adjectives agree in gender and number with the nouns they modify; their position (pre- or post-nominal) can affect emphasis or meaning."
+  },
+  {
+    "id": 6,
+    "name": "agreement-compound-subjects",
+    "description": "Verb agreement is determined by the grammatical person and number of the subject; with compound subjects joined by y, verb is plural."
+  },
+  {
+    "id": 7,
+    "name": "demonstratives",
+    "description": "Demonstrative determiners/pronouns indicate proximity (este/esta/estos/estas = near speaker; ese/esa/… = near listener; aquel/aquella/… = far). Neuter forms esto/eso/aquello refer to ideas."
+  },
+  {
+    "id": 8,
+    "name": "possessive-adjectives-pronouns",
+    "description": "Possessives mark ownership and agree with the possessed noun in gender/number (mi/mis, tu/tus, su/sus, nuestro/s). Possessive pronouns replace noun (el mío)."
+  },
+  {
+    "id": 9,
+    "name": "subject-pronouns-pro-drop",
+    "description": "Spanish subject pronouns (yo, tú, él…) are often optional because verb inflections indicate person and number (pro-drop)."
+  },
+  {
+    "id": 10,
+    "name": "direct-indirect-object-pronouns",
+    "description": "Object pronouns replace direct/indirect objects and cliticize before conjugated verbs or attach to infinitives/gerunds/affirmative imperatives."
+  },
+  {
+    "id": 11,
+    "name": "clitic-order-combinations",
+    "description": "When two clitic pronouns appear, order and phonological adjustments apply."
+  },
+  {
+    "id": 12,
+    "name": "reflexive-pronouns-verbs",
+    "description": "Reflexive pronouns (me, te, se, nos, os, se) indicate the subject both performs and receives the action (or lexical pronominal verbs)."
+  },
+  {
+    "id": 13,
+    "name": "reciprocal-se",
+    "description": "Reciprocal use of se expresses mutual actions: nos/se with plural subjects."
+  },
+  {
+    "id": 14,
+    "name": "accidental-se",
+    "description": "Se + indirect object pronoun expresses accidental occurrences where subject 'loses' control: Se me olvidó."
+  },
+  {
+    "id": 15,
+    "name": "impersonal-se",
+    "description": "Se used to make general statements without specifying the agent: English passive/impersonal 'one/they/people'."
+  },
+  {
+    "id": 16,
+    "name": "passive-voice",
+    "description": "The grammatical passive uses ser + participle (agreed in gender/number) to focus on the patient; se passives are agentless passives common in Spanish."
+  },
+  {
+    "id": 17,
+    "name": "ser-vs-estar",
+    "description": "Two copulas with different uses: ser generally for inherent/permanent characteristics, identity, origin, time; estar for states, locations, and progressive aspect."
+  },
+  {
+    "id": 18,
+    "name": "indicative-simple-tenses",
+    "description": "Indicative tenses express factual, real actions with different temporal/aspective distinctions: present, preterite, imperfect, future, conditional."
+  },
+  {
+    "id": 19,
+    "name": "compound-perfect-tenses",
+    "description": "Perfects use haber + past participle to form present perfect, pluperfect, future perfect, conditional perfect. They express completed actions relative to a reference time."
+  },
+  {
+    "id": 20,
+    "name": "subjunctive-mood",
+    "description": "The subjunctive expresses non-factual or non-asserted situations: wishes, doubts, emotions, recommendations, hypothetical or irrealis contexts."
+  },
+  {
+    "id": 21,
+    "name": "subjunctive-adjective-clauses",
+    "description": "In adjective clauses, the subjunctive is used when the antecedent is unknown, nonexistent, or indefinite."
+  },
+  {
+    "id": 22,
+    "name": "subjunctive-with-conjunctions",
+    "description": "Certain subordinating conjunctions always (or often) trigger the subjunctive because they introduce uncertainty, purpose, or contingency (para que, a menos que, en caso de que, antes de que)."
+  },
+  {
+    "id": 23,
+    "name": "imperative-commands",
+    "description": "Imperative mood expresses commands; affirmative and negative forms use different pronoun placement rules and sometimes different forms (e.g., irregulars)."
+  },
+  {
+    "id": 24,
+    "name": "future-tense",
+    "description": "The simple future is a synthetic future; ir a + infinitive forms a near future/periphrastic future often used in spoken Spanish."
+  },
+  {
+    "id": 25,
+    "name": "conditional-tense",
+    "description": "Conditional expresses hypothetical outcomes or politeness; conditional perfect expresses hypothetical actions in the past."
+  },
+  {
+    "id": 26,
+    "name": "si-clauses",
+    "description": "Si clauses categorize real/possible/past counterfactual conditions and determine tense combinations."
+  },
+  {
+    "id": 27,
+    "name": "sequence-of-tenses",
+    "description": "In subordinate clauses, the tense/mood of verbs depends on the tense/mood of the main clause (backshift rules)."
+  },
+  {
+    "id": 28,
+    "name": "relative-pronouns",
+    "description": "Words that introduce relative (adjective) clauses and relate clauses to antecedents."
+  },
+  {
+    "id": 29,
+    "name": "interrogatives-accent-marks",
+    "description": "Interrogative and exclamative words (qué, quién, cuándo, cómo, cuánto, por qué, cuál) are accented when used in direct/indirect questions or exclamations."
+  },
+  {
+    "id": 30,
+    "name": "prepositions-contractions",
+    "description": "Prepositions link words and create complements; Spanish has fixed prepositions (a, de, en, por, para, con, sin, sobre, entre...). a + el → al; de + el → del."
+  },
+  {
+    "id": 31,
+    "name": "por-vs-para",
+    "description": "Two prepositions often translated as 'for' with different uses: por for cause, movement through, duration, exchange; para for purpose, destination, deadline, recipient."
+  },
+  {
+    "id": 32,
+    "name": "conjunctions",
+    "description": "Conjunctions link clauses/phrases; coordinating (y, pero, o) join equals; subordinating introduce dependent clauses (porque, aunque, cuando, si)."
+  },
+  {
+    "id": 33,
+    "name": "comparatives-superlatives",
+    "description": "Comparisons use más/menos + ... + que; equality uses tan...como (adjectives) or tanto...como (nouns); superlatives: el/la más or absolute superlative -ísimo."
+  },
+  {
+    "id": 34,
+    "name": "modal-verbs",
+    "description": "Modals express ability, obligation, necessity, or probability (e.g., poder, deber, querer)."
+  },
+  {
+    "id": 35,
+    "name": "verbal-periphrasis",
+    "description": "Periphrastic constructions combine auxiliary verbs and non-finite verb forms to express aspect, obligation, progression, or intention."
+  },
+  {
+    "id": 36,
+    "name": "gerunds-participles",
+    "description": "Gerunds (-ando, -iendo) express continuous/progressive actions; participles (-ado, -ido) form perfect tenses and adjectives."
+  },
+  {
+    "id": 37,
+    "name": "double-negatives",
+    "description": "Spanish commonly uses double negatives (negative element + negative verb or pronoun) and this is grammatical (e.g., No veo nada)."
+  },
+  {
+    "id": 38,
+    "name": "reported-speech",
+    "description": "Indirect speech reports what someone said and frequently requires tense/mood changes (backshifting)."
+  },
+  {
+    "id": 39,
+    "name": "discourse-particles",
+    "description": "Small words that manage discourse, time relations, or emphasis; they have grammatical and pragmatic effects."
+  },
+  {
+    "id": 40,
+    "name": "adverbs-adverbial-phrases",
+    "description": "Adverbs modify verbs, adjectives, or other adverbs; formed from adjectives with -mente or are simple invariants."
+  },
+  {
+    "id": 41,
+    "name": "numerals-ordinals",
+    "description": "Numerals (uno, dos, tres...) and ordinals (primero, segundo...) have agreement and contraction rules; uno becomes un before masculine noun."
+  },
+  {
+    "id": 42,
+    "name": "relative-vs-interrogative-pronouns",
+    "description": "Interrogative/exclamative forms carry an accent (e.g., qué), while relative pronouns do not. Distinguishes qué (what) vs que (that)."
+  },
+  {
+    "id": 43,
+    "name": "causative-constructions",
+    "description": "Hacer and dejar can be used to indicate causing someone to do something or allowing something to happen."
+  },
+  {
+    "id": 44,
+    "name": "se-lo-construction",
+    "description": "For sequences le + lo/la/los/las the indirect pronoun le/les changes to se to avoid clashing sounds."
+  },
+  {
+    "id": 45,
+    "name": "queismo-dequeismo",
+    "description": "Variation/error in using que vs de que in subordinate clauses; dequeísmo is inserting de unnecessarily, queísmo dropping necessary de."
+  },
+  {
+    "id": 46,
+    "name": "leismo-loismo-laismo",
+    "description": "Use of le as masculine direct object (le instead of lo) — common in parts of Spain; loísmo/laísmo other regionally marked variants."
+  },
+  {
+    "id": 47,
+    "name": "ellipsis-omission",
+    "description": "Omitting parts of clauses that are recoverable from context is common (verb phrase ellipsis, omitted subject)."
+  },
+  {
+    "id": 48,
+    "name": "negative-imperative-pronoun-placement",
+    "description": "Affirmative imperatives attach pronouns; negative imperatives place pronouns before the verb."
+  },
+  {
+    "id": 49,
+    "name": "participle-agreement-ser-estar",
+    "description": "Participles agree in gender/number with subject when used with ser in passive; with estar they describe resulting state and also agree."
+  },
+  {
+    "id": 50,
+    "name": "diminutives-augmentatives",
+    "description": "Suffixes -ito/a, -illo/a, -ón/ona, etc., modify size/affect/emphasis."
+  },
+  {
+    "id": 51,
+    "name": "inverted-punctuation",
+    "description": "Spanish uses inverted question and exclamation marks at the start (¿ ¡) and closing marks at end; punctuation interacts with grammar for emphasis."
+  },
+  {
+    "id": 52,
+    "name": "voseo-vosotros-ustedes",
+    "description": "Regional variants affect pronoun use and verb forms: voseo uses vos, vosotros used in Spain for informal plural you, ustedes used in Latin America for both formal/informal plural you."
+  },
+  {
+    "id": 53,
+    "name": "usted-vs-tu",
+    "description": "Choice of usted vs tú signals formality, social distance, or politeness."
+  },
+  {
+    "id": 54,
+    "name": "lexical-vs-grammatical-aspect",
+    "description": "Lexical aspect (states, activities, accomplishments, achievements) interacts with tense/aspect choices and with preterite/imperfect distinction."
+  },
+  {
+    "id": 55,
+    "name": "orthographic-accents",
+    "description": "Accent marks (tilde) mark stressed syllables irregular to default stress rules and distinguish homographs (tú (you) vs tu (your))."
+  },
+  {
+    "id": 56,
+    "name": "negative-polarity-items",
+    "description": "Words like nada, nadie, nunca, jamás, tampoco express negation and interact with no and sentence scope."
+  },
+  {
+    "id": 57,
+    "name": "clitic-doubling",
+    "description": "Some varieties double objects with clitic pronouns plus full noun phrase (Le di a María el libro — Le doubles a María)."
+  },
+  {
+    "id": 58,
+    "name": "cleft-sentences",
+    "description": "Cleft constructions place emphasis on a constituent using es ... que or lo que structures."
+  },
+  {
+    "id": 59,
+    "name": "agreement-measure-expressions",
+    "description": "Expressions of measurement may treat numerals and unit phrases specially with singular/plural agreement."
+  },
+  {
+    "id": 60,
+    "name": "gustar-like-verbs",
+    "description": "Verbs like gustar have experiencer as indirect object and the thing liked as subject; thus they conjugate according to the thing liked."
+  },
+  {
+    "id": 61,
+    "name": "politeness-formal",
+    "description": "Use of formal address (usted/ustedes), polite requests (conditional tense), and other formal conversational structures."
+  },
+  {
+    "id": 62,
+    "name": "politeness-informal",
+    "description": "Use of informal address (tú/vosotros), casual greetings, and common informal conversational patterns."
+  },
+  {
+    "id": 63,
+    "name": "idiomatic-expression",
+    "description": "Phrases where the figurative meaning is different from the literal meaning (e.g., 'tomar el pelo')."
+  },
+  {
+    "id": 64,
+    "name": "colloquialism-slang",
+    "description": "Informal words or phrases, often specific to a region or social group, not typically used in formal writing."
+  },
+  {
+    "id": 65,
+    "name": "discourse-marker",
+    "description": "Words or phrases used to organize conversation, manage flow, and connect ideas (e.g., 'pues,' 'o sea,' 'entonces')."
+  },
+  {
+    "id": 66,
+    "name": "cultural-reference",
+    "description": "Mentions of cultural figures, historical events, foods, or traditions specific to Spanish-speaking countries."
+  },
+  {
+    "id": 67,
+    "name": "interjection-exclamation",
+    "description": "Short exclamations that express a sudden feeling or reaction (e.g., '¡Ay!', '¡Ojalá!', '¡Qué va!')."
+  },
+  {
+    "id": 68,
+    "name": "ser-estar-confusion",
+    "description": "Addresses the common mistake of incorrectly choosing between 'ser' (for permanent states) and 'estar' (for temporary states/locations)."
+  },
+  {
+    "id": 69,
+    "name": "por-para-confusion",
+    "description": "Addresses the common difficulty in choosing the correct preposition, as both can translate to 'for' in English."
+  },
+  {
+    "id": 70,
+    "name": "preterite-imperfect-misuse",
+    "description": "Addresses the frequent error of using the wrong past tense to describe an action (completed vs. ongoing/habitual)."
+  },
+  {
+    "id": 71,
+    "name": "subjunctive-indicative-misuse",
+    "description": "Addresses the common mistake of using the indicative mood in clauses that require the subjunctive (e.g., after expressions of doubt, desire)."
+  },
+  {
+    "id": 72,
+    "name": "gender-agreement-error",
+    "description": "Addresses the common mistake of failing to match the gender of adjectives and articles to the nouns they modify."
+  }
+]

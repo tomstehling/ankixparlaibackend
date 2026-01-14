@@ -12,9 +12,6 @@ IMAGE_NAME="europe-southwest1-docker.pkg.dev/${PROJECT_ID}/ankixparlai-repo/my-a
 SERVICE_NAME="ankixparlai"
 CONTAINER_PORT="8000"      
 SECRET_NAME_GEMINI="chatbot-google-api-key" 
-SECRET_NAME_TWILIO_SID="TWILIO_ACCOUNT_SID"
-SECRET_NAME_TWILIO_TOKEN="TWILIO_AUTH_TOKEN"
-SECRET_NAME_TWILIO_NUMBER="TWILIO_WHATSAPP_NUMBER" 
 SECRET_NAME_DB_URL="DATABASE_URL_PROD" 
 AUTH_MASTER_KEY="AUTH_MASTER_KEY" 
 gcloud run deploy "${SERVICE_NAME}" \
@@ -25,9 +22,6 @@ gcloud run deploy "${SERVICE_NAME}" \
     --port="${CONTAINER_PORT}" \
     --allow-unauthenticated \
     --set-secrets="GEMINI_API_KEY=${SECRET_NAME_GEMINI}:latest" \
-    --set-secrets="TWILIO_ACCOUNT_SID=${SECRET_NAME_TWILIO_SID}:latest" \
-    --set-secrets="TWILIO_AUTH_TOKEN=${SECRET_NAME_TWILIO_TOKEN}:latest" \
-    --set-secrets="TWILIO_WHATSAPP_NUMBER=${SECRET_NAME_TWILIO_NUMBER}:latest" \
     --set-secrets="DATABASE_URL_PROD=${SECRET_NAME_DB_URL}:latest" \
     --set-secrets="AUTH_MASTER_KEY=${AUTH_MASTER_KEY}:latest" \
     --set-env-vars="RELOAD=false,LOG_LEVEL=info"

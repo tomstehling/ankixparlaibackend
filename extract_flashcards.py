@@ -4,8 +4,12 @@ import json
 # AnkiConnect API settings
 url = "http://localhost:8765"
 
+
 def request(action, **params):
-    return requests.post(url, json={"action": action, "version": 6, "params": params}).json()
+    return requests.post(
+        url, json={"action": action, "version": 6, "params": params}
+    ).json()
+
 
 # Fetch all cards in your deck (replace "Spanish" with your deck name)
 deck_name = "Santander"

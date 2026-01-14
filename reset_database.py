@@ -7,17 +7,16 @@ from core.config import settings
 from sqlalchemy.ext.asyncio import create_async_engine
 import logging
 from database.models import *  # Import all models to ensure they are registered with SQLAlchemy !!!IMPORTANT
-from database.session import Base 
+from database.session import Base
 
-engine = create_async_engine(
-        settings.DATABASE_URL,
-        echo=False
-    )
+engine = create_async_engine(settings.DATABASE_URL, echo=False)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.info("Starting script...")
 logger.info("Database url is:", settings.DATABASE_URL)
+
+
 async def create_tables():
 
     logger.info("Creating database tables...")
@@ -41,6 +40,8 @@ async def create_tables():
 
 
 if __name__ == "__main__":
-   print("WARNING: THIS SCRIPT WILL DELETE ALL DATA IN THE DATABASE AND RECREATE ALL TABLES.")
-   print("you need to uncomment the last line to run this script.")
+    print(
+        "WARNING: THIS SCRIPT WILL DELETE ALL DATA IN THE DATABASE AND RECREATE ALL TABLES."
+    )
+    print("you need to uncomment the last line to run this script.")
 #    asyncio.run(create_tables())

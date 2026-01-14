@@ -1,0 +1,22 @@
+[
+  ["subjunctive-mood", "subjunctive-adjective-clauses"],
+  ["subjunctive-mood", "subjunctive-with-conjunctions"],
+  ["prepositions-contractions", "por-vs-para"],
+  ["reflexive-pronouns-verbs", "reciprocal-se"],
+  ["reflexive-pronouns-verbs", "accidental-se"],
+  ["reflexive-pronouns-verbs", "impersonal-se"],
+  ["indicative-simple-tenses", "future-tense"],
+  ["indicative-simple-tenses", "conditional-tense"],
+  ["clitic-order-combinations", "se-lo-construction"],
+  ["imperative-commands", "negative-imperative-pronoun-placement"],
+  ["subject-pronouns-pro-drop", "usted-vs-tu"],
+  ["subject-pronouns-pro-drop", "voseo-vosotros-ustedes"],
+  ["direct-indirect-object-pronouns", "leismo-loismo-laismo"],
+  ["direct-indirect-object-pronouns", "clitic-doubling"],
+  ["conjunctions", "queismo-dequeismo"],
+  ["verbal-periphrasis", "causative-constructions"],
+
+  ["numerals-ordinals", "agreement-measure-expressions"],
+
+  ["reported-speech", "sequence-of-tenses"]
+]

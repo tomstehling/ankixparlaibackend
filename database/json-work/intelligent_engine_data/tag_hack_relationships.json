@@ -1,0 +1,322 @@
+[
+  {
+    "name_tag": "verbal-periphrasis",
+    "name_hack": "tengo-que-construction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "tengo-que-construction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "tengo-que-construction",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "verbal-periphrasis",
+    "name_hack": "estar-gerund-progressive",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gerunds-participles",
+    "name_hack": "estar-gerund-progressive",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "ser-vs-estar",
+    "name_hack": "estar-gerund-progressive",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "ser-vs-estar",
+    "name_hack": "ser-adjective-description",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "adjective-agreement-position",
+    "name_hack": "ser-adjective-description",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "possessive-adjectives-pronouns",
+    "name_hack": "ser-de-possession",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "direct-indirect-object-pronouns",
+    "name_hack": "le-indirect-object",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "clitic-order-combinations",
+    "name_hack": "se-la-pronoun-combination",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "se-lo-construction",
+    "name_hack": "se-la-pronoun-combination",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "debo-infinitive-obligation",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "debo-infinitive-obligation",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "quiero-infinitive-desire",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "quiero-infinitive-desire",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "future-tense",
+    "name_hack": "voy-a-infinitive-future",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "verbal-periphrasis",
+    "name_hack": "voy-a-infinitive-future",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "voy-a-infinitive-future",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "no-puedo-infinitive-inability",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "no-puedo-infinitive-inability",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "compound-perfect-tenses",
+    "name_hack": "he-past-participle-present-perfect",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gerunds-participles",
+    "name_hack": "he-past-participle-present-perfect",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "inverted-punctuation",
+    "name_hack": "spanish-question-marks",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "adverbs-adverbial-phrases",
+    "name_hack": "suffix-mente-adverb",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gustar-like-verbs",
+    "name_hack": "me-gusta-construction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "ser-vs-estar",
+    "name_hack": "ser-vs-estar-distinction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "ser-estar-confusion",
+    "name_hack": "ser-vs-estar-distinction",
+    "relationship_type": "remediates"
+  },
+  {
+    "name_tag": "por-vs-para",
+    "name_hack": "por-vs-para-distinction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "por-para-confusion",
+    "name_hack": "por-vs-para-distinction",
+    "relationship_type": "remediates"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "o-masculine-a-feminine-rule",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-agreement-error",
+    "name_hack": "o-masculine-a-feminine-rule",
+    "relationship_type": "remediates"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "ar-er-ir-verb-patterns",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "demonstratives",
+    "name_hack": "demonstratives-t-mnemonic",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "interrogatives-accent-marks",
+    "name_hack": "question-word-que",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "possessive-adjectives-pronouns",
+    "name_hack": "ser-de-name-ownership",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "direct-indirect-object-pronouns",
+    "name_hack": "dar-a-name-construction",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "plural-formation",
+    "name_hack": "cion-to-ciones-plural-rule",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "direct-indirect-object-pronouns",
+    "name_hack": "indirect-object-addition-removal",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "puedo-infinitive-ability",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "puedo-infinitive-ability",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "e-to-ie-stem-change",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "o-to-ue-stem-change",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "discourse-marker",
+    "name_hack": "connector-en-mi-opinion",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "discourse-marker",
+    "name_hack": "connector-por-cierto",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "preterite-imperfect-misuse",
+    "name_hack": "present-for-past-hack",
+    "relationship_type": "remediates"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "e-ending-masculine-guess",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "d-ending-feminine-rule",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "z-ending-feminine-rule",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "suffix-ion-feminine",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "suffix-cion-feminine",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "suffix-aje-masculine",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "suffix-ema-masculine",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "interrogatives-accent-marks",
+    "name_hack": "que-es-noun-question",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "interrogatives-accent-marks",
+    "name_hack": "cuando-es-noun-question",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "interrogatives-accent-marks",
+    "name_hack": "donde-esta-noun-question",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "interrogatives-accent-marks",
+    "name_hack": "de-donde-eres-question",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "imperative-commands",
+    "name_hack": "por-favor-imperative-request",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "modal-verbs",
+    "name_hack": "necesito-noun-infinitive-need",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "verbal-periphrasis",
+    "name_hack": "necesito-noun-infinitive-need",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "indicative-simple-tenses",
+    "name_hack": "necesito-noun-infinitive-need",
+    "relationship_type": "requires"
+  },
+  {
+    "name_tag": "subjunctive-mood",
+    "name_hack": "espero-que-subjunctive-hope",
+    "relationship_type": "teaches"
+  },
+  {
+    "name_tag": "subjunctive-indicative-misuse",
+    "name_hack": "espero-que-subjunctive-hope",
+    "relationship_type": "remediates"
+  },
+  {
+    "name_tag": "gender-of-nouns",
+    "name_hack": "ma-ending-masculine-exception",
+    "relationship_type": "teaches"
+  }
+]

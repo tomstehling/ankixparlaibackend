@@ -1,0 +1,51 @@
+[
+  ["gender-of-nouns", "definite-indefinite-articles"],
+  ["gender-of-nouns", "adjective-agreement-position"],
+  ["gender-of-nouns", "demonstratives"],
+  ["gender-of-nouns", "possessive-adjectives-pronouns"],
+  ["gender-of-nouns", "numerals-ordinals"],
+  ["gender-of-nouns", "gender-agreement-error"],
+
+  ["gender-of-nouns", "participle-agreement-ser-estar"],
+
+  ["plural-formation", "adjective-agreement-position"],
+  ["plural-formation", "demonstratives"],
+  ["plural-formation", "possessive-adjectives-pronouns"],
+
+  ["plural-formation", "agreement-compound-subjects"],
+  ["plural-formation", "participle-agreement-ser-estar"],
+  ["plural-formation", "agreement-measure-expressions"],
+
+  ["indicative-simple-tenses", "preterite-imperfect-misuse"],
+  ["indicative-simple-tenses", "lexical-vs-grammatical-aspect"],
+  ["lexical-vs-grammatical-aspect", "preterite-imperfect-misuse"],
+  ["ser-vs-estar", "ser-estar-confusion"],
+
+  ["ser-vs-estar", "participle-agreement-ser-estar"],
+
+  ["direct-indirect-object-pronouns", "leismo-loismo-laismo"],
+  ["direct-indirect-object-pronouns", "clitic-doubling"],
+
+  ["reflexive-pronouns-verbs", "passive-voice"],
+  ["impersonal-se", "passive-voice"],
+
+  ["subjunctive-mood", "imperative-commands"],
+  ["subjunctive-mood", "si-clauses"],
+  ["subjunctive-mood", "sequence-of-tenses"],
+  ["subjunctive-mood", "reported-speech"],
+  ["subjunctive-mood", "subjunctive-indicative-misuse"],
+  ["conditional-tense", "si-clauses"],
+  ["sequence-of-tenses", "reported-speech"],
+
+  ["gerunds-participles", "neuter-article-lo"],
+
+  ["orthographic-accents", "relative-vs-interrogative-pronouns"],
+
+  ["conjunctions", "queismo-dequeismo"],
+  ["prepositions-contractions", "queismo-dequeismo"],
+  ["por-vs-para", "por-para-confusion"],
+
+  ["usted-vs-tu", "politeness-formal"],
+  ["usted-vs-tu", "politeness-informal"],
+  ["subject-pronouns-pro-drop", "voseo-vosotros-ustedes"]
+]

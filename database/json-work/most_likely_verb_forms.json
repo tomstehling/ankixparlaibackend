@@ -1,0 +1,3802 @@
+[
+  {
+    "lemma": "Gustar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "gusta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me gusta el café."
+      },
+      {
+        "rank": 2,
+        "form": "gustas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te gusta bailar?"
+      }
+    ]
+  },
+  {
+    "lemma": "Parecer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "parece",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Parece un buen plan."
+      },
+      {
+        "rank": 2,
+        "form": "parezco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me parece interesante."
+      }
+    ]
+  },
+  {
+    "lemma": "Venir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vengo de la tienda."
+      },
+      {
+        "rank": 2,
+        "form": "vine",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Vine ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Seguir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sigo estudiando."
+      },
+      {
+        "rank": 2,
+        "form": "estoy siguiendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy siguiendo una serie."
+      }
+    ]
+  },
+  {
+    "lemma": "Encontrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "encuentro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Encuentro mi libro favorito."
+      },
+      {
+        "rank": 2,
+        "form": "encontré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Encontré mi llave."
+      }
+    ]
+  },
+  {
+    "lemma": "Pasar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "paso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Paso por el parque."
+      },
+      {
+        "rank": 2,
+        "form": "pasé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pasé un buen rato."
+      }
+    ]
+  },
+  {
+    "lemma": "Dar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "doy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Doy clases de inglés."
+      },
+      {
+        "rank": 2,
+        "form": "di",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Di un paseo ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Preguntar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pregunto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pregunto por el precio."
+      },
+      {
+        "rank": 2,
+        "form": "preguntas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Preguntas algo?"
+      }
+    ]
+  },
+  {
+    "lemma": "Responder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "respondo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Respondo a los emails."
+      },
+      {
+        "rank": 2,
+        "form": "respondí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Respondí rápido."
+      }
+    ]
+  },
+  {
+    "lemma": "Necesitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "necesito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Necesito agua."
+      },
+      {
+        "rank": 2,
+        "form": "necesitas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Necesitas ayuda?"
+      }
+    ]
+  },
+  {
+    "lemma": "Tomar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tomo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tomo el autobús."
+      },
+      {
+        "rank": 2,
+        "form": "tomé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tomé un café ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Pedir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pido",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pido comida a domicilio."
+      },
+      {
+        "rank": 2,
+        "form": "pides",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Pides pizza?"
+      }
+    ]
+  },
+  {
+    "lemma": "Recibir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "recibo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Recibo muchos mensajes."
+      },
+      {
+        "rank": 2,
+        "form": "recibí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Recibí un regalo."
+      }
+    ]
+  },
+  {
+    "lemma": "Buscar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "busco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Busco mi teléfono."
+      },
+      {
+        "rank": 2,
+        "form": "busqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Busqué mi bolso."
+      }
+    ]
+  },
+  {
+    "lemma": "Esperar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "espero",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Espero el tren."
+      },
+      {
+        "rank": 2,
+        "form": "esperas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Esperas a alguien?"
+      }
+    ]
+  },
+  {
+    "lemma": "Viajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "viajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Viajo mucho por trabajo."
+      },
+      {
+        "rank": 2,
+        "form": "viajé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Viajé a México."
+      }
+    ]
+  },
+  {
+    "lemma": "Cocinar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cocino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cocino todos los días."
+      },
+      {
+        "rank": 2,
+        "form": "estoy cocinando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy cocinando ahora."
+      }
+    ]
+  },
+  {
+    "lemma": "Limpiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "limpio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Limpio la casa los sábados."
+      },
+      {
+        "rank": 2,
+        "form": "limpié",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Limpié la cocina ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Pintar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pinto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pinto cuadros como hobby."
+      },
+      {
+        "rank": 2,
+        "form": "pinté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pinté mi cuarto."
+      }
+    ]
+  },
+  {
+    "lemma": "Construir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "construye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Construye una casa nueva."
+      },
+      {
+        "rank": 2,
+        "form": "se construye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Se construye un edificio."
+      }
+    ]
+  },
+  {
+    "lemma": "Cambiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cambio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cambio de ropa diario."
+      },
+      {
+        "rank": 2,
+        "form": "cambié",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Cambién de trabajo."
+      }
+    ]
+  },
+  {
+    "lemma": "Empezar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "empiezo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Empiezo un curso nuevo."
+      },
+      {
+        "rank": 2,
+        "form": "empecé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Empecé ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Terminar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "termino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Termino mi tarea pronto."
+      },
+      {
+        "rank": 2,
+        "form": "terminé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Terminé el libro."
+      }
+    ]
+  },
+  {
+    "lemma": "Oír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "oigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Oigo música clásica."
+      },
+      {
+        "rank": 2,
+        "form": "estoy oyendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy oyendo un ruido."
+      }
+    ]
+  },
+  {
+    "lemma": "Sonreír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sonrío",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sonrío cuando estoy feliz."
+      },
+      {
+        "rank": 2,
+        "form": "sonríes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Sonríes mucho."
+      }
+    ]
+  },
+  {
+    "lemma": "Llorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "lloro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Lloro con películas tristes."
+      },
+      {
+        "rank": 2,
+        "form": "lloré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Lloré ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Reír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "río",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Río con mis amigos."
+      },
+      {
+        "rank": 2,
+        "form": "me reí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me reí mucho anoche."
+      }
+    ]
+  },
+  {
+    "lemma": "Contar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cuento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cuento historias divertidas."
+      },
+      {
+        "rank": 2,
+        "form": "conté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Conté un chiste."
+      }
+    ]
+  },
+  {
+    "lemma": "Recordar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "recuerdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Recuerdo mi infancia."
+      },
+      {
+        "rank": 2,
+        "form": "recordé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Recordé su nombre."
+      }
+    ]
+  },
+  {
+    "lemma": "Olvidar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "olvido",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Olvido nombres a veces."
+      },
+      {
+        "rank": 2,
+        "form": "olvidé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Olvidé mi cita."
+      }
+    ]
+  },
+  {
+    "lemma": "Elegir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "elijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Elijo comida saludable."
+      },
+      {
+        "rank": 2,
+        "form": "elegí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Elegí un vestido."
+      }
+    ]
+  },
+  {
+    "lemma": "Sentarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me siento en el sofá."
+      },
+      {
+        "rank": 2,
+        "form": "me senté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me senté allí ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Levantarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me levanto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me levanto temprano."
+      },
+      {
+        "rank": 2,
+        "form": "me levanté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me levanté tarde."
+      }
+    ]
+  },
+  {
+    "lemma": "Acostarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me acuesto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me acuesto a las diez."
+      },
+      {
+        "rank": 2,
+        "form": "me acosté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me acosté tarde."
+      }
+    ]
+  },
+  {
+    "lemma": "Ducharse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me ducho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me ducho por la mañana."
+      },
+      {
+        "rank": 2,
+        "form": "me duché",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me duché rápido."
+      }
+    ]
+  },
+  {
+    "lemma": "Vestirse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me visto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me visto rápido."
+      },
+      {
+        "rank": 2,
+        "form": "me vestí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me vestí elegante."
+      }
+    ]
+  },
+  {
+    "lemma": "Quedarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me quedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me quedo en casa hoy."
+      },
+      {
+        "rank": 2,
+        "form": "me quedé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me quedé en el hotel."
+      }
+    ]
+  },
+  {
+    "lemma": "Divertirse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me divierto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me divierto con amigos."
+      },
+      {
+        "rank": 2,
+        "form": "me divertí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me divertí en la fiesta."
+      }
+    ]
+  },
+  {
+    "lemma": "Enfadarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me enfado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me enfado si pierdo."
+      },
+      {
+        "rank": 2,
+        "form": "me enfadé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me enfadé ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Alegrarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me alegro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me alegro por ti."
+      },
+      {
+        "rank": 2,
+        "form": "me alegré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me alegré mucho."
+      }
+    ]
+  },
+  {
+    "lemma": "Cansarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me canso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me canso rápido."
+      },
+      {
+        "rank": 2,
+        "form": "me cansé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me cansé en el trabajo."
+      }
+    ]
+  },
+  {
+    "lemma": "Casarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me caso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me caso este año."
+      },
+      {
+        "rank": 2,
+        "form": "se casó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Se casó el año pasado."
+      }
+    ]
+  },
+  {
+    "lemma": "Enamorarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me enamoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me enamoro fácilmente."
+      },
+      {
+        "rank": 2,
+        "form": "me enamoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me enamoré de alguien."
+      }
+    ]
+  },
+  {
+    "lemma": "Preocuparse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me preocupo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me preocupo por mi familia."
+      },
+      {
+        "rank": 2,
+        "form": "te preocupas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te preocupas mucho?"
+      }
+    ]
+  },
+  {
+    "lemma": "Acordarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me acuerdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me acuerdo de ti."
+      },
+      {
+        "rank": 2,
+        "form": "me acordé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me acordé de la cita."
+      }
+    ]
+  },
+  {
+    "lemma": "Faltar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "falta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me falta tiempo."
+      },
+      {
+        "rank": 2,
+        "form": "faltas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te falta algo?"
+      }
+    ]
+  },
+  {
+    "lemma": "Interesar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "interesa",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me interesa la música."
+      },
+      {
+        "rank": 2,
+        "form": "interesas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te interesa el arte?"
+      }
+    ]
+  },
+  {
+    "lemma": "Doler",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "duele",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me duele la cabeza."
+      },
+      {
+        "rank": 2,
+        "form": "dueles",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te duele algo?"
+      }
+    ]
+  },
+  {
+    "lemma": "Importar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "importa",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me importa mi trabajo."
+      },
+      {
+        "rank": 2,
+        "form": "importas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te importa el plan?"
+      }
+    ]
+  },
+  {
+    "lemma": "Ocurrir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ocurre",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Ocurre algo extraño."
+      },
+      {
+        "rank": 2,
+        "form": "ocurrió",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Ocurrió un accidente."
+      }
+    ]
+  },
+  {
+    "lemma": "Ser",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "soy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Soy de Estados Unidos."
+      },
+      {
+        "rank": 2,
+        "form": "es",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Es muy simpático."
+      }
+    ]
+  },
+  {
+    "lemma": "Estar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estás",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Cómo estás?"
+      },
+      {
+        "rank": 2,
+        "form": "estoy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estoy cansado."
+      }
+    ]
+  },
+  {
+    "lemma": "Tener",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tengo dos hermanos."
+      },
+      {
+        "rank": 2,
+        "form": "tiene",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Tiene un coche nuevo."
+      }
+    ]
+  },
+  {
+    "lemma": "Hacer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "hace",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Hace sol hoy."
+      },
+      {
+        "rank": 2,
+        "form": "hice",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Hice una tarta ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Ir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "voy a ir",
+        "tense": "near-future",
+        "person": "1st-singular",
+        "example": "Voy a ir al supermercado."
+      },
+      {
+        "rank": 2,
+        "form": "voy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Voy al gimnasio."
+      }
+    ]
+  },
+  {
+    "lemma": "Poder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "puedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Puedo ayudarte."
+      },
+      {
+        "rank": 2,
+        "form": "puedes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Puedes venir?"
+      }
+    ]
+  },
+  {
+    "lemma": "Decir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "digo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Digo que es interesante."
+      },
+      {
+        "rank": 2,
+        "form": "dice",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Dice que no viene."
+      }
+    ]
+  },
+  {
+    "lemma": "Ver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "veo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Veo que estás ocupado."
+      },
+      {
+        "rank": 2,
+        "form": "vi",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Vi una película anoche."
+      }
+    ]
+  },
+  {
+    "lemma": "Saber",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sé",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sé cocinar."
+      },
+      {
+        "rank": 2,
+        "form": "sabes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Sabes dónde está?"
+      }
+    ]
+  },
+  {
+    "lemma": "Querer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "quiero",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Quiero café."
+      },
+      {
+        "rank": 2,
+        "form": "quieres",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Quieres salir?"
+      }
+    ]
+  },
+  {
+    "lemma": "Comer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "como",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Como paella los domingos."
+      },
+      {
+        "rank": 2,
+        "form": "comí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Comí sushi ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Beber",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bebo agua todos los días."
+      },
+      {
+        "rank": 2,
+        "form": "bebes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Bebes café?"
+      }
+    ]
+  },
+  {
+    "lemma": "Vivir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vivo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vivo en Madrid."
+      },
+      {
+        "rank": 2,
+        "form": "vive",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Vive cerca de aquí."
+      }
+    ]
+  },
+  {
+    "lemma": "Hablar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "hablo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Hablo español."
+      },
+      {
+        "rank": 2,
+        "form": "hablas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Hablas muy rápido."
+      }
+    ]
+  },
+  {
+    "lemma": "Escribir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "escribo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Escribo emails en el trabajo."
+      },
+      {
+        "rank": 2,
+        "form": "escribí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Escribí un mensaje."
+      }
+    ]
+  },
+  {
+    "lemma": "Leer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "leo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Leo libros de ficción."
+      },
+      {
+        "rank": 2,
+        "form": "estoy leyendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy leyendo un libro."
+      }
+    ]
+  },
+  {
+    "lemma": "Dormir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "duermo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Duermo ocho horas."
+      },
+      {
+        "rank": 2,
+        "form": "dormí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Dormí mal anoche."
+      }
+    ]
+  },
+  {
+    "lemma": "Trabajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "trabajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Trabajo en una oficina."
+      },
+      {
+        "rank": 2,
+        "form": "trabajas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Dónde trabajas?"
+      }
+    ]
+  },
+  {
+    "lemma": "Estudiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estudio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estudio en la universidad."
+      },
+      {
+        "rank": 2,
+        "form": "estudias",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Qué estudias?"
+      }
+    ]
+  },
+  {
+    "lemma": "Aprender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aprendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aprendo español."
+      },
+      {
+        "rank": 2,
+        "form": "estoy aprendiendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy aprendiendo a cocinar."
+      }
+    ]
+  },
+  {
+    "lemma": "Entender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "entiendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Entiendo lo que dices."
+      },
+      {
+        "rank": 2,
+        "form": "entiendes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Entiendes?"
+      }
+    ]
+  },
+  {
+    "lemma": "Conocer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "conozco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Conozco a tu amigo."
+      },
+      {
+        "rank": 2,
+        "form": "conoces",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Conoces este lugar?"
+      }
+    ]
+  },
+  {
+    "lemma": "Pensar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pienso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pienso que es buena idea."
+      },
+      {
+        "rank": 2,
+        "form": "piensas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Qué piensas?"
+      }
+    ]
+  },
+  {
+    "lemma": "Sentir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Siento frío."
+      },
+      {
+        "rank": 2,
+        "form": "me siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me siento feliz."
+      }
+    ]
+  },
+  {
+    "lemma": "Escuchar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "escucho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Escucho música pop."
+      },
+      {
+        "rank": 2,
+        "form": "estoy escuchando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy escuchando la radio."
+      }
+    ]
+  },
+  {
+    "lemma": "Mirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "miro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Miro películas en Netflix."
+      },
+      {
+        "rank": 2,
+        "form": "estoy mirando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy mirando la tele."
+      }
+    ]
+  },
+  {
+    "lemma": "Tocar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "toco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Toco la guitarra."
+      },
+      {
+        "rank": 2,
+        "form": "toqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Toqué el piano ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Cantar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "canto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Canto en la ducha."
+      },
+      {
+        "rank": 2,
+        "form": "estoy cantando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy cantando ahora."
+      }
+    ]
+  },
+  {
+    "lemma": "Bailar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bailo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bailo salsa."
+      },
+      {
+        "rank": 2,
+        "form": "bailas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Bailas bien?"
+      }
+    ]
+  },
+  {
+    "lemma": "Correr",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corro por las mañanas."
+      },
+      {
+        "rank": 2,
+        "form": "corrí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corrí una maratón."
+      }
+    ]
+  },
+  {
+    "lemma": "Caminar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "camino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Camino al trabajo."
+      },
+      {
+        "rank": 2,
+        "form": "estoy caminando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy caminando ahora."
+      }
+    ]
+  },
+  {
+    "lemma": "Nadar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "nado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Nado en la piscina."
+      },
+      {
+        "rank": 2,
+        "form": "nadé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Nadé en el mar ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Jugar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "juego",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Juego al fútbol."
+      },
+      {
+        "rank": 2,
+        "form": "juegas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Juegas al tenis?"
+      }
+    ]
+  },
+  {
+    "lemma": "Ganar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ganó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Ganó el partido."
+      },
+      {
+        "rank": 2,
+        "form": "gano",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Gano poco dinero."
+      }
+    ]
+  },
+  {
+    "lemma": "Perder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "perdí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Perdí mi llave."
+      },
+      {
+        "rank": 2,
+        "form": "pierdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Siempre pierdo en ajedrez."
+      }
+    ]
+  },
+  {
+    "lemma": "Abrir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "abro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Abro la puerta."
+      },
+      {
+        "rank": 2,
+        "form": "se abre",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Se abre la tienda."
+      }
+    ]
+  },
+  {
+    "lemma": "Cerrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cierro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cierro la ventana."
+      },
+      {
+        "rank": 2,
+        "form": "se cierra",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Se cierra la puerta."
+      }
+    ]
+  },
+  {
+    "lemma": "Poner",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pongo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pongo la mesa."
+      },
+      {
+        "rank": 2,
+        "form": "me pongo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me pongo una chaqueta."
+      }
+    ]
+  },
+  {
+    "lemma": "Sacar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "saco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Saco fotos."
+      },
+      {
+        "rank": 2,
+        "form": "saqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Saqué una foto ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Traer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "traigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Traigo comida."
+      },
+      {
+        "rank": 2,
+        "form": "traje",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Traje un regalo."
+      }
+    ]
+  },
+  {
+    "lemma": "Llevar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "llevo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Llevo gafas."
+      },
+      {
+        "rank": 2,
+        "form": "llevé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Llevé mi coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Dejar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "dejo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Dejo el libro aquí."
+      },
+      {
+        "rank": 2,
+        "form": "dejé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Dejé mi bolsa en casa."
+      }
+    ]
+  },
+  {
+    "lemma": "Volver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vuelvo a casa."
+      },
+      {
+        "rank": 2,
+        "form": "volví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Volví tarde ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Salir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "salgo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Salgo con amigos."
+      },
+      {
+        "rank": 2,
+        "form": "sales",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Sales esta noche?"
+      }
+    ]
+  },
+  {
+    "lemma": "Entrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "entro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Entro en la habitación."
+      },
+      {
+        "rank": 2,
+        "form": "entré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Entré al cine."
+      }
+    ]
+  },
+  {
+    "lemma": "Quedar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "quedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Quedo con amigos."
+      },
+      {
+        "rank": 2,
+        "form": "queda",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Queda lejos de aquí."
+      }
+    ]
+  },
+  {
+    "lemma": "Llegar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "llego",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Llego tarde."
+      },
+      {
+        "rank": 2,
+        "form": "llegué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Llegué a las ocho."
+      }
+    ]
+  },
+  {
+    "lemma": "Comprar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "compro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Compro ropa."
+      },
+      {
+        "rank": 2,
+        "form": "compré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Compré un regalo."
+      }
+    ]
+  },
+  {
+    "lemma": "Vender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vende",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Vende frutas."
+      },
+      {
+        "rank": 2,
+        "form": "vendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vendo mi coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Ayudar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ayudo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ayudo en casa."
+      },
+      {
+        "rank": 2,
+        "form": "ayudas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Ayudas en la cocina?"
+      }
+    ]
+  },
+  {
+    "lemma": "Comenzar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "comienzo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Comienzo un proyecto nuevo."
+      },
+      {
+        "rank": 2,
+        "form": "comencé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Comencé ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Creer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "creo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Creo que es verdad."
+      },
+      {
+        "rank": 2,
+        "form": "crees",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Crees en eso?"
+      }
+    ]
+  },
+  {
+    "lemma": "Intentar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "intento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Intento aprender español."
+      },
+      {
+        "rank": 2,
+        "form": "intenté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Intenté llamarte."
+      }
+    ]
+  },
+  {
+    "lemma": "Lograr",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "logro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Logro mis metas."
+      },
+      {
+        "rank": 2,
+        "form": "logré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Logré terminar."
+      }
+    ]
+  },
+  {
+    "lemma": "Conseguir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "consigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Consigo entradas baratas."
+      },
+      {
+        "rank": 2,
+        "form": "conseguí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Conseguí un trabajo."
+      }
+    ]
+  },
+  {
+    "lemma": "Mantener",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mantengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mantengo mi casa limpia."
+      },
+      {
+        "rank": 2,
+        "form": "mantuve",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mantuve el secreto."
+      }
+    ]
+  },
+  {
+    "lemma": "Perdonar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "perdono",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Perdono los errores."
+      },
+      {
+        "rank": 2,
+        "form": "perdona",
+        "tense": "imperative",
+        "person": "2nd-singular",
+        "example": "¡Perdona!"
+      }
+    ]
+  },
+  {
+    "lemma": "Aceptar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "acepto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Acepto la invitación."
+      },
+      {
+        "rank": 2,
+        "form": "aceptas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Aceptas el plan?"
+      }
+    ]
+  },
+  {
+    "lemma": "Rechazar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "rechazo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Rechazo ofertas malas."
+      },
+      {
+        "rank": 2,
+        "form": "rechacé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Rechacé la oferta."
+      }
+    ]
+  },
+  {
+    "lemma": "Explicar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "explico",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Explico mi idea."
+      },
+      {
+        "rank": 2,
+        "form": "expliqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Expliqué todo ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Mostrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "muestro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Muestro mis fotos."
+      },
+      {
+        "rank": 2,
+        "form": "mostré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mostré mi proyecto."
+      }
+    ]
+  },
+  {
+    "lemma": "Enseñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "enseño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Enseño español."
+      },
+      {
+        "rank": 2,
+        "form": "enseñas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Enseñas algo?"
+      }
+    ]
+  },
+  {
+    "lemma": "Aprenderse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me aprendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me aprendo las canciones."
+      },
+      {
+        "rank": 2,
+        "form": "me aprendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me aprendí la lista."
+      }
+    ]
+  },
+  {
+    "lemma": "Preparar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "preparo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Preparo la cena."
+      },
+      {
+        "rank": 2,
+        "form": "estoy preparando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy preparando un viaje."
+      }
+    ]
+  },
+  {
+    "lemma": "Arreglar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "arreglo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Arreglo mi cuarto."
+      },
+      {
+        "rank": 2,
+        "form": "arreglé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Arreglé el coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Lavar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "lavo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Lavo la ropa los domingos."
+      },
+      {
+        "rank": 2,
+        "form": "lavé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Lavé los platos ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Secar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "seco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Seco mi cabello."
+      },
+      {
+        "rank": 2,
+        "form": "sequé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Sequé la ropa."
+      }
+    ]
+  },
+  {
+    "lemma": "Cortar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corto el pan."
+      },
+      {
+        "rank": 2,
+        "form": "corté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corté el césped."
+      }
+    ]
+  },
+  {
+    "lemma": "Romper",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "rompo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Rompo cosas por accidente."
+      },
+      {
+        "rank": 2,
+        "form": "rompí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Rompí un vaso."
+      }
+    ]
+  },
+  {
+    "lemma": "Caer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "caigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Caigo a veces al correr."
+      },
+      {
+        "rank": 2,
+        "form": "caí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Caí ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Subir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "subo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Subo las escaleras."
+      },
+      {
+        "rank": 2,
+        "form": "subí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Subí al tejado."
+      }
+    ]
+  },
+  {
+    "lemma": "Bajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bajo al sótano."
+      },
+      {
+        "rank": 2,
+        "form": "bajé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Bajé las cajas."
+      }
+    ]
+  },
+  {
+    "lemma": "Corregir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corrijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corrijo mis errores."
+      },
+      {
+        "rank": 2,
+        "form": "corregí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corregí el texto."
+      }
+    ]
+  },
+  {
+    "lemma": "Invitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "invito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Invito a mis amigos."
+      },
+      {
+        "rank": 2,
+        "form": "invitas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Invitas a alguien?"
+      }
+    ]
+  },
+  {
+    "lemma": "Visitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "visito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Visito a mi familia."
+      },
+      {
+        "rank": 2,
+        "form": "visité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Visité Barcelona."
+      }
+    ]
+  },
+  {
+    "lemma": "Descansar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "descanso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Descanso los fines de semana."
+      },
+      {
+        "rank": 2,
+        "form": "estoy descansando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy descansando ahora."
+      }
+    ]
+  },
+  {
+    "lemma": "Practicar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "practico",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Practico yoga."
+      },
+      {
+        "rank": 2,
+        "form": "practiqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Practiqué ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Competir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "compito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Compito en torneos."
+      },
+      {
+        "rank": 2,
+        "form": "competí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Competí el sábado."
+      }
+    ]
+  },
+  {
+    "lemma": "Compartir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "comparto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Comparto mi comida."
+      },
+      {
+        "rank": 2,
+        "form": "compartí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Compartí mi libro."
+      }
+    ]
+  },
+  {
+    "lemma": "Discutir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "discuto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Discuto ideas con amigos."
+      },
+      {
+        "rank": 2,
+        "form": "discutí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Discutí con él."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprobar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apruebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apruebo los planes."
+      },
+      {
+        "rank": 2,
+        "form": "aprobé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Aprobé el examen."
+      }
+    ]
+  },
+  {
+    "lemma": "Suspender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "suspendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Suspendo si no estudio."
+      },
+      {
+        "rank": 2,
+        "form": "suspendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Suspendí un examen."
+      }
+    ]
+  },
+  {
+    "lemma": "Asistir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "asisto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Asisto a clases."
+      },
+      {
+        "rank": 2,
+        "form": "asistí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Asistí a un concierto."
+      }
+    ]
+  },
+  {
+    "lemma": "Participar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "participo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Participo en reuniones."
+      },
+      {
+        "rank": 2,
+        "form": "participé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Participé en un evento."
+      }
+    ]
+  },
+  {
+    "lemma": "Dirigir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "dirijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Dirijo un equipo."
+      },
+      {
+        "rank": 2,
+        "form": "dirige",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Dirige una empresa."
+      }
+    ]
+  },
+  {
+    "lemma": "Proteger",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "protejo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Protejo a mi familia."
+      },
+      {
+        "rank": 2,
+        "form": "protegí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Protegí mis cosas."
+      }
+    ]
+  },
+  {
+    "lemma": "Resolver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "resuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Resuelvo problemas rápido."
+      },
+      {
+        "rank": 2,
+        "form": "resolví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Resolví el puzzle."
+      }
+    ]
+  },
+  {
+    "lemma": "Prometer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "prometo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Prometo llegar temprano."
+      },
+      {
+        "rank": 2,
+        "form": "prometí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Prometí ayudar."
+      }
+    ]
+  },
+  {
+    "lemma": "Cumplir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cumplo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cumplo mis promesas."
+      },
+      {
+        "rank": 2,
+        "form": "cumplí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Cumplí 30 años."
+      }
+    ]
+  },
+  {
+    "lemma": "Sorprender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sorprende",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me sorprende el clima."
+      },
+      {
+        "rank": 2,
+        "form": "sorprendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Sorprendí a mi amigo."
+      }
+    ]
+  },
+  {
+    "lemma": "Atraer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "atrae",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me atrae esta ciudad."
+      },
+      {
+        "rank": 2,
+        "form": "atraes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te atrae viajar?"
+      }
+    ]
+  },
+  {
+    "lemma": "Confundir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "confundo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Confundo los nombres."
+      },
+      {
+        "rank": 2,
+        "form": "confundí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Confundí las fechas."
+      }
+    ]
+  },
+  {
+    "lemma": "Mezclar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mezclo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mezclo los ingredientes."
+      },
+      {
+        "rank": 2,
+        "form": "mezclé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mezclé los colores."
+      }
+    ]
+  },
+  {
+    "lemma": "Separar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "separo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Separo la basura."
+      },
+      {
+        "rank": 2,
+        "form": "separé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Separé los libros."
+      }
+    ]
+  },
+  {
+    "lemma": "Unir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "uno",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Uno ideas diferentes."
+      },
+      {
+        "rank": 2,
+        "form": "uní",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Uní las piezas."
+      }
+    ]
+  },
+  {
+    "lemma": "Apagar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apago",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apago la luz."
+      },
+      {
+        "rank": 2,
+        "form": "apagué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Apagué el televisor."
+      }
+    ]
+  },
+  {
+    "lemma": "Encender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "enciendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Enciendo la lámpara."
+      },
+      {
+        "rank": 2,
+        "form": "encendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Encendí la vela."
+      }
+    ]
+  },
+  {
+    "lemma": "Funcionar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "funciona",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Funciona bien mi coche."
+      },
+      {
+        "rank": 2,
+        "form": "funcionó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Funcionó perfectamente."
+      }
+    ]
+  },
+  {
+    "lemma": "Existir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "existen",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Existen muchos parques."
+      },
+      {
+        "rank": 2,
+        "form": "existen",
+        "tense": "present-indicative",
+        "person": "3rd-plural",
+        "example": "Existen opciones nuevas."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprovechar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aprovecho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aprovecho el tiempo libre."
+      },
+      {
+        "rank": 2,
+        "form": "aproveché",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Aproveché el descuento."
+      }
+    ]
+  },
+  {
+    "lemma": "Sonreírse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me sonrío",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me sonrío cuando estoy contento."
+      },
+      {
+        "rank": 2,
+        "form": "te sonríes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Te sonríes mucho."
+      }
+    ]
+  },
+  {
+    "lemma": "Imaginar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "imagino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Imagino un viaje perfecto."
+      },
+      {
+        "rank": 2,
+        "form": "imagine",
+        "tense": "present-subjunctive",
+        "person": "1st-singular",
+        "example": "Espero que imagine algo bueno."
+      }
+    ]
+  },
+  {
+    "lemma": "Diseñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "diseño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Diseño ropa como hobby."
+      },
+      {
+        "rank": 2,
+        "form": "diseñé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Diseñé un póster."
+      }
+    ]
+  },
+  {
+    "lemma": "Organizar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "organizo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Organizo mi agenda."
+      },
+      {
+        "rank": 2,
+        "form": "organicé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Organicé una fiesta."
+      }
+    ]
+  },
+  {
+    "lemma": "Planear",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "planeo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Planeo un viaje."
+      },
+      {
+        "rank": 2,
+        "form": "planeé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Planeé todo ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Ahorrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ahorro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ahorro dinero cada mes."
+      },
+      {
+        "rank": 2,
+        "form": "ahorré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Ahorré para el coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Gastar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "gasto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Gasto mucho en comida."
+      },
+      {
+        "rank": 2,
+        "form": "gasté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Gasté todo ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Pagar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pago",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pago las facturas."
+      },
+      {
+        "rank": 2,
+        "form": "pagué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pagué la cena."
+      }
+    ]
+  },
+  {
+    "lemma": "Regalar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "regalo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Regalo flores a menudo."
+      },
+      {
+        "rank": 2,
+        "form": "regalé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Regalé un libro."
+      }
+    ]
+  },
+  {
+    "lemma": "Celebrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "celebro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Celebro mi cumpleaños."
+      },
+      {
+        "rank": 2,
+        "form": "celebré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Celebré con amigos."
+      }
+    ]
+  },
+  {
+    "lemma": "Decorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "decoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Decoro mi casa."
+      },
+      {
+        "rank": 2,
+        "form": "decoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Decoré para Navidad."
+      }
+    ]
+  },
+  {
+    "lemma": "Colgar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cuelgo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cuelgo fotos en la pared."
+      },
+      {
+        "rank": 2,
+        "form": "colgué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Colgué un cuadro."
+      }
+    ]
+  },
+  {
+    "lemma": "Guardar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "guardo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Guardo mis recuerdos."
+      },
+      {
+        "rank": 2,
+        "form": "guardé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Guardé las llaves."
+      }
+    ]
+  },
+  {
+    "lemma": "Tirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tiro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tiro la basura."
+      },
+      {
+        "rank": 2,
+        "form": "tiré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tiré papeles viejos."
+      }
+    ]
+  },
+  {
+    "lemma": "Reciclar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "reciclo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Reciclo el plástico."
+      },
+      {
+        "rank": 2,
+        "form": "reciclé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Reciclé botellas."
+      }
+    ]
+  },
+  {
+    "lemma": "Mover",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "muevo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Muevo los muebles."
+      },
+      {
+        "rank": 2,
+        "form": "moví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Moví la mesa."
+      }
+    ]
+  },
+  {
+    "lemma": "Levantar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "levanto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Levanto pesas."
+      },
+      {
+        "rank": 2,
+        "form": "levanté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Levanté una caja."
+      }
+    ]
+  },
+  {
+    "lemma": "Caerse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me caigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me caigo a veces."
+      },
+      {
+        "rank": 2,
+        "form": "me caí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me caí ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Parar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "paro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Paro para descansar."
+      },
+      {
+        "rank": 2,
+        "form": "paré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Paré el coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Continuar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "continúo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Continúo estudiando."
+      },
+      {
+        "rank": 2,
+        "form": "estoy continuando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy continuando un libro."
+      }
+    ]
+  },
+  {
+    "lemma": "Interrumpir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "interrumpo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Interrumpo si hablo mucho."
+      },
+      {
+        "rank": 2,
+        "form": "interrumpí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Interrumpí la reunión."
+      }
+    ]
+  },
+  {
+    "lemma": "Evitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "evito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Evito el tráfico."
+      },
+      {
+        "rank": 2,
+        "form": "evité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Evité un problema."
+      }
+    ]
+  },
+  {
+    "lemma": "Probar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pruebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pruebo comida nueva."
+      },
+      {
+        "rank": 2,
+        "form": "probé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Probé sushi."
+      }
+    ]
+  },
+  {
+    "lemma": "Saborear",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "saboreo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Saboreo el café."
+      },
+      {
+        "rank": 2,
+        "form": "saboreé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Saboreé el postre."
+      }
+    ]
+  },
+  {
+    "lemma": "Oler",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "huelo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Huelo las flores."
+      },
+      {
+        "rank": 2,
+        "form": "olí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Olí la comida."
+      }
+    ]
+  },
+  {
+    "lemma": "Toser",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "toso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Toso cuando estoy resfriado."
+      },
+      {
+        "rank": 2,
+        "form": "tosí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tosí mucho ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Estornudar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estornudo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estornudo con alergias."
+      },
+      {
+        "rank": 2,
+        "form": "estornudé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Estornudé en la calle."
+      }
+    ]
+  },
+  {
+    "lemma": "Respirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "respiro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Respiro hondo para calmarme."
+      },
+      {
+        "rank": 2,
+        "form": "estoy respirando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy respirando lento."
+      }
+    ]
+  },
+  {
+    "lemma": "Soñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sueño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sueño con viajar."
+      },
+      {
+        "rank": 2,
+        "form": "soñé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Soñé algo raro."
+      }
+    ]
+  },
+  {
+    "lemma": "Despertarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me despierto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me despierto temprano."
+      },
+      {
+        "rank": 2,
+        "form": "me desperté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me desperté tarde."
+      }
+    ]
+  },
+  {
+    "lemma": "Relajarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me relajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me relajo con música."
+      },
+      {
+        "rank": 2,
+        "form": "me estoy relajando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Me estoy relajando ahora."
+      }
+    ]
+  },
+  {
+    "lemma": "Concentrarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me concentro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me concentro en mi trabajo."
+      },
+      {
+        "rank": 2,
+        "form": "me concentré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me concentré en el examen."
+      }
+    ]
+  },
+  {
+    "lemma": "Distraerse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me distraigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me distraigo con el teléfono."
+      },
+      {
+        "rank": 2,
+        "form": "me distraje",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me distraje en clase."
+      }
+    ]
+  },
+  {
+    "lemma": "Equivocarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me equivoco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me equivoco a veces."
+      },
+      {
+        "rank": 2,
+        "form": "me equivoqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me equivoqué ayer."
+      }
+    ]
+  },
+  {
+    "lemma": "Mejorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mejoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mejoro mi español."
+      },
+      {
+        "rank": 2,
+        "form": "mejoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mejoré mi nota."
+      }
+    ]
+  },
+  {
+    "lemma": "Empeorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "empeoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Empeoro si no practico."
+      },
+      {
+        "rank": 2,
+        "form": "empeora",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Empeora el clima."
+      }
+    ]
+  },
+  {
+    "lemma": "Aumentar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aumento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aumento mi ejercicio."
+      },
+      {
+        "rank": 2,
+        "form": "aumenta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Aumenta el precio."
+      }
+    ]
+  },
+  {
+    "lemma": "Disminuir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "disminuye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Disminuye el frío."
+      },
+      {
+        "rank": 2,
+        "form": "disminuyo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Disminuyo mi estrés."
+      }
+    ]
+  },
+  {
+    "lemma": "Ajustar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ajusto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ajusto mi horario."
+      },
+      {
+        "rank": 2,
+        "form": "ajusté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Ajusté la silla."
+      }
+    ]
+  },
+  {
+    "lemma": "Adaptarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me adapto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me adapto rápido."
+      },
+      {
+        "rank": 2,
+        "form": "me adapté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me adapté al cambio."
+      }
+    ]
+  },
+  {
+    "lemma": "Conformarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me conformo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me conformo con poco."
+      },
+      {
+        "rank": 2,
+        "form": "me conformé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me conformé con el plan."
+      }
+    ]
+  },
+  {
+    "lemma": "Convencer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "convenzo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Convenzo a mis amigos."
+      },
+      {
+        "rank": 2,
+        "form": "convencí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Convencí a mi jefe."
+      }
+    ]
+  },
+  {
+    "lemma": "Persuadir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "persuado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Persuado con argumentos."
+      },
+      {
+        "rank": 2,
+        "form": "persuadí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Persuadí a mi equipo."
+      }
+    ]
+  },
+  {
+    "lemma": "Apoyar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apoyo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apoyo a mi equipo."
+      },
+      {
+        "rank": 2,
+        "form": "apoyé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Apoyé en el proyecto."
+      }
+    ]
+  },
+  {
+    "lemma": "Animar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "animo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Animo a mis amigos."
+      },
+      {
+        "rank": 2,
+        "form": "anímate",
+        "tense": "imperative",
+        "person": "2nd-singular",
+        "example": "¡Anímate!"
+      }
+    ]
+  },
+  {
+    "lemma": "Molestar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "molesto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "No molesto a nadie."
+      },
+      {
+        "rank": 2,
+        "form": "molesta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me molesta el ruido."
+      }
+    ]
+  },
+  {
+    "lemma": "Prestar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "presto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Presto mi libro."
+      },
+      {
+        "rank": 2,
+        "form": "presté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Presté mi coche."
+      }
+    ]
+  },
+  {
+    "lemma": "Devolver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "devuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Devuelvo lo que presto."
+      },
+      {
+        "rank": 2,
+        "form": "devolví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Devolví el dinero."
+      }
+    ]
+  },
+  {
+    "lemma": "Agradecer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "agradezco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Agradezco tu ayuda."
+      },
+      {
+        "rank": 2,
+        "form": "agradecí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Agradecí el favor."
+      }
+    ]
+  },
+  {
+    "lemma": "Felicitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "felicito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Felicito a mis amigos."
+      },
+      {
+        "rank": 2,
+        "form": "felicité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Felicité por el éxito."
+      }
+    ]
+  }
+]

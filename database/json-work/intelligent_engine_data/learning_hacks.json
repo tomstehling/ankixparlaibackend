@@ -1,0 +1,749 @@
+[
+  {
+    "name": "tengo-que-construction",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Obligation: Tengo Que + Infinitive",
+    "long_description": "Expresses obligation ('I have to do something'), a simple way to talk about necessities without complex modals.",
+    "example_front": "Tengo que estudiar para el examen.",
+    "example_back": "I have to study for the exam."
+  },
+  {
+    "name": "estar-gerund-progressive",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Present Progressive: Estar + Gerund",
+    "long_description": "Forms the present progressive for ongoing actions ('I am doing'), easy to build with estar conjugations and -ando/-iendo endings.",
+    "example_front": "Estoy comiendo una manzana.",
+    "example_back": "I am eating an apple."
+  },
+  {
+    "name": "ser-adjective-description",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Basic Descriptions: Ser + Adjective",
+    "long_description": "Basic structure for descriptions ('The apple is red'), adaptable for quick attribute expressions.",
+    "example_front": "El coche es rojo.",
+    "example_back": "The car is red."
+  },
+  {
+    "name": "ser-de-possession",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Possession: Ser + De",
+    "long_description": "Expresses possession ('It is John's'), a simple alternative to possessive adjectives.",
+    "example_front": "El libro es de María.",
+    "example_back": "The book is Maria's."
+  },
+  {
+    "name": "le-indirect-object",
+    "type": "construction",
+    "cefr_level": "A2",
+    "short_description": "Indirect Object Pronoun: Le",
+    "long_description": "Indirect object pronoun for 'to him/her' in actions like giving, essential for common interactions.",
+    "example_front": "Le doy el libro.",
+    "example_back": "I give the book to him/her."
+  },
+  {
+    "name": "se-la-pronoun-combination",
+    "type": "construction",
+    "cefr_level": "B1",
+    "short_description": "Combined Pronouns: Se La + Verb",
+    "long_description": "Combines indirect and direct pronouns ('gives it to him/her'), frequent in conversations for efficiency.",
+    "example_front": "Se la doy.",
+    "example_back": "I give it to him/her."
+  },
+  {
+    "name": "debo-infinitive-obligation",
+    "type": "construction",
+    "cefr_level": "A2",
+    "short_description": "Strong Obligation: Debo + Infinitive",
+    "long_description": "Expresses strong obligation ('I must'), straightforward modal usage.",
+    "example_front": "Debo terminar mi tarea.",
+    "example_back": "I must finish my homework."
+  },
+  {
+    "name": "quiero-infinitive-desire",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Desire: Quiero + Infinitive",
+    "long_description": "Expresses desire ('I want to'), common for requests and intentions.",
+    "example_front": "Quiero comer una pizza.",
+    "example_back": "I want to eat a pizza."
+  },
+  {
+    "name": "voy-a-infinitive-future",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Near Future: Voy A + Infinitive",
+    "long_description": "Forms near future ('I am going to'), versatile for future plans with minimal conjugation.",
+    "example_front": "Voy a viajar a México.",
+    "example_back": "I am going to travel to Mexico."
+  },
+  {
+    "name": "no-puedo-infinitive-inability",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Inability: No Puedo + Infinitive",
+    "long_description": "Expresses inability ('I can't'), useful negation for everyday limitations.",
+    "example_front": "No puedo abrir la puerta.",
+    "example_back": "I can't open the door."
+  },
+  {
+    "name": "he-past-participle-present-perfect",
+    "type": "construction",
+    "cefr_level": "A2",
+    "short_description": "Present Perfect: He + Past Participle",
+    "long_description": "Forms present perfect ('I have done'), covers recent past actions easily.",
+    "example_front": "He comido paella.",
+    "example_back": "I have eaten paella."
+  },
+  {
+    "name": "spanish-question-marks",
+    "type": "rule",
+    "cefr_level": "A1",
+    "short_description": "Forming Questions With ¿...?",
+    "long_description": "Simple question formation by inverting or adding question marks, essential for inquiries.",
+    "example_front": "¿Hablas español?",
+    "example_back": "Do you speak Spanish?"
+  },
+  {
+    "name": "suffix-dad",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Suffix Pattern: -dad (from -ity)",
+    "long_description": "Converts English '-ity' words to Spanish, e.g., 'university' to 'universidad', for quick vocabulary expansion.",
+    "example_front": "La universidad es grande.",
+    "example_back": "The university is big."
+  },
+  {
+    "name": "suffix-cion-feminine",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -ción is Feminine",
+    "long_description": "Most words ending in -ción are feminine, helps with gender agreement.",
+    "example_front": "La información es importante.",
+    "example_back": "The information is important."
+  },
+  {
+    "name": "suffix-aje-masculine",
+    "type": "rule",
+    "cefr_level": "B1",
+    "short_description": "Gender Rule: -aje is Masculine",
+    "long_description": "Words ending in -aje are usually masculine, aids in noun gender prediction.",
+    "example_front": "El viaje fue largo.",
+    "example_back": "The trip was long."
+  },
+  {
+    "name": "suffix-mente-adverb",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Adverb Suffix: -mente (like -ly)",
+    "long_description": "Forms adverbs from adjectives like English '-ly', e.g., 'rápidamente' for 'quickly'.",
+    "example_front": "Él corre rápidamente.",
+    "example_back": "He runs quickly."
+  },
+  {
+    "name": "suffix-eria-store",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Store Suffix: -ería",
+    "long_description": "Turns nouns into store names, e.g., 'dulcería' for candy store, useful for everyday vocabulary.",
+    "example_front": "Voy a la panadería.",
+    "example_back": "I'm going to the bakery."
+  },
+  {
+    "name": "suffix-ema-masculine",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -ema is Masculine",
+    "long_description": "Words ending in -ema are masculine, e.g., 'el problema', helps with gender.",
+    "example_front": "El problema es difícil.",
+    "example_back": "The problem is difficult."
+  },
+  {
+    "name": "me-gusta-construction",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Likes: Me Gusta / Me Gustan",
+    "long_description": "Expresses likes ('I like'), singular/plural distinction for quick personal expressions.",
+    "example_front": "Me gusta el helado y me gustan los perros.",
+    "example_back": "I like ice cream and I like dogs."
+  },
+  {
+    "name": "ser-vs-estar-distinction",
+    "type": "distinction",
+    "cefr_level": "A2",
+    "short_description": "Key Distinction: Ser vs. Estar",
+    "long_description": "Ser for permanent traits, estar for temporary states, key for accurate descriptions.",
+    "example_front": "Soy alto, pero hoy estoy cansado.",
+    "example_back": "I am tall, but today I am tired."
+  },
+  {
+    "name": "por-vs-para-distinction",
+    "type": "distinction",
+    "cefr_level": "B1",
+    "short_description": "Key Distinction: Por vs. Para",
+    "long_description": "Por for causes/routes, para for purposes/destinations, clarifies common confusions.",
+    "example_front": "Viajo por dos semanas para ver a mi familia.",
+    "example_back": "I am traveling for two weeks in order to see my family."
+  },
+  {
+    "name": "o-masculine-a-feminine-rule",
+    "type": "rule",
+    "cefr_level": "A1",
+    "short_description": "Gender Rule: -o Masculine, -a Feminine",
+    "long_description": "Basic noun gender pattern, with exceptions, speeds up article usage.",
+    "example_front": "El niño tiene una casa.",
+    "example_back": "The boy has a house."
+  },
+  {
+    "name": "ar-er-ir-verb-patterns",
+    "type": "pattern",
+    "cefr_level": "A1",
+    "short_description": "Regular Verb Endings: -ar, -er, -ir",
+    "long_description": "Regular verb endings for tenses, allows predicting conjugations.",
+    "example_front": "Yo hablo, yo como, yo vivo.",
+    "example_back": "I speak, I eat, I live."
+  },
+  {
+    "name": "cognates-vocabulary-hack",
+    "type": "pattern",
+    "cefr_level": "A1",
+    "short_description": "Vocabulary Hack: Cognates",
+    "long_description": "Words similar to English, e.g., 'chocolate', expand vocab using prior knowledge.",
+    "example_front": "El animal es un elefante.",
+    "example_back": "The animal is an elephant."
+  },
+  {
+    "name": "demonstratives-t-mnemonic",
+    "type": "mnemonic",
+    "cefr_level": "A2",
+    "short_description": "Mnemonic: 'This' and 'These' Have T's",
+    "long_description": "Mnemonic for demonstratives: T for close (this/these), no T for farther (that/those).",
+    "example_front": "Esta manzana está aquí; esa manzana está allí.",
+    "example_back": "This apple is here; that apple is there."
+  },
+  {
+    "name": "ar-for-new-verbs-pattern",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Verb Formation: -ar for New Verbs",
+    "long_description": "New verbs end in -ar, e.g., 'twitear', easy to adapt English verbs.",
+    "example_front": "Voy a googlear la respuesta.",
+    "example_back": "I'm going to google the answer."
+  },
+  {
+    "name": "ate-to-ar-verb-pattern",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Cognate Pattern: -ate Becomes -ar",
+    "long_description": "English '-ate' verbs become '-ar' in Spanish, e.g., 'eliminar'.",
+    "example_front": "Necesito activar mi teléfono.",
+    "example_back": "I need to activate my phone."
+  },
+  {
+    "name": "m-before-p-or-b-rule",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Spelling Rule: M before P or B",
+    "long_description": "Use 'm' instead of 'n' before p/b, e.g., 'campo', avoids spelling errors.",
+    "example_front": "Siempre es importante.",
+    "example_back": "It is always important."
+  },
+  {
+    "name": "question-word-que",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Question Word: Qué (What)",
+    "long_description": "Fundamental for asking 'what', essential in information gathering.",
+    "example_front": "¿Qué es eso?",
+    "example_back": "What is that?"
+  },
+  {
+    "name": "verb-form-tengo",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Key Verb: Tengo (I have)",
+    "long_description": "For possession ('I have') and with 'que' for obligation.",
+    "example_front": "Tengo un gato.",
+    "example_back": "I have a cat."
+  },
+  {
+    "name": "ser-de-name-ownership",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Ownership: Ser + De + Name",
+    "long_description": "Indicates ownership, e.g., 'Es de John'.",
+    "example_front": "Este coche es de Juan.",
+    "example_back": "This car is Juan's."
+  },
+  {
+    "name": "dar-a-name-construction",
+    "type": "construction",
+    "cefr_level": "A2",
+    "short_description": "Giving To Someone: Dar + A + Name",
+    "long_description": "For giving to someone, combines with pronouns for shortcuts.",
+    "example_front": "Le doy el regalo a mi madre.",
+    "example_back": "I give the gift to my mother."
+  },
+  {
+    "name": "no-verb-negation",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Simple Negation: No + Verb",
+    "long_description": "Simple negation placed before verb, versatile for denials.",
+    "example_front": "No hablo alemán.",
+    "example_back": "I don't speak German."
+  },
+  {
+    "name": "cion-to-ciones-plural-rule",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Plural Pattern: -ción to -ciones",
+    "long_description": "Pluralize by removing accent and adding -es, e.g., 'acciones'.",
+    "example_front": "Una acción, dos acciones.",
+    "example_back": "One action, two actions."
+  },
+  {
+    "name": "svo-word-order-rule",
+    "type": "rule",
+    "cefr_level": "A1",
+    "short_description": "Basic Sentence Structure (SVO)",
+    "long_description": "Similar to English, but flexible; start with verb for emphasis.",
+    "example_front": "El perro come la comida.",
+    "example_back": "The dog eats the food."
+  },
+  {
+    "name": "indirect-object-addition-removal",
+    "type": "rule",
+    "cefr_level": "B1",
+    "short_description": "Indirect Object For Addition/Removal",
+    "long_description": "Use 'le' when something is added or taken from someone.",
+    "example_front": "Le puse sal a la sopa.",
+    "example_back": "I added salt to the soup."
+  },
+  {
+    "name": "puedo-infinitive-ability",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Ability: Puedo + Infinitive",
+    "long_description": "Expresses ability or possibility ('I can'), one of the booster verbs for quick expression.",
+    "example_front": "Puedo hablar un poco de español.",
+    "example_back": "I can speak a little Spanish."
+  },
+  {
+    "name": "e-to-ie-stem-change",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Verb Stem Change: E to IE",
+    "long_description": "Stem-changing pattern in verbs like 'tener' (tienes), helps predict conjugations.",
+    "example_front": "Yo quiero, tú quieres.",
+    "example_back": "I want, you want."
+  },
+  {
+    "name": "o-to-ue-stem-change",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Verb Stem Change: O to UE",
+    "long_description": "Stem-changing pattern in verbs like 'poder' (puedo), for irregular-like verbs.",
+    "example_front": "Yo puedo, tú puedes.",
+    "example_back": "I can, you can."
+  },
+  {
+    "name": "connector-en-mi-opinion",
+    "type": "connector",
+    "cefr_level": "A2",
+    "short_description": "Connector: En Mi Opinión",
+    "long_description": "Conversation connector meaning 'in my opinion', expands answers naturally.",
+    "example_front": "En mi opinión, la película es buena.",
+    "example_back": "In my opinion, the movie is good."
+  },
+  {
+    "name": "connector-por-cierto",
+    "type": "connector",
+    "cefr_level": "B1",
+    "short_description": "Connector: Por Cierto",
+    "long_description": "Means 'by the way', helps keep conversations flowing.",
+    "example_front": "Por cierto, ¿cómo está tu familia?",
+    "example_back": "By the way, how is your family?"
+  },
+  {
+    "name": "present-for-past-hack",
+    "type": "rule",
+    "cefr_level": "B1",
+    "short_description": "Tense Hack: Present for Past (Storytelling)",
+    "long_description": "Use present tense for past events by adding words like 'ayer' (yesterday).",
+    "example_front": "Ayer voy al mercado y compro fruta.",
+    "example_back": "Yesterday I go to the market and buy fruit. (Used for storytelling)"
+  },
+  {
+    "name": "e-ending-masculine-guess",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: Guess Masculine for -e",
+    "long_description": "For nouns ending in -e, guess masculine to improve accuracy.",
+    "example_front": "El coche es verde.",
+    "example_back": "The car is green."
+  },
+  {
+    "name": "d-ending-feminine-rule",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -d is Often Feminine",
+    "long_description": "Nouns ending in -d are often feminine, aids gender prediction.",
+    "example_front": "La ciudad es grande.",
+    "example_back": "The city is big."
+  },
+  {
+    "name": "z-ending-feminine-rule",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -z is Usually Feminine",
+    "long_description": "Nouns ending in -z are usually feminine.",
+    "example_front": "La luz está encendida.",
+    "example_back": "The light is on."
+  },
+  {
+    "name": "suffix-ion-feminine",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -ión is Feminine",
+    "long_description": "Words ending in -ión are feminine, common in abstract nouns.",
+    "example_front": "La televisión es nueva.",
+    "example_back": "The television is new."
+  },
+  {
+    "name": "prefix-a-an-negation",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: a- / an- (Negation)",
+    "long_description": "Denotes denial or absence, e.g., 'apolítico' (apolitical).",
+    "example_front": "Ser apolítico es una decisión.",
+    "example_back": "To be apolitical is a decision."
+  },
+  {
+    "name": "prefix-ante-before",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: ante- (Before)",
+    "long_description": "Indicates anteriority, e.g., 'anteponer' (to prepend).",
+    "example_front": "Debes anteponer la seguridad.",
+    "example_back": "You must put safety first."
+  },
+  {
+    "name": "prefix-anti-opposition",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: anti- (Opposition)",
+    "long_description": "Expresses opposition, e.g., 'antidisturbios' (anti-riot).",
+    "example_front": "La policía antidisturbios llegó.",
+    "example_back": "The anti-riot police arrived."
+  },
+  {
+    "name": "prefix-bi-bis-two",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: bi- / bis- (Two)",
+    "long_description": "Means twice or two, e.g., 'bípedo' (biped).",
+    "example_front": "El ser humano es un bípedo.",
+    "example_back": "The human being is a biped."
+  },
+  {
+    "name": "prefix-co-con-together",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: co- / con- (Together)",
+    "long_description": "Denotes company or togetherness, e.g., 'cooperar' (cooperate).",
+    "example_front": "Tenemos que cooperar.",
+    "example_back": "We have to cooperate."
+  },
+  {
+    "name": "prefix-contra-against",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: contra- (Against)",
+    "long_description": "Indicates opposition, e.g., 'contraponer' (counterpose).",
+    "example_front": "No debes contradecir a tus padres.",
+    "example_back": "You should not contradict your parents."
+  },
+  {
+    "name": "prefix-de-des-negation",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: de- / des- (Reversal)",
+    "long_description": "Denotes denial, e.g., 'desaparecer' (disappear).",
+    "example_front": "El mago hizo desaparecer el conejo.",
+    "example_back": "The magician made the rabbit disappear."
+  },
+  {
+    "name": "prefix-en-inside",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: en- (Inside)",
+    "long_description": "Indicates interiority, e.g., 'enterrar' (to bury).",
+    "example_front": "El perro va a enterrar su hueso.",
+    "example_back": "The dog is going to bury its bone."
+  },
+  {
+    "name": "prefix-entre-between",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: entre- (Between)",
+    "long_description": "Denotes intermediate situation, e.g., 'entreacto' (intermission).",
+    "example_front": "Vamos por un refresco en el entreacto.",
+    "example_back": "Let's go for a soda during the intermission."
+  },
+  {
+    "name": "prefix-ex-outward",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: ex- (Outward/Former)",
+    "long_description": "Means outwards, e.g., 'extraer' (extract).",
+    "example_front": "El dentista va a extraer una muela.",
+    "example_back": "The dentist is going to extract a molar."
+  },
+  {
+    "name": "prefix-extra-outside",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: extra- (Outside/Extra)",
+    "long_description": "Means out of, e.g., 'extraviado' (lost).",
+    "example_front": "El trabajo extracurricular es importante.",
+    "example_back": "Extracurricular work is important."
+  },
+  {
+    "name": "prefix-hiper-hyper",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: hiper- (Hyper/Superiority)",
+    "long_description": "Indicates superiority, e.g., 'hiperrealismo' (hyperrealism).",
+    "example_front": "El hipermercado tiene de todo.",
+    "example_back": "The hypermarket has everything."
+  },
+  {
+    "name": "prefix-hipo-hypo",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: hipo- (Hypo/Inferiority)",
+    "long_description": "Indicates inferiority, e.g., 'hipodérmico' (hypodermic).",
+    "example_front": "El médico usó una aguja hipodérmica.",
+    "example_back": "The doctor used a hypodermic needle."
+  },
+  {
+    "name": "prefix-in-negation",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: in- (Negation)",
+    "long_description": "Denotes denial, e.g., 'indefinido' (indefinite).",
+    "example_front": "Es una situación incómoda.",
+    "example_back": "It's an uncomfortable situation."
+  },
+  {
+    "name": "prefix-inter-between",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: inter- (Between)",
+    "long_description": "Denotes intermediate situation, e.g., 'intervenir' (to intervene).",
+    "example_front": "El vuelo internacional sale a las diez.",
+    "example_back": "The international flight leaves at ten."
+  },
+  {
+    "name": "prefix-pos-post-after",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Prefix: pos- / post- (After)",
+    "long_description": "Indicates posteriority, e.g., 'posponer' (to postpone).",
+    "example_front": "Tengo que posponer la reunión.",
+    "example_back": "I have to postpone the meeting."
+  },
+  {
+    "name": "prefix-pre-before",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: pre- (Before)",
+    "long_description": "Indicates anteriority, e.g., 'preparar' (to prepare).",
+    "example_front": "Necesito preparar la cena.",
+    "example_back": "I need to prepare dinner."
+  },
+  {
+    "name": "prefix-re-repetition",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: re- (Repetition)",
+    "long_description": "Indicates repetition, e.g., 'reaparición' (reappearance).",
+    "example_front": "Voy a releer el libro.",
+    "example_back": "I am going to reread the book."
+  },
+  {
+    "name": "prefix-sub-under",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: sub- (Under)",
+    "long_description": "Means under, e.g., 'suburbano' (suburban).",
+    "example_front": "El metro es un tren subterráneo.",
+    "example_back": "The metro is an underground train."
+  },
+  {
+    "name": "prefix-super-superiority",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Prefix: super- (Superiority)",
+    "long_description": "Indicates superiority, e.g., 'supermercado' (supermarket).",
+    "example_front": "El supermercado está cerca.",
+    "example_back": "The supermarket is close."
+  },
+  {
+    "name": "suffix-achon-pejorative",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Suffix: -achón (Pejorative)",
+    "long_description": "Adds negative connotations, e.g., 'ricachón' (rich person, pejorative).",
+    "example_front": "Ese ricachón no es amable.",
+    "example_back": "That rich guy is not kind."
+  },
+  {
+    "name": "suffix-aco-despective",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Suffix: -aco (Despective/Demonym)",
+    "long_description": "Adds despective sense or demonym, e.g., 'polaco' (Polish).",
+    "example_front": "El libro es de un autor polaco.",
+    "example_back": "The book is by a Polish author."
+  },
+  {
+    "name": "suffix-ado-group",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Suffix: -ado (Group)",
+    "long_description": "Refers to associations or ensembles, e.g., 'estudiantado' (student population).",
+    "example_front": "El profesorado está en huelga.",
+    "example_back": "The teaching staff is on strike."
+  },
+  {
+    "name": "suffix-dero-dera",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Suffix: -dero / -dera (Person/Place/Tool)",
+    "long_description": "For people, locations, or instruments, e.g., 'heladero' (ice cream man), 'aparcadero' (parking lot).",
+    "example_front": "El lavadero está en el sótano.",
+    "example_back": "The laundry room is in the basement."
+  },
+  {
+    "name": "suffix-fobia-fear",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Suffix: -fobia (Fear)",
+    "long_description": "Indicates irrational fear, e.g., 'aracnofobia' (arachnophobia).",
+    "example_front": "Tengo claustrofobia.",
+    "example_back": "I have claustrophobia."
+  },
+  {
+    "name": "suffix-genesis-origin",
+    "type": "pattern",
+    "cefr_level": "B1",
+    "short_description": "Suffix: -génesis (Origin)",
+    "long_description": "Indicates origin or beginning, e.g., 'endogénesis' (endogenesis).",
+    "example_front": "Estudiamos la orogénesis de las montañas.",
+    "example_back": "We study the orogenesis of mountains."
+  },
+  {
+    "name": "suffix-able-possibility",
+    "type": "pattern",
+    "cefr_level": "A2",
+    "short_description": "Suffix: -able (Possibility)",
+    "long_description": "Forms adjectives indicating possibility, e.g., 'agradable' (pleasant).",
+    "example_front": "El clima es muy agradable.",
+    "example_back": "The weather is very pleasant."
+  },
+  {
+    "name": "que-es-noun-question",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Asking 'What is...': Qué es + Noun",
+    "long_description": "Asks for information about something ('What is that?'), basic inquiry pattern.",
+    "example_front": "¿Qué es la capital de España?",
+    "example_back": "What is the capital of Spain?"
+  },
+  {
+    "name": "cuando-es-noun-question",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Asking 'When is...': Cuándo es + Noun",
+    "long_description": "Asks about time ('When is your birthday?'), for events or dates.",
+    "example_front": "¿Cuándo es la fiesta?",
+    "example_back": "When is the party?"
+  },
+  {
+    "name": "donde-esta-noun-question",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Asking 'Where is...': Dónde está + Noun",
+    "long_description": "Asks about location ('Where is the bathroom?'), essential for directions.",
+    "example_front": "¿Dónde está el baño?",
+    "example_back": "Where is the bathroom?"
+  },
+  {
+    "name": "de-donde-eres-question",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Asking Origin: ¿De dónde eres?",
+    "long_description": "Asks about origin ('Where are you from?'), common in introductions.",
+    "example_front": "Hola, ¿de dónde eres?",
+    "example_back": "Hello, where are you from?"
+  },
+  {
+    "name": "por-favor-imperative-request",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Polite Requests: Por Favor + Command",
+    "long_description": "Politely asks someone to do something ('Please sit down'), for courteous commands.",
+    "example_front": "Cierra la puerta, por favor.",
+    "example_back": "Close the door, please."
+  },
+  {
+    "name": "necesito-noun-infinitive-need",
+    "type": "construction",
+    "cefr_level": "A1",
+    "short_description": "Expressing Need: Necesito + Noun/Infinitive",
+    "long_description": "Expresses need ('I need a pen' or 'I need to buy bread'), versatile for requirements.",
+    "example_front": "Necesito comprar leche.",
+    "example_back": "I need to buy milk."
+  },
+  {
+    "name": "espero-que-subjunctive-hope",
+    "type": "construction",
+    "cefr_level": "B1",
+    "short_description": "Expressing Hope: Espero Que + Subjunctive",
+    "long_description": "Introduces subjunctive for hopes ('I hope you have a good day'), basic subjunctive use.",
+    "example_front": "Espero que tengas un buen día.",
+    "example_back": "I hope you have a good day."
+  },
+  {
+    "name": "pronunciation-s-vowel-rule",
+    "type": "rule",
+    "cefr_level": "A1",
+    "short_description": "Pronunciation Rule: Add 'e' Before s-clusters",
+    "long_description": "S always followed by a vowel at word start, no initial consonant clusters like 'stop'.",
+    "example_front": "Yo estudio en España.",
+    "example_back": "I study in Spain."
+  },
+  {
+    "name": "consistent-vowel-pronunciation",
+    "type": "rule",
+    "cefr_level": "A1",
+    "short_description": "Pronunciation Rule: Consistent Vowels",
+    "long_description": "Spanish vowels have consistent pronunciation, unlike English.",
+    "example_front": "Papá, bebe, vivir, poco, tú.",
+    "example_back": "Father, he drinks, to live, little, you."
+  },
+  {
+    "name": "ma-ending-masculine-exception",
+    "type": "rule",
+    "cefr_level": "A2",
+    "short_description": "Gender Rule: -ma is Often Masculine",
+    "long_description": "Nouns ending in -ma are often masculine, e.g., 'el clima', but check exceptions.",
+    "example_front": "El problema es el sistema.",
+    "example_back": "The problem is the system."
+  }
+]

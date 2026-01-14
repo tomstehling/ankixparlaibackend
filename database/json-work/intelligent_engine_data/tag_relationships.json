@@ -1,0 +1,728 @@
+[
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 5,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 5,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 7,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 7,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 8,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 8,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 3,
+    "target_tag_id": 4,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 4,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 11,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 12,
+    "target_tag_id": 13,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 15,
+    "target_tag_id": 16,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 36,
+    "target_tag_id": 16,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 17,
+    "target_tag_id": 16,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 19,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 36,
+    "target_tag_id": 19,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 20,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 21,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 22,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 23,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 25,
+    "target_tag_id": 26,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 26,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 27,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 30,
+    "target_tag_id": 31,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 5,
+    "target_tag_id": 33,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 34,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 36,
+    "target_tag_id": 35,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 27,
+    "target_tag_id": 38,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 41,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 41,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 28,
+    "target_tag_id": 42,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 29,
+    "target_tag_id": 42,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 35,
+    "target_tag_id": 43,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 11,
+    "target_tag_id": 44,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 46,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 48,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 36,
+    "target_tag_id": 49,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 17,
+    "target_tag_id": 49,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 9,
+    "target_tag_id": 52,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 54,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 37,
+    "target_tag_id": 56,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 57,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 60,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 53,
+    "target_tag_id": 61,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 53,
+    "target_tag_id": 62,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 5,
+    "target_tag_id": 72,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 28,
+    "target_tag_id": 21,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 32,
+    "target_tag_id": 22,
+    "relationship_type": "prerequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 3,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 5,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 7,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 8,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 3,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 5,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 7,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 8,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 3,
+    "target_tag_id": 5,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 9,
+    "target_tag_id": 18,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 23,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 60,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 15,
+    "target_tag_id": 16,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 21,
+    "target_tag_id": 28,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 27,
+    "target_tag_id": 38,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 52,
+    "target_tag_id": 53,
+    "relationship_type": "corequisite",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 21,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 22,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 30,
+    "target_tag_id": 31,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 12,
+    "target_tag_id": 13,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 12,
+    "target_tag_id": 14,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 12,
+    "target_tag_id": 15,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 24,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 25,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 11,
+    "target_tag_id": 44,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 23,
+    "target_tag_id": 48,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 9,
+    "target_tag_id": 53,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 9,
+    "target_tag_id": 52,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 46,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 57,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 32,
+    "target_tag_id": 45,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 35,
+    "target_tag_id": 43,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 41,
+    "target_tag_id": 59,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 38,
+    "target_tag_id": 27,
+    "relationship_type": "IS_PARENT_OF",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 5,
+    "target_tag_id": 49,
+    "relationship_type": "analogy",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 12,
+    "relationship_type": "analogy",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 24,
+    "target_tag_id": 25,
+    "relationship_type": "analogy",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 3,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 5,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 7,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 8,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 41,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 72,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 1,
+    "target_tag_id": 49,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 5,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 7,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 8,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 6,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 49,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 2,
+    "target_tag_id": 59,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 70,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 18,
+    "target_tag_id": 54,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 54,
+    "target_tag_id": 70,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 17,
+    "target_tag_id": 68,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 17,
+    "target_tag_id": 49,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 46,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 10,
+    "target_tag_id": 57,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 12,
+    "target_tag_id": 16,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 15,
+    "target_tag_id": 16,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 23,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 26,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 27,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 38,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 20,
+    "target_tag_id": 71,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 25,
+    "target_tag_id": 26,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 27,
+    "target_tag_id": 38,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 36,
+    "target_tag_id": 4,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 55,
+    "target_tag_id": 42,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 32,
+    "target_tag_id": 45,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 30,
+    "target_tag_id": 45,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 31,
+    "target_tag_id": 69,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 53,
+    "target_tag_id": 61,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 53,
+    "target_tag_id": 62,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  },
+  {
+    "source_tag_id": 9,
+    "target_tag_id": 52,
+    "relationship_type": "dependency",
+    "weight": 1.0
+  }
+]

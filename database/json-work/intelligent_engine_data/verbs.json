@@ -1,0 +1,4579 @@
+[
+  {
+    "lemma": "Gustar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "gusta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me gusta el café.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for expressing likes. The verb agrees with the item being liked ('el café'), not the person."
+      },
+      {
+        "rank": 2,
+        "form": "gustas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Tú me gustas mucho.",
+        "is_survival_essential": false,
+        "usage_notes": "Used when the subject is 'tú' (you), typically to express personal (often romantic) interest in someone."
+      }
+    ]
+  },
+  {
+    "lemma": "Parecer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "parece",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Parece un buen plan.",
+        "is_survival_essential": false,
+        "usage_notes": "Very common for expressing opinions ('Me parece que...') or making observations ('Parece que va a llover')."
+      },
+      {
+        "rank": 2,
+        "form": "parezco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Parezco cansado hoy.",
+        "is_survival_essential": false,
+        "usage_notes": "Used for self-description or comparison, meaning 'I seem' or 'I look like'."
+      }
+    ]
+  },
+  {
+    "lemma": "Venir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vengo de la tienda.",
+        "is_survival_essential": false,
+        "usage_notes": "Key for indicating your origin or current movement, as in 'Vengo del trabajo' (I'm coming from work)."
+      },
+      {
+        "rank": 2,
+        "form": "vine",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Vine ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "The simple past tense (preterite) form. Essential for narrating past events."
+      }
+    ]
+  },
+  {
+    "lemma": "Seguir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sigo estudiando.",
+        "is_survival_essential": false,
+        "usage_notes": "Used to express continuation, meaning 'I continue' or 'I'm still' doing something (e.g., 'Sigo aquí' - I'm still here)."
+      },
+      {
+        "rank": 2,
+        "form": "estoy siguiendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy siguiendo una serie.",
+        "is_survival_essential": false,
+        "usage_notes": "The present progressive form, emphasizing an action in progress right now."
+      }
+    ]
+  },
+  {
+    "lemma": "Encontrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "encuentro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "No encuentro mis llaves.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I find'. Also used reflexively ('me encuentro') to describe one's state: 'Me encuentro mal' (I feel sick)."
+      },
+      {
+        "rank": 2,
+        "form": "encontré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Encontré mi llave.",
+        "is_survival_essential": false,
+        "usage_notes": "The simple past (preterite) form, 'I found'. Used for completed actions in the past."
+      }
+    ]
+  },
+  {
+    "lemma": "Pasar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "paso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Paso por el parque.",
+        "is_survival_essential": false,
+        "usage_notes": "A versatile verb. 'Paso por...' means 'I pass by...'. Can also mean 'I spend (time)' as in 'Paso tiempo con amigos'."
+      },
+      {
+        "rank": 2,
+        "form": "pasé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pasé un buen rato.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite). Often used to talk about how you spent your time: 'Lo pasé bien' (I had a good time)."
+      }
+    ]
+  },
+  {
+    "lemma": "Dar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "doy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Doy clases de inglés.",
+        "is_survival_essential": false,
+        "usage_notes": "Fundamental for the concept of 'giving'. Used in many common phrases and transactions."
+      },
+      {
+        "rank": 2,
+        "form": "di",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Di un paseo ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) of 'dar'. Crucial for recounting past actions of giving or taking ('di un paseo' - I took a walk)."
+      }
+    ]
+  },
+  {
+    "lemma": "Preguntar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pregunto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pregunto por el precio.",
+        "is_survival_essential": false,
+        "usage_notes": "Used when stating that you are asking a question. Differentiated from 'pedir' (to ask for/request)."
+      },
+      {
+        "rank": 2,
+        "form": "preguntas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Preguntas algo?",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, essential for engaging in conversation and asking if the other person has a question."
+      }
+    ]
+  },
+  {
+    "lemma": "Responder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "respondo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Respondo a los emails.",
+        "is_survival_essential": false,
+        "usage_notes": "The counterpart to 'preguntar' (to ask); means 'I answer' or 'I respond'."
+      },
+      {
+        "rank": 2,
+        "form": "respondí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Respondí rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I answered'."
+      }
+    ]
+  },
+  {
+    "lemma": "Necesitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "necesito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Necesito agua.",
+        "is_survival_essential": true,
+        "usage_notes": "One of the most critical survival verbs for expressing needs, from asking for the bathroom to needing help."
+      },
+      {
+        "rank": 2,
+        "form": "necesitas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Necesitas ayuda?",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for asking about another person's needs, such as in the common phrase '¿Necesitas ayuda?' (Do you need help?)."
+      }
+    ]
+  },
+  {
+    "lemma": "Tomar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tomo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tomo el autobús.",
+        "is_survival_essential": true,
+        "usage_notes": "A highly versatile verb meaning 'to take' (transport, an object) or 'to have' a drink or meal."
+      },
+      {
+        "rank": 2,
+        "form": "tomé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tomé un café ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, used to talk about what you took, ate, or drank."
+      }
+    ]
+  },
+  {
+    "lemma": "Pedir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pido",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pido comida a domicilio.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for ordering food/drinks and requesting items. Different from 'preguntar' (to ask a question)."
+      },
+      {
+        "rank": 2,
+        "form": "pides",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Pides pizza?",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, used for asking what someone else is ordering or requesting."
+      }
+    ]
+  },
+  {
+    "lemma": "Recibir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "recibo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Recibo muchos mensajes.",
+        "is_survival_essential": false,
+        "usage_notes": "Common verb meaning 'to receive' or 'to get'."
+      },
+      {
+        "rank": 2,
+        "form": "recibí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Recibí un regalo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I received'."
+      }
+    ]
+  },
+  {
+    "lemma": "Buscar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "busco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Busco mi teléfono.",
+        "is_survival_essential": true,
+        "usage_notes": "Extremely useful for travelers and beginners, as in 'Busco el baño' (I'm looking for the bathroom)."
+      },
+      {
+        "rank": 2,
+        "form": "busqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Busqué mi bolso.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I looked for'. Note the spelling change from 'c' to 'qu' to maintain the sound."
+      }
+    ]
+  },
+  {
+    "lemma": "Esperar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "espero",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Espero el tren.",
+        "is_survival_essential": false,
+        "usage_notes": "Dual meaning verb: 'to wait for' and 'to hope'. Context determines the meaning."
+      },
+      {
+        "rank": 2,
+        "form": "esperas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Esperas a alguien?",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, common for asking if someone is waiting."
+      }
+    ]
+  },
+  {
+    "lemma": "Viajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "viajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Viajo mucho por trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "A fundamental verb for talking about travel and tourism."
+      },
+      {
+        "rank": 2,
+        "form": "viajé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Viajé a México.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), used to describe past trips."
+      }
+    ]
+  },
+  {
+    "lemma": "Cocinar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cocino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cocino todos los días.",
+        "is_survival_essential": false,
+        "usage_notes": "Basic vocabulary for daily routines and hobbies, meaning 'I cook'."
+      },
+      {
+        "rank": 2,
+        "form": "estoy cocinando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy cocinando ahora.",
+        "is_survival_essential": false,
+        "usage_notes": "Emphasizes the action of cooking happening at this very moment."
+      }
+    ]
+  },
+  {
+    "lemma": "Limpiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "limpio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Limpio la casa los sábados.",
+        "is_survival_essential": false,
+        "usage_notes": "A common verb for household chores and daily routines, meaning 'I clean'."
+      },
+      {
+        "rank": 2,
+        "form": "limpié",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Limpié la cocina ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I cleaned'."
+      }
+    ]
+  },
+  {
+    "lemma": "Pintar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pinto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pinto cuadros como hobby.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I paint', used for both artistic painting and house painting."
+      },
+      {
+        "rank": 2,
+        "form": "pinté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pinté mi cuarto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I painted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Construir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "construye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Él construye una casa nueva.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'he/she/it builds'. Note the vowel change in the stem."
+      },
+      {
+        "rank": 2,
+        "form": "se construye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Se construye un edificio.",
+        "is_survival_essential": false,
+        "usage_notes": "The passive voice form, common on signs, meaning 'is being built'."
+      }
+    ]
+  },
+  {
+    "lemma": "Cambiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cambio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cambio de ropa diario.",
+        "is_survival_essential": false,
+        "usage_notes": "A useful verb meaning 'I change', applicable to many contexts (clothes, plans, money)."
+      },
+      {
+        "rank": 2,
+        "form": "cambié",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Cambié de trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I changed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Empezar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "empiezo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Empiezo un curso nuevo.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I begin' or 'I start'. A common stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "empecé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Empecé ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I started'. Note the spelling change (z -> c)."
+      }
+    ]
+  },
+  {
+    "lemma": "Terminar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "termino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Termino mi tarea pronto.",
+        "is_survival_essential": false,
+        "usage_notes": "The counterpart to 'empezar', meaning 'I finish' or 'I end'."
+      },
+      {
+        "rank": 2,
+        "form": "terminé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Terminé el libro.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I finished'."
+      }
+    ]
+  },
+  {
+    "lemma": "Oír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "oigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Oigo música clásica.",
+        "is_survival_essential": false,
+        "usage_notes": "Irregular verb meaning 'I hear'. Different from 'escuchar' (to listen to)."
+      },
+      {
+        "rank": 2,
+        "form": "estoy oyendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy oyendo un ruido.",
+        "is_survival_essential": false,
+        "usage_notes": "Progressive form, 'I am hearing'. Note the spelling change (i -> y)."
+      }
+    ]
+  },
+  {
+    "lemma": "Sonreír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sonrío",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sonrío cuando estoy feliz.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I smile'. Note the accent mark on the 'i'."
+      },
+      {
+        "rank": 2,
+        "form": "sonríes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Sonríes mucho.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, 'you smile'."
+      }
+    ]
+  },
+  {
+    "lemma": "Llorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "lloro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Lloro con películas tristes.",
+        "is_survival_essential": false,
+        "usage_notes": "Basic emotion verb, meaning 'I cry'."
+      },
+      {
+        "rank": 2,
+        "form": "lloré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Lloré ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I cried'."
+      }
+    ]
+  },
+  {
+    "lemma": "Reír",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "río",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Río con mis amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I laugh'. Often used reflexively ('me río'). Note the accent mark."
+      },
+      {
+        "rank": 2,
+        "form": "me reí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me reí mucho anoche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) reflexive form, 'I laughed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Contar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cuento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cuento historias divertidas.",
+        "is_survival_essential": false,
+        "usage_notes": "Dual meaning verb: 'to count' and 'to tell' (a story). A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "conté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Conté un chiste.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I counted' or 'I told'."
+      }
+    ]
+  },
+  {
+    "lemma": "Recordar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "recuerdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Recuerdo mi infancia.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I remember'. A common stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "recordé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Recordé su nombre.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I remembered'."
+      }
+    ]
+  },
+  {
+    "lemma": "Olvidar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "olvido",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Olvido nombres a veces.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I forget'. Often used reflexively ('se me olvida') to mean 'it slipped my mind'."
+      },
+      {
+        "rank": 2,
+        "form": "olvidé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Olvidé mi cita.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I forgot'."
+      }
+    ]
+  },
+  {
+    "lemma": "Elegir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "elijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Elijo comida saludable.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'I choose' or 'I elect'. Note the spelling change (g -> j) in the 'yo' form."
+      },
+      {
+        "rank": 2,
+        "form": "elegí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Elegí un vestido.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I chose'."
+      }
+    ]
+  },
+  {
+    "lemma": "Sentarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me siento en el sofá.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I sit down'. A common stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "me senté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me senté allí ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I sat down'."
+      }
+    ]
+  },
+  {
+    "lemma": "Levantarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me levanto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me levanto temprano.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I get up'. A core verb for describing daily routines."
+      },
+      {
+        "rank": 2,
+        "form": "me levanté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me levanté tarde.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I got up'."
+      }
+    ]
+  },
+  {
+    "lemma": "Acostarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me acuesto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me acuesto a las diez.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I go to bed'. A common stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "me acosté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me acosté tarde.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I went to bed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ducharse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me ducho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me ducho por la mañana.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I take a shower'. Part of the daily routine vocabulary."
+      },
+      {
+        "rank": 2,
+        "form": "me duché",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me duché rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I took a shower'."
+      }
+    ]
+  },
+  {
+    "lemma": "Vestirse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me visto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me visto rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I get dressed'. A stem-changing verb (e -> i)."
+      },
+      {
+        "rank": 2,
+        "form": "me vestí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me vestí elegante.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I got dressed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Quedarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me quedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me quedo en casa hoy.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb with multiple meanings, most commonly 'to stay' or 'to remain'."
+      },
+      {
+        "rank": 2,
+        "form": "me quedé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me quedé en el hotel.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I stayed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Divertirse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me divierto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me divierto con amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I have fun'. A stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "me divertí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me divertí en la fiesta.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I had fun'."
+      }
+    ]
+  },
+  {
+    "lemma": "Enfadarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me enfado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me enfado si pierdo.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I get angry'."
+      },
+      {
+        "rank": 2,
+        "form": "me enfadé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me enfadé ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I got angry'."
+      }
+    ]
+  },
+  {
+    "lemma": "Alegrarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me alegro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me alegro por ti.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I am glad' or 'I am happy' (about something)."
+      },
+      {
+        "rank": 2,
+        "form": "me alegré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me alegré mucho.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I was glad'."
+      }
+    ]
+  },
+  {
+    "lemma": "Cansarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me canso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me canso rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I get tired'."
+      },
+      {
+        "rank": 2,
+        "form": "me cansé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me cansé en el trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I got tired'."
+      }
+    ]
+  },
+  {
+    "lemma": "Casarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me caso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me caso este año.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I am getting married'."
+      },
+      {
+        "rank": 2,
+        "form": "se casó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Se casó el año pasado.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'he/she got married'."
+      }
+    ]
+  },
+  {
+    "lemma": "Enamorarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me enamoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me enamoro fácilmente.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I fall in love'."
+      },
+      {
+        "rank": 2,
+        "form": "me enamoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me enamoré de alguien.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I fell in love'."
+      }
+    ]
+  },
+  {
+    "lemma": "Preocuparse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me preocupo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me preocupo por mi familia.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I worry'."
+      },
+      {
+        "rank": 2,
+        "form": "te preocupas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Te preocupas mucho?",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, 'you worry'."
+      }
+    ]
+  },
+  {
+    "lemma": "Acordarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me acuerdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me acuerdo de ti.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb meaning 'I remember'. It is a synonym for 'recordar'."
+      },
+      {
+        "rank": 2,
+        "form": "me acordé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me acordé de la cita.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I remembered'."
+      }
+    ]
+  },
+  {
+    "lemma": "Faltar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "falta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me falta tiempo.",
+        "is_survival_essential": false,
+        "usage_notes": "Works like 'gustar'. It means 'to be lacking' or 'to be missing'. 'Me falta' means 'I am missing...'."
+      },
+      {
+        "rank": 2,
+        "form": "faltan",
+        "tense": "present-indicative",
+        "person": "3rd-plural",
+        "example": "Faltan cinco minutos.",
+        "is_survival_essential": false,
+        "usage_notes": "Plural form used when multiple items are lacking or to express remaining time."
+      }
+    ]
+  },
+  {
+    "lemma": "Interesar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "interesa",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me interesa la música.",
+        "is_survival_essential": false,
+        "usage_notes": "Works like 'gustar'. 'Me interesa' means 'I am interested in...'."
+      },
+      {
+        "rank": 2,
+        "form": "interesan",
+        "tense": "present-indicative",
+        "person": "3rd-plural",
+        "example": "Me interesan los deportes.",
+        "is_survival_essential": false,
+        "usage_notes": "The plural form, used when you are interested in multiple things."
+      }
+    ]
+  },
+  {
+    "lemma": "Doler",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "duele",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me duele la cabeza.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for health issues. Works like 'gustar'. 'Me duele...' means 'My... hurts'."
+      },
+      {
+        "rank": 2,
+        "form": "duelen",
+        "tense": "present-indicative",
+        "person": "3rd-plural",
+        "example": "Me duelen los pies.",
+        "is_survival_essential": true,
+        "usage_notes": "The plural form, used when more than one thing hurts. 'Me duelen...' means 'My... (plural) hurt'."
+      }
+    ]
+  },
+  {
+    "lemma": "Importar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "importa",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me importa mi trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "Works like 'gustar'. 'Me importa' means '... is important to me' or 'I care about...'. 'No importa' is a key phrase for 'It doesn't matter'."
+      },
+      {
+        "rank": 2,
+        "form": "importas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Tú me importas.",
+        "is_survival_essential": false,
+        "usage_notes": "Used to express that a person matters to you: 'You are important to me'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ocurrir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ocurre",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Ocurre algo extraño.",
+        "is_survival_essential": false,
+        "usage_notes": "Means 'to happen' or 'to occur'. Often used like 'pasar'."
+      },
+      {
+        "rank": 2,
+        "form": "ocurrió",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Ocurrió un accidente.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'it happened'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ser",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "soy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Soy de Estados Unidos.",
+        "is_survival_essential": true,
+        "usage_notes": "Absolutely essential for introductions: stating your name, nationality, profession, and inherent characteristics."
+      },
+      {
+        "rank": 2,
+        "form": "es",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Es muy simpático.",
+        "is_survival_essential": true,
+        "usage_notes": "The most common form of 'ser'. Used to describe nearly everything: people, things, time ('es la una'), characteristics, etc."
+      }
+    ]
+  },
+  {
+    "lemma": "Estar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estás",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Cómo estás?",
+        "is_survival_essential": true,
+        "usage_notes": "The foundation of the most common greeting, '¿Cómo estás?'. Also used for location ('¿Dónde estás?')."
+      },
+      {
+        "rank": 2,
+        "form": "estoy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estoy cansado.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for expressing your location ('estoy en casa'), feelings ('estoy bien'), and forming the present progressive ('estoy hablando')."
+      }
+    ]
+  },
+  {
+    "lemma": "Tener",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tengo dos hermanos.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for expressing possession, age ('tengo 30 años'), physical states ('tengo hambre'), and obligation ('tengo que trabajar')."
+      },
+      {
+        "rank": 2,
+        "form": "tiene",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Tiene un coche nuevo.",
+        "is_survival_essential": true,
+        "usage_notes": "Used constantly to talk about what other people or things have. '¿Tiene baño?' is a critical travel question."
+      }
+    ]
+  },
+  {
+    "lemma": "Hacer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "hace",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Hace sol hoy.",
+        "is_survival_essential": true,
+        "usage_notes": "Extremely versatile. Used for weather ('hace sol'), time expressions ('hace dos años'), and describing what someone else does."
+      },
+      {
+        "rank": 2,
+        "form": "hice",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Hice una tarta ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'yo' preterite form ('I did/made'), key for narrating past personal actions."
+      }
+    ]
+  },
+  {
+    "lemma": "Ir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "voy",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Voy al gimnasio.",
+        "is_survival_essential": true,
+        "usage_notes": "Crucial for expressing movement ('voy al mercado') and is the base for the most common future construction, 'ir a + infinitive' ('voy a comer')."
+      },
+      {
+        "rank": 2,
+        "form": "vas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Adónde vas?",
+        "is_survival_essential": true,
+        "usage_notes": "Used for asking about others' plans ('¿Vas a la fiesta?') and movement ('¿Adónde vas?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Poder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "puedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Puedo ayudarte.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for asking for permission ('¿Puedo entrar?'), stating ability, and ordering politely ('¿Me puede traer...?')."
+      },
+      {
+        "rank": 2,
+        "form": "puedes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Puedes venir?",
+        "is_survival_essential": true,
+        "usage_notes": "Crucial for making requests ('¿Puedes ayudarme?') and asking about someone's ability."
+      }
+    ]
+  },
+  {
+    "lemma": "Decir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "digo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Digo que es interesante.",
+        "is_survival_essential": false,
+        "usage_notes": "'I say' or 'I tell'. Key for reporting speech or expressing your opinion."
+      },
+      {
+        "rank": 2,
+        "form": "dice",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Dice que no viene.",
+        "is_survival_essential": false,
+        "usage_notes": "'He/she says'. Very common for reporting what others have said."
+      }
+    ]
+  },
+  {
+    "lemma": "Ver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "veo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Veo que estás ocupado.",
+        "is_survival_essential": false,
+        "usage_notes": "'I see'. Used for literal sight and for understanding ('Veo lo que quieres decir')."
+      },
+      {
+        "rank": 2,
+        "form": "vi",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Vi una película anoche.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'yo' preterite form ('I saw'), fundamental for talking about past events."
+      }
+    ]
+  },
+  {
+    "lemma": "Saber",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sé",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sé cocinar.",
+        "is_survival_essential": true,
+        "usage_notes": "'I know'. Crucial for expressing knowledge of facts or skills. 'No sé' (I don't know) is a vital survival phrase."
+      },
+      {
+        "rank": 2,
+        "form": "sabes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Sabes dónde está?",
+        "is_survival_essential": true,
+        "usage_notes": "'You know'. Essential for asking for information ('¿Sabes dónde está el baño?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Querer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "quiero",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Quiero café.",
+        "is_survival_essential": true,
+        "usage_notes": "One of the most important verbs for a beginner, used to express wants and desires ('Quiero un café')."
+      },
+      {
+        "rank": 2,
+        "form": "quieres",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Quieres salir?",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for making invitations and asking others what they want ('¿Quieres ir al cine?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Comer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "como",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Como paella los domingos.",
+        "is_survival_essential": false,
+        "usage_notes": "Basic verb for daily routines, 'I eat'."
+      },
+      {
+        "rank": 2,
+        "form": "comí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Comí sushi ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'yo' preterite form ('I ate'), necessary for discussing past meals."
+      }
+    ]
+  },
+  {
+    "lemma": "Beber",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bebo agua todos los días.",
+        "is_survival_essential": false,
+        "usage_notes": "Basic verb for daily routines, 'I drink'."
+      },
+      {
+        "rank": 2,
+        "form": "bebes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Bebes café?",
+        "is_survival_essential": false,
+        "usage_notes": "The 'tú' form, 'you drink'."
+      }
+    ]
+  },
+  {
+    "lemma": "Vivir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vivo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vivo en Madrid.",
+        "is_survival_essential": false,
+        "usage_notes": "Important for personal information, 'I live'."
+      },
+      {
+        "rank": 2,
+        "form": "vive",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Vive cerca de aquí.",
+        "is_survival_essential": false,
+        "usage_notes": "'He/she lives'. Used for asking or talking about where others live."
+      }
+    ]
+  },
+  {
+    "lemma": "Hablar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "hablo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Hablo español.",
+        "is_survival_essential": true,
+        "usage_notes": "Critical for language learners ('Hablo un poco de español')."
+      },
+      {
+        "rank": 2,
+        "form": "hablas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Hablas muy rápido.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for asking others about their language abilities ('¿Hablas inglés?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Escribir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "escribo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Escribo emails en el trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I write'. A fundamental communication verb."
+      },
+      {
+        "rank": 2,
+        "form": "escribí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Escribí un mensaje.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'yo' preterite form ('I wrote')."
+      }
+    ]
+  },
+  {
+    "lemma": "Leer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "leo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Leo libros de ficción.",
+        "is_survival_essential": false,
+        "usage_notes": "'I read'. Common verb for hobbies and activities."
+      },
+      {
+        "rank": 2,
+        "form": "estoy leyendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy leyendo un libro.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, emphasizes the action of reading happening now."
+      }
+    ]
+  },
+  {
+    "lemma": "Dormir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "duermo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Duermo ocho horas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I sleep'. A stem-changing verb (o->ue) for daily routines."
+      },
+      {
+        "rank": 2,
+        "form": "dormí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Dormí mal anoche.",
+        "is_survival_essential": false,
+        "usage_notes": "The 'yo' preterite form ('I slept')."
+      }
+    ]
+  },
+  {
+    "lemma": "Trabajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "trabajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Trabajo en una oficina.",
+        "is_survival_essential": false,
+        "usage_notes": "'I work'. Important for personal introductions."
+      },
+      {
+        "rank": 2,
+        "form": "trabajas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Dónde trabajas?",
+        "is_survival_essential": false,
+        "usage_notes": "'You work'. Used in common conversational questions like '¿Dónde trabajas?'."
+      }
+    ]
+  },
+  {
+    "lemma": "Estudiar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estudio",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estudio en la universidad.",
+        "is_survival_essential": false,
+        "usage_notes": "'I study'. Key for students and language learners."
+      },
+      {
+        "rank": 2,
+        "form": "estudias",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Qué estudias?",
+        "is_survival_essential": false,
+        "usage_notes": "'You study'. Used for the common question '¿Qué estudias?' (What do you study?)."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aprendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aprendo español.",
+        "is_survival_essential": false,
+        "usage_notes": "'I learn'. Very relevant for language students."
+      },
+      {
+        "rank": 2,
+        "form": "estoy aprendiendo",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy aprendiendo a cocinar.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, emphasizes the ongoing process of learning."
+      }
+    ]
+  },
+  {
+    "lemma": "Entender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "entiendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Entiendo lo que dices.",
+        "is_survival_essential": true,
+        "usage_notes": "Crucial for communication. 'No entiendo' (I don't understand) is a key survival phrase. A stem-changing verb (e->ie)."
+      },
+      {
+        "rank": 2,
+        "form": "entiendes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Entiendes?",
+        "is_survival_essential": true,
+        "usage_notes": "Important for checking comprehension: '¿Entiendes?' (Do you understand?)."
+      }
+    ]
+  },
+  {
+    "lemma": "Conocer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "conozco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Conozco a tu amigo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I know' (am familiar with) a person, place, or thing. It's distinct from 'saber', which is for facts or skills. The 'yo' form is irregular ('-zco')."
+      },
+      {
+        "rank": 2,
+        "form": "conoces",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Conoces este lugar?",
+        "is_survival_essential": false,
+        "usage_notes": "'You know' (are familiar with). Key for asking questions like '¿Conoces a María?' (Do you know Maria?)."
+      }
+    ]
+  },
+  {
+    "lemma": "Pensar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pienso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pienso que es una buena idea.",
+        "is_survival_essential": false,
+        "usage_notes": "'I think'. A fundamental verb for expressing opinions ('Pienso que...') and plans ('Pienso ir...'). It's a common stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "piensas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Qué piensas?",
+        "is_survival_essential": false,
+        "usage_notes": "'You think'. Used in the very common question '¿Qué piensas?' (What do you think?)."
+      }
+    ]
+  },
+  {
+    "lemma": "Sentir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Lo siento, no puedo ir.",
+        "is_survival_essential": true,
+        "usage_notes": "Extremely important. The base for 'Lo siento' (I'm sorry). Also used for physical sensations: 'Siento frío' (I feel cold)."
+      },
+      {
+        "rank": 2,
+        "form": "me siento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me siento feliz.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential reflexive form for expressing emotions or physical states: 'Me siento bien/mal/cansado' (I feel good/bad/tired)."
+      }
+    ]
+  },
+  {
+    "lemma": "Escuchar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "escucho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Escucho música pop.",
+        "is_survival_essential": false,
+        "usage_notes": "'I listen to'. Refers to the intentional act of listening, as opposed to 'oír' (to hear)."
+      },
+      {
+        "rank": 2,
+        "form": "estoy escuchando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy escuchando la radio.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive form, 'I am listening to', emphasizing the action is happening at this moment."
+      }
+    ]
+  },
+  {
+    "lemma": "Mirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "miro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Miro películas en Netflix.",
+        "is_survival_essential": false,
+        "usage_notes": "'I watch' or 'I look at'. A very common verb for describing activities."
+      },
+      {
+        "rank": 2,
+        "form": "estoy mirando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy mirando la tele.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, 'I am watching/looking at', to describe an action in progress."
+      }
+    ]
+  },
+  {
+    "lemma": "Tocar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "toco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Toco la guitarra.",
+        "is_survival_essential": false,
+        "usage_notes": "Has a dual meaning: 'to touch' and 'to play' a musical instrument."
+      },
+      {
+        "rank": 2,
+        "form": "toqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Toqué el piano ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form. Note the spelling change (c -> qu) to preserve the hard 'k' sound."
+      }
+    ]
+  },
+  {
+    "lemma": "Cantar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "canto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Canto en la ducha.",
+        "is_survival_essential": false,
+        "usage_notes": "'I sing'. A regular -ar verb, often used as a model for conjugation patterns."
+      },
+      {
+        "rank": 2,
+        "form": "estoy cantando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy cantando ahora.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive form, 'I am singing'."
+      }
+    ]
+  },
+  {
+    "lemma": "Bailar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bailo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bailo salsa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I dance'. Another regular -ar verb, common for talking about hobbies and social activities."
+      },
+      {
+        "rank": 2,
+        "form": "bailas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Bailas bien?",
+        "is_survival_essential": false,
+        "usage_notes": "'You dance'. Useful for asking questions about social activities."
+      }
+    ]
+  },
+  {
+    "lemma": "Correr",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corro por las mañanas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I run'. A regular -er verb, useful for talking about exercise and daily activities."
+      },
+      {
+        "rank": 2,
+        "form": "corrí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corrí una maratón.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I ran'."
+      }
+    ]
+  },
+  {
+    "lemma": "Caminar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "camino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Camino al trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I walk'. A fundamental verb for movement and daily routines."
+      },
+      {
+        "rank": 2,
+        "form": "estoy caminando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy caminando ahora.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive form, 'I am walking'."
+      }
+    ]
+  },
+  {
+    "lemma": "Nadar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "nado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Nado en la piscina.",
+        "is_survival_essential": false,
+        "usage_notes": "'I swim'. A common verb for sports and hobbies."
+      },
+      {
+        "rank": 2,
+        "form": "nadé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Nadé en el mar ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I swam'."
+      }
+    ]
+  },
+  {
+    "lemma": "Jugar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "juego",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Juego al fútbol.",
+        "is_survival_essential": false,
+        "usage_notes": "'I play' (a sport or a game). A common stem-changing verb (u -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "juegas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Juegas al tenis?",
+        "is_survival_essential": false,
+        "usage_notes": "'You play'. Common for asking about sports/hobbies ('¿Juegas al fútbol?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Ganar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ganó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Ganó el partido.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) 3rd person, 'he/she/it won'. Common in sports contexts."
+      },
+      {
+        "rank": 2,
+        "form": "gano",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Gano poco dinero.",
+        "is_survival_essential": false,
+        "usage_notes": "Has a dual meaning: 'I win' or 'I earn' (money)."
+      }
+    ]
+  },
+  {
+    "lemma": "Perder",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "perdí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Perdí mi llave.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I lost'. Useful for common situations like losing keys."
+      },
+      {
+        "rank": 2,
+        "form": "pierdo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Siempre pierdo en ajedrez.",
+        "is_survival_essential": false,
+        "usage_notes": "'I lose'. A common stem-changing verb (e -> ie)."
+      }
+    ]
+  },
+  {
+    "lemma": "Abrir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "abro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Abro la puerta.",
+        "is_survival_essential": false,
+        "usage_notes": "'I open'. A basic action verb."
+      },
+      {
+        "rank": 2,
+        "form": "se abre",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "La tienda se abre a las 9.",
+        "is_survival_essential": false,
+        "usage_notes": "Passive form, 'it opens'. Often seen on signs for store hours."
+      }
+    ]
+  },
+  {
+    "lemma": "Cerrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cierro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cierro la ventana.",
+        "is_survival_essential": false,
+        "usage_notes": "'I close'. A common stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "se cierra",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "La puerta se cierra automáticamente.",
+        "is_survival_essential": false,
+        "usage_notes": "Passive form, 'it closes'. Used for store hours ('Se cierra a las 5')."
+      }
+    ]
+  },
+  {
+    "lemma": "Poner",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pongo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pongo la mesa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I put' or 'I place'. An irregular 'yo' form verb (-go verb) used in many daily tasks."
+      },
+      {
+        "rank": 2,
+        "form": "me pongo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me pongo una chaqueta.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive form, 'I put on' (clothing) or 'I become' (an emotion, e.g., 'me pongo triste')."
+      }
+    ]
+  },
+  {
+    "lemma": "Sacar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "saco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Saco fotos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I take out' or 'I get'. A versatile verb (e.g., 'saco la basura', 'saco buenas notas')."
+      },
+      {
+        "rank": 2,
+        "form": "saqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Saqué una foto ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I took out'. Note the spelling change (c -> qu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Traer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "traigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Traigo comida.",
+        "is_survival_essential": false,
+        "usage_notes": "'I bring'. An irregular 'yo' form (-igo verb). Contrasts with 'llevar' (to take/carry away)."
+      },
+      {
+        "rank": 2,
+        "form": "traje",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Traje un regalo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I brought'. A highly irregular preterite stem."
+      }
+    ]
+  },
+  {
+    "lemma": "Llevar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "llevo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Llevo gafas.",
+        "is_survival_essential": false,
+        "usage_notes": "A very versatile verb: 'I wear' (clothing), 'I carry' (an object), or 'I take' (someone somewhere)."
+      },
+      {
+        "rank": 2,
+        "form": "llevé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Llevé mi coche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I wore', 'I carried', 'I took'."
+      }
+    ]
+  },
+  {
+    "lemma": "Dejar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "dejo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Dejo el libro aquí.",
+        "is_survival_essential": false,
+        "usage_notes": "'I leave' (something behind) or 'I allow'. Different from 'salir' (to leave a place)."
+      },
+      {
+        "rank": 2,
+        "form": "dejé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Dejé mi bolsa en casa.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I left' (something)."
+      }
+    ]
+  },
+  {
+    "lemma": "Volver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vuelvo a casa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I return' or 'I come back'. A common stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "volví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Volví tarde ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I returned'."
+      }
+    ]
+  },
+  {
+    "lemma": "Salir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "salgo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Salgo con amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I leave' or 'I go out'. An irregular 'yo' form (-go verb)."
+      },
+      {
+        "rank": 2,
+        "form": "sales",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Sales esta noche?",
+        "is_survival_essential": false,
+        "usage_notes": "'You leave/go out'. Used for asking about plans ('¿Sales esta noche?')."
+      }
+    ]
+  },
+  {
+    "lemma": "Entrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "entro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Entro en la habitación.",
+        "is_survival_essential": false,
+        "usage_notes": "'I enter'. The opposite of 'salir'."
+      },
+      {
+        "rank": 2,
+        "form": "entré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Entré al cine.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I entered'."
+      }
+    ]
+  },
+  {
+    "lemma": "Quedar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "quedo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Quedo con amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I meet up with' or 'I arrange to meet'. Without the reflexive 'me', it's about making plans."
+      },
+      {
+        "rank": 2,
+        "form": "queda",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "¿Dónde queda el museo?",
+        "is_survival_essential": true,
+        "usage_notes": "Critical for locations ('¿Dónde queda...?') and talking about what is remaining ('Queda un poco de café')."
+      }
+    ]
+  },
+  {
+    "lemma": "Llegar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "llego",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Llego tarde.",
+        "is_survival_essential": false,
+        "usage_notes": "'I arrive'. A fundamental verb for travel and appointments."
+      },
+      {
+        "rank": 2,
+        "form": "llegué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Llegué a las ocho.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I arrived'. Note the spelling change (g -> gu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Comprar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "compro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Compro ropa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I buy'. An essential verb for shopping and commerce."
+      },
+      {
+        "rank": 2,
+        "form": "compré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Compré un regalo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I bought'."
+      }
+    ]
+  },
+  {
+    "lemma": "Vender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "vende",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Él vende frutas.",
+        "is_survival_essential": false,
+        "usage_notes": "'He/she sells'. Commonly seen on signs 'Se vende' (For sale)."
+      },
+      {
+        "rank": 2,
+        "form": "vendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Vendo mi coche.",
+        "is_survival_essential": false,
+        "usage_notes": "'I sell'. The opposite of 'comprar'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ayudar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ayudo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ayudo en casa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I help'. A very common social interaction verb."
+      },
+      {
+        "rank": 2,
+        "form": "ayudas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Necesitas ayuda?",
+        "is_survival_essential": true,
+        "usage_notes": "Most useful for asking if someone needs help ('¿Necesitas ayuda?') and in the imperative form '¡Ayuda!' (Help!)."
+      }
+    ]
+  },
+  {
+    "lemma": "Comenzar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "comienzo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Comienzo un proyecto nuevo.",
+        "is_survival_essential": false,
+        "usage_notes": "A synonym for 'empezar', 'I begin/start'. A stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "comencé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Comencé ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I began'. Note the spelling change (z -> c)."
+      }
+    ]
+  },
+  {
+    "lemma": "Creer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "creo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Creo que es verdad.",
+        "is_survival_essential": false,
+        "usage_notes": "'I believe'. Used frequently to express opinions, e.g., 'Creo que sí/no' (I think so/not)."
+      },
+      {
+        "rank": 2,
+        "form": "crees",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Crees en eso?",
+        "is_survival_essential": false,
+        "usage_notes": "'You believe'. Used for asking for opinions."
+      }
+    ]
+  },
+  {
+    "lemma": "Intentar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "intento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Intento aprender español.",
+        "is_survival_essential": false,
+        "usage_notes": "'I try'. A useful verb typically followed by an infinitive ('Intento aprender')."
+      },
+      {
+        "rank": 2,
+        "form": "intenté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Intenté llamarte.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I tried'."
+      }
+    ]
+  },
+  {
+    "lemma": "Lograr",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "logro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Logro mis metas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I achieve' or 'I manage to'. A stronger, more successful version of 'intentar'."
+      },
+      {
+        "rank": 2,
+        "form": "logré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Logré terminar.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I achieved'."
+      }
+    ]
+  },
+  {
+    "lemma": "Conseguir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "consigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Consigo entradas baratas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I get' or 'I obtain'. An irregular 'yo' form (gu -> g) and stem-changing (e -> i)."
+      },
+      {
+        "rank": 2,
+        "form": "conseguí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Conseguí un trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I got'."
+      }
+    ]
+  },
+  {
+    "lemma": "Mantener",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mantengo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mantengo mi casa limpia.",
+        "is_survival_essential": false,
+        "usage_notes": "'I maintain' or 'I keep'. Follows the pattern of 'tener' with an irregular 'yo' form (-tengo)."
+      },
+      {
+        "rank": 2,
+        "form": "mantuve",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mantuve el secreto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I maintained'. Follows the irregular preterite pattern of 'tener'."
+      }
+    ]
+  },
+  {
+    "lemma": "Perdonar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "perdono",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Perdono los errores.",
+        "is_survival_essential": false,
+        "usage_notes": "'I forgive'. Less common than its imperative form."
+      },
+      {
+        "rank": 2,
+        "form": "perdona",
+        "tense": "imperative",
+        "person": "2nd-singular",
+        "example": "Perdona, ¿dónde está la estación?",
+        "is_survival_essential": true,
+        "usage_notes": "Essential imperative form. A very common way to say 'excuse me' or 'pardon me' to get someone's attention."
+      }
+    ]
+  },
+  {
+    "lemma": "Aceptar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "acepto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Acepto la invitación.",
+        "is_survival_essential": false,
+        "usage_notes": "'I accept'. Used for invitations, offers, terms, etc."
+      },
+      {
+        "rank": 2,
+        "form": "aceptas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Aceptas el plan?",
+        "is_survival_essential": false,
+        "usage_notes": "'You accept'."
+      }
+    ]
+  },
+  {
+    "lemma": "Rechazar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "rechazo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Rechazo ofertas malas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I reject'. The opposite of 'aceptar'."
+      },
+      {
+        "rank": 2,
+        "form": "rechacé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Rechacé la oferta.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I rejected'. Note spelling change (z -> c)."
+      }
+    ]
+  },
+  {
+    "lemma": "Explicar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "explico",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Explico mi idea.",
+        "is_survival_essential": false,
+        "usage_notes": "'I explain'. A key verb for communication."
+      },
+      {
+        "rank": 2,
+        "form": "expliqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Expliqué todo ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I explained'. Note spelling change (c -> qu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Mostrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "muestro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Muestro mis fotos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I show'. A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "mostré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mostré mi proyecto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I showed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Enseñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "enseño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Enseño español.",
+        "is_survival_essential": false,
+        "usage_notes": "Has a dual meaning: 'I teach' and 'I show'. A synonym of 'mostrar'."
+      },
+      {
+        "rank": 2,
+        "form": "enseñas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Me enseñas tu coche?",
+        "is_survival_essential": false,
+        "usage_notes": "'You teach' or 'you show'."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprenderse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me aprendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me aprendo las canciones.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive form of 'aprender', meaning 'to learn by heart' or 'to memorize'."
+      },
+      {
+        "rank": 2,
+        "form": "me aprendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me aprendí la lista.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite) form, 'I memorized'."
+      }
+    ]
+  },
+  {
+    "lemma": "Preparar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "preparo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Preparo la cena.",
+        "is_survival_essential": false,
+        "usage_notes": "'I prepare' or 'I make' (food, plans, etc.)."
+      },
+      {
+        "rank": 2,
+        "form": "estoy preparando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy preparando un viaje.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive form, 'I am preparing'."
+      }
+    ]
+  },
+  {
+    "lemma": "Arreglar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "arreglo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Arreglo mi cuarto.",
+        "is_survival_essential": false,
+        "usage_notes": "'I fix', 'I arrange', or 'I tidy up'."
+      },
+      {
+        "rank": 2,
+        "form": "arreglé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Arreglé el coche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I fixed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Lavar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "lavo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Lavo la ropa los domingos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I wash'. Common verb for chores."
+      },
+      {
+        "rank": 2,
+        "form": "lavé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Lavé los platos ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I washed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Secar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "seco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Seco mi cabello.",
+        "is_survival_essential": false,
+        "usage_notes": "'I dry'. Often used reflexively, 'me seco'."
+      },
+      {
+        "rank": 2,
+        "form": "sequé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Sequé la ropa.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I dried'. Note spelling change (c -> qu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Cortar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corto el pan.",
+        "is_survival_essential": false,
+        "usage_notes": "'I cut'. Basic action verb."
+      },
+      {
+        "rank": 2,
+        "form": "corté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corté el césped.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I cut'."
+      }
+    ]
+  },
+  {
+    "lemma": "Romper",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "rompo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Rompo cosas por accidente.",
+        "is_survival_essential": false,
+        "usage_notes": "'I break'. Also used for ending relationships ('romper con alguien')."
+      },
+      {
+        "rank": 2,
+        "form": "rompí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Rompí un vaso.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I broke'."
+      }
+    ]
+  },
+  {
+    "lemma": "Caer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "caigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Caigo a veces al correr.",
+        "is_survival_essential": false,
+        "usage_notes": "'I fall'. An irregular 'yo' form (-igo verb)."
+      },
+      {
+        "rank": 2,
+        "form": "caí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Caí ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I fell'."
+      }
+    ]
+  },
+  {
+    "lemma": "Subir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "subo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Subo las escaleras.",
+        "is_survival_essential": false,
+        "usage_notes": "'I go up', 'I climb', or 'I get on' (a vehicle)."
+      },
+      {
+        "rank": 2,
+        "form": "subí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Subí al tejado.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I went up'."
+      }
+    ]
+  },
+  {
+    "lemma": "Bajar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "bajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Bajo al sótano.",
+        "is_survival_essential": false,
+        "usage_notes": "'I go down', 'I get off' (a vehicle), or 'I download'."
+      },
+      {
+        "rank": 2,
+        "form": "bajé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Bajé las cajas.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I went down'."
+      }
+    ]
+  },
+  {
+    "lemma": "Corregir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "corrijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Corrijo mis errores.",
+        "is_survival_essential": false,
+        "usage_notes": "'I correct'. Irregular 'yo' form (g -> j) and stem-changing (e -> i)."
+      },
+      {
+        "rank": 2,
+        "form": "corregí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Corregí el texto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I corrected'."
+      }
+    ]
+  },
+  {
+    "lemma": "Invitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "invito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Invito a mis amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I invite'. Common social verb."
+      },
+      {
+        "rank": 2,
+        "form": "invitas",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "¿Invitas a alguien?",
+        "is_survival_essential": false,
+        "usage_notes": "'You invite'."
+      }
+    ]
+  },
+  {
+    "lemma": "Visitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "visito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Visito a mi familia.",
+        "is_survival_essential": false,
+        "usage_notes": "'I visit'. Used for both people and places."
+      },
+      {
+        "rank": 2,
+        "form": "visité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Visité Barcelona.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I visited'."
+      }
+    ]
+  },
+  {
+    "lemma": "Descansar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "descanso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Descanso los fines de semana.",
+        "is_survival_essential": false,
+        "usage_notes": "'I rest'. Common verb for daily routines."
+      },
+      {
+        "rank": 2,
+        "form": "estoy descansando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy descansando ahora.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, 'I am resting'."
+      }
+    ]
+  },
+  {
+    "lemma": "Practicar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "practico",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Practico yoga.",
+        "is_survival_essential": false,
+        "usage_notes": "'I practice'. Used for sports, hobbies, and skills."
+      },
+      {
+        "rank": 2,
+        "form": "practiqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Practiqué ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I practiced'. Note spelling change (c -> qu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Competir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "compito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Compito en torneos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I compete'. A stem-changing verb (e -> i)."
+      },
+      {
+        "rank": 2,
+        "form": "competí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Competí el sábado.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I competed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Compartir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "comparto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Comparto mi comida.",
+        "is_survival_essential": false,
+        "usage_notes": "'I share'. A key social verb."
+      },
+      {
+        "rank": 2,
+        "form": "compartí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Compartí mi libro.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I shared'."
+      }
+    ]
+  },
+  {
+    "lemma": "Discutir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "discuto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Discuto ideas con amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I discuss'. Can also mean 'I argue' depending on context."
+      },
+      {
+        "rank": 2,
+        "form": "discutí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Discutí con él.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I discussed' or 'I argued'."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprobar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apruebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apruebo los planes.",
+        "is_survival_essential": false,
+        "usage_notes": "'I approve' or 'I pass' (an exam). A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "aprobé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Aprobé el examen.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I passed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Suspender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "suspendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Suspendo si no estudio.",
+        "is_survival_essential": false,
+        "usage_notes": "'I fail' (an exam). The opposite of 'aprobar'."
+      },
+      {
+        "rank": 2,
+        "form": "suspendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Suspendí un examen.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I failed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Asistir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "asisto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Asisto a clases.",
+        "is_survival_essential": false,
+        "usage_notes": "'I attend'. A false friend; it does not mean 'to assist'."
+      },
+      {
+        "rank": 2,
+        "form": "asistí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Asistí a un concierto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I attended'."
+      }
+    ]
+  },
+  {
+    "lemma": "Participar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "participo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Participo en reuniones.",
+        "is_survival_essential": false,
+        "usage_notes": "'I participate'. Used with 'en' ('participar en')."
+      },
+      {
+        "rank": 2,
+        "form": "participé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Participé en un evento.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I participated'."
+      }
+    ]
+  },
+  {
+    "lemma": "Dirigir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "dirijo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Dirijo un equipo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I direct', 'I manage', or 'I lead'. Irregular 'yo' form (g -> j)."
+      },
+      {
+        "rank": 2,
+        "form": "dirige",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Ella dirige una empresa.",
+        "is_survival_essential": false,
+        "usage_notes": "'He/she directs'."
+      }
+    ]
+  },
+  {
+    "lemma": "Proteger",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "protejo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Protejo a mi familia.",
+        "is_survival_essential": false,
+        "usage_notes": "'I protect'. Irregular 'yo' form (g -> j)."
+      },
+      {
+        "rank": 2,
+        "form": "protegí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Protegí mis cosas.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I protected'."
+      }
+    ]
+  },
+  {
+    "lemma": "Resolver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "resuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Resuelvo problemas rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "'I resolve' or 'I solve'. A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "resolví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Resolví el puzzle.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I solved'."
+      }
+    ]
+  },
+  {
+    "lemma": "Prometer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "prometo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Prometo llegar temprano.",
+        "is_survival_essential": false,
+        "usage_notes": "'I promise'. A common social commitment verb."
+      },
+      {
+        "rank": 2,
+        "form": "prometí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Prometí ayudar.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I promised'."
+      }
+    ]
+  },
+  {
+    "lemma": "Cumplir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cumplo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cumplo mis promesas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I fulfill' or 'I carry out'. Also used for birthdays: 'cumplir años' (to have a birthday)."
+      },
+      {
+        "rank": 2,
+        "form": "cumplí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Cumplí 30 años.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I fulfilled' or 'I turned' (an age)."
+      }
+    ]
+  },
+  {
+    "lemma": "Sorprender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sorprende",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me sorprende el clima.",
+        "is_survival_essential": false,
+        "usage_notes": "'It surprises'. Often used like 'gustar': 'Me sorprende que...' (It surprises me that...)."
+      },
+      {
+        "rank": 2,
+        "form": "sorprendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Sorprendí a mi amigo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I surprised'."
+      }
+    ]
+  },
+  {
+    "lemma": "Atraer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "atrae",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me atrae esta ciudad.",
+        "is_survival_essential": false,
+        "usage_notes": "'It attracts'. Follows the pattern of 'traer' and is often used like 'gustar'."
+      },
+      {
+        "rank": 2,
+        "form": "atraes",
+        "tense": "present-indicative",
+        "person": "2nd-singular",
+        "example": "Me atraes.",
+        "is_survival_essential": false,
+        "usage_notes": "'You attract'. Used to express personal attraction."
+      }
+    ]
+  },
+  {
+    "lemma": "Confundir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "confundo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Confundo los nombres.",
+        "is_survival_essential": false,
+        "usage_notes": "'I confuse' or 'I mix up'."
+      },
+      {
+        "rank": 2,
+        "form": "confundí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Confundí las fechas.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I confused'."
+      }
+    ]
+  },
+  {
+    "lemma": "Mezclar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mezclo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mezclo los ingredientes.",
+        "is_survival_essential": false,
+        "usage_notes": "'I mix'. Common verb in cooking and other contexts."
+      },
+      {
+        "rank": 2,
+        "form": "mezclé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mezclé los colores.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I mixed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Separar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "separo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Separo la basura.",
+        "is_survival_essential": false,
+        "usage_notes": "'I separate'. A basic action verb."
+      },
+      {
+        "rank": 2,
+        "form": "separé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Separé los libros.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I separated'."
+      }
+    ]
+  },
+  {
+    "lemma": "Unir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "uno",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Uno ideas diferentes.",
+        "is_survival_essential": false,
+        "usage_notes": "'I unite' or 'I join'."
+      },
+      {
+        "rank": 2,
+        "form": "uní",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Uní las piezas.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I united'."
+      }
+    ]
+  },
+  {
+    "lemma": "Apagar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apago",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apago la luz.",
+        "is_survival_essential": false,
+        "usage_notes": "'I turn off' (lights, devices)."
+      },
+      {
+        "rank": 2,
+        "form": "apagué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Apagué el televisor.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I turned off'. Note spelling change (g -> gu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Encender",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "enciendo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Enciendo la lámpara.",
+        "is_survival_essential": false,
+        "usage_notes": "'I turn on'. The opposite of 'apagar'. A stem-changing verb (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "encendí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Encendí la vela.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I turned on'."
+      }
+    ]
+  },
+  {
+    "lemma": "Funcionar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "funciona",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Mi coche no funciona bien.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for talking about whether something works or not. 'No funciona' is a critical phrase for any traveler."
+      },
+      {
+        "rank": 2,
+        "form": "funcionó",
+        "tense": "preterite",
+        "person": "3rd-singular",
+        "example": "Funcionó perfectamente.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'it worked'."
+      }
+    ]
+  },
+  {
+    "lemma": "Existir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "existe",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Existe una solución.",
+        "is_survival_essential": false,
+        "usage_notes": "'It exists'. Primarily used in the third person."
+      },
+      {
+        "rank": 2,
+        "form": "existen",
+        "tense": "present-indicative",
+        "person": "3rd-plural",
+        "example": "Existen opciones nuevas.",
+        "is_survival_essential": false,
+        "usage_notes": "'They exist'. Plural form of 'existe'."
+      }
+    ]
+  },
+  {
+    "lemma": "Aprovechar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aprovecho",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aprovecho el tiempo libre.",
+        "is_survival_essential": false,
+        "usage_notes": "'I take advantage of'. Used for opportunities, time, etc."
+      },
+      {
+        "rank": 2,
+        "form": "aproveché",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Aproveché el descuento.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I took advantage of'."
+      }
+    ]
+  },
+  {
+    "lemma": "Imaginar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "imagino",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Imagino un viaje perfecto.",
+        "is_survival_essential": false,
+        "usage_notes": "'I imagine'. Often used as 'Me imagino que...' (I imagine that...)."
+      },
+      {
+        "rank": 2,
+        "form": "imagínate",
+        "tense": "imperative",
+        "person": "2nd-singular",
+        "example": "Imagínate, ¡ganamos la lotería!",
+        "is_survival_essential": false,
+        "usage_notes": "A very common imperative form used as an interjection meaning 'Imagine that!' or 'Just think!'."
+      }
+    ]
+  },
+  {
+    "lemma": "Diseñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "diseño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Diseño ropa como hobby.",
+        "is_survival_essential": false,
+        "usage_notes": "'I design'. Used in creative and technical fields."
+      },
+      {
+        "rank": 2,
+        "form": "diseñé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Diseñé un póster.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I designed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Organizar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "organizo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Organizo mi agenda.",
+        "is_survival_essential": false,
+        "usage_notes": "'I organize'. A common planning verb."
+      },
+      {
+        "rank": 2,
+        "form": "organicé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Organicé una fiesta.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I organized'. Note spelling change (z -> c)."
+      }
+    ]
+  },
+  {
+    "lemma": "Planear",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "planeo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Planeo un viaje.",
+        "is_survival_essential": false,
+        "usage_notes": "'I plan'. A synonym for 'planificar'."
+      },
+      {
+        "rank": 2,
+        "form": "planeé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Planeé todo ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I planned'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ahorrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ahorro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ahorro dinero cada mes.",
+        "is_survival_essential": false,
+        "usage_notes": "'I save' (money, energy, time). The opposite of 'gastar'."
+      },
+      {
+        "rank": 2,
+        "form": "ahorré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Ahorré para el coche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I saved'."
+      }
+    ]
+  },
+  {
+    "lemma": "Gastar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "gasto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Gasto mucho en comida.",
+        "is_survival_essential": false,
+        "usage_notes": "'I spend' (money, time). The opposite of 'ahorrar'."
+      },
+      {
+        "rank": 2,
+        "form": "gasté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Gasté todo ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I spent'."
+      }
+    ]
+  },
+  {
+    "lemma": "Pagar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pago",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pago las facturas.",
+        "is_survival_essential": true,
+        "usage_notes": "Essential for any transaction: 'I pay'. Also used in '¿Puedo pagar?' (Can I pay?)."
+      },
+      {
+        "rank": 2,
+        "form": "pagué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Pagué la cena.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I paid'. Note spelling change (g -> gu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Regalar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "regalo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Regalo flores a menudo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I give as a gift'."
+      },
+      {
+        "rank": 2,
+        "form": "regalé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Regalé un libro.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I gave as a gift'."
+      }
+    ]
+  },
+  {
+    "lemma": "Celebrar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "celebro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Celebro mi cumpleaños.",
+        "is_survival_essential": false,
+        "usage_notes": "'I celebrate'. A common social verb."
+      },
+      {
+        "rank": 2,
+        "form": "celebré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Celebré con amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I celebrated'."
+      }
+    ]
+  },
+  {
+    "lemma": "Decorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "decoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Decoro mi casa.",
+        "is_survival_essential": false,
+        "usage_notes": "'I decorate'. Common for holidays and home activities."
+      },
+      {
+        "rank": 2,
+        "form": "decoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Decoré para Navidad.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I decorated'."
+      }
+    ]
+  },
+  {
+    "lemma": "Colgar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "cuelgo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Cuelgo fotos en la pared.",
+        "is_survival_essential": false,
+        "usage_notes": "'I hang' (a picture, clothes) or 'I hang up' (the phone). A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "colgué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Colgué un cuadro.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I hung'. Note spelling change (g -> gu)."
+      }
+    ]
+  },
+  {
+    "lemma": "Guardar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "guardo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Guardo mis recuerdos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I keep', 'I put away', or 'I save' (a document)."
+      },
+      {
+        "rank": 2,
+        "form": "guardé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Guardé las llaves.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I kept'."
+      }
+    ]
+  },
+  {
+    "lemma": "Tirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "tiro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Tiro la basura.",
+        "is_survival_essential": false,
+        "usage_notes": "'I throw' or 'I throw away'."
+      },
+      {
+        "rank": 2,
+        "form": "tiré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tiré papeles viejos.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I threw away'."
+      }
+    ]
+  },
+  {
+    "lemma": "Reciclar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "reciclo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Reciclo el plástico.",
+        "is_survival_essential": false,
+        "usage_notes": "'I recycle'. An important verb for daily life and environmental topics."
+      },
+      {
+        "rank": 2,
+        "form": "reciclé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Reciclé botellas.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I recycled'."
+      }
+    ]
+  },
+  {
+    "lemma": "Mover",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "muevo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Muevo los muebles.",
+        "is_survival_essential": false,
+        "usage_notes": "'I move' (an object). A stem-changing verb (o -> ue). Reflexive 'me muevo' means 'I move' (my body)."
+      },
+      {
+        "rank": 2,
+        "form": "moví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Moví la mesa.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I moved'."
+      }
+    ]
+  },
+  {
+    "lemma": "Levantar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "levanto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Levanto pesas.",
+        "is_survival_essential": false,
+        "usage_notes": "'I lift'. The reflexive form 'me levanto' is more frequent and means 'I get up'."
+      },
+      {
+        "rank": 2,
+        "form": "levanté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Levanté una caja.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I lifted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Caerse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me caigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me caigo a veces.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I fall down'. Irregular 'yo' form."
+      },
+      {
+        "rank": 2,
+        "form": "me caí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me caí ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I fell down'."
+      }
+    ]
+  },
+  {
+    "lemma": "Parar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "paro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Paro para descansar.",
+        "is_survival_essential": false,
+        "usage_notes": "'I stop'."
+      },
+      {
+        "rank": 2,
+        "form": "paré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Paré el coche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I stopped'."
+      }
+    ]
+  },
+  {
+    "lemma": "Continuar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "continúo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Continúo estudiando.",
+        "is_survival_essential": false,
+        "usage_notes": "'I continue'. Note the accent mark on the 'u' in some forms."
+      },
+      {
+        "rank": 2,
+        "form": "estoy continuando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy continuando un libro.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, 'I am continuing'."
+      }
+    ]
+  },
+  {
+    "lemma": "Interrumpir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "interrumpo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "No me gusta interrumpir.",
+        "is_survival_essential": false,
+        "usage_notes": "'I interrupt'. A common conversational verb."
+      },
+      {
+        "rank": 2,
+        "form": "interrumpí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Interrumpí la reunión.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I interrupted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Evitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "evito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Evito el tráfico.",
+        "is_survival_essential": false,
+        "usage_notes": "'I avoid'. Used for people, places, and situations."
+      },
+      {
+        "rank": 2,
+        "form": "evité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Evité un problema.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I avoided'."
+      }
+    ]
+  },
+  {
+    "lemma": "Probar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "pruebo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Pruebo comida nueva.",
+        "is_survival_essential": false,
+        "usage_notes": "Dual meaning: 'I try' (food, clothes) or 'I test/prove'. A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "probé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Probé sushi.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I tried'."
+      }
+    ]
+  },
+  {
+    "lemma": "Saborear",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "saboreo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Saboreo el café.",
+        "is_survival_essential": false,
+        "usage_notes": "'I savor' or 'I taste'. More descriptive than 'probar'."
+      },
+      {
+        "rank": 2,
+        "form": "saboreé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Saboreé el postre.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I savored'."
+      }
+    ]
+  },
+  {
+    "lemma": "Oler",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "huelo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Huelo las flores.",
+        "is_survival_essential": false,
+        "usage_notes": "'I smell'. An irregular verb; the 'h' is added in stem-changing forms (o -> ue -> hue)."
+      },
+      {
+        "rank": 2,
+        "form": "olí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Olí la comida.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I smelled'."
+      }
+    ]
+  },
+  {
+    "lemma": "Toser",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "toso",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Toso cuando estoy resfriado.",
+        "is_survival_essential": false,
+        "usage_notes": "'I cough'. A basic health-related verb."
+      },
+      {
+        "rank": 2,
+        "form": "tosí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Tosí mucho ayer.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I coughed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Estornudar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "estornudo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Estornudo con alergias.",
+        "is_survival_essential": false,
+        "usage_notes": "'I sneeze'. Another basic health-related verb."
+      },
+      {
+        "rank": 2,
+        "form": "estornudé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Estornudé en la calle.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I sneezed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Respirar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "respiro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Respiro hondo para calmarme.",
+        "is_survival_essential": false,
+        "usage_notes": "'I breathe'. A fundamental biological action verb."
+      },
+      {
+        "rank": 2,
+        "form": "estoy respirando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Estoy respirando lento.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, 'I am breathing'."
+      }
+    ]
+  },
+  {
+    "lemma": "Soñar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "sueño",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Sueño con viajar.",
+        "is_survival_essential": false,
+        "usage_notes": "'I dream'. Used with 'con'. A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "soñé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Soñé algo raro.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I dreamed'."
+      }
+    ]
+  },
+  {
+    "lemma": "Despertarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me despierto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me despierto temprano.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I wake up'. A key daily routine verb and a stem-changer (e -> ie)."
+      },
+      {
+        "rank": 2,
+        "form": "me desperté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me desperté tarde.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I woke up'."
+      }
+    ]
+  },
+  {
+    "lemma": "Relajarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me relajo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me relajo con música.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I relax'."
+      },
+      {
+        "rank": 2,
+        "form": "me estoy relajando",
+        "tense": "present-progressive",
+        "person": "1st-singular",
+        "example": "Me estoy relajando ahora.",
+        "is_survival_essential": false,
+        "usage_notes": "Present progressive, 'I am relaxing'."
+      }
+    ]
+  },
+  {
+    "lemma": "Concentrarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me concentro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me concentro en mi trabajo.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I concentrate'."
+      },
+      {
+        "rank": 2,
+        "form": "me concentré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me concentré en el examen.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I concentrated'."
+      }
+    ]
+  },
+  {
+    "lemma": "Distraerse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me distraigo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me distraigo con el teléfono.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I get distracted'. Follows pattern of 'traer' with irregular 'yo' form."
+      },
+      {
+        "rank": 2,
+        "form": "me distraje",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me distraje en clase.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I got distracted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Equivocarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me equivoco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me equivoco a veces.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I make a mistake' or 'I am wrong'."
+      },
+      {
+        "rank": 2,
+        "form": "me equivoqué",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me equivoqué de calle.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I made a mistake'."
+      }
+    ]
+  },
+  {
+    "lemma": "Mejorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "mejoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Mejoro mi español.",
+        "is_survival_essential": false,
+        "usage_notes": "'I improve'. Can also be used to mean 'to get better' from an illness."
+      },
+      {
+        "rank": 2,
+        "form": "mejoré",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Mejoré mi nota.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I improved'."
+      }
+    ]
+  },
+  {
+    "lemma": "Empeorar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "empeoro",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Empeoro si no practico.",
+        "is_survival_essential": false,
+        "usage_notes": "'I worsen' or 'I get worse'. The opposite of 'mejorar'."
+      },
+      {
+        "rank": 2,
+        "form": "empeora",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "El clima empeora.",
+        "is_survival_essential": false,
+        "usage_notes": "'It worsens'. Common for talking about situations like weather or health."
+      }
+    ]
+  },
+  {
+    "lemma": "Aumentar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "aumento",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Aumento mi ejercicio.",
+        "is_survival_essential": false,
+        "usage_notes": "'I increase'."
+      },
+      {
+        "rank": 2,
+        "form": "aumenta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Aumenta el precio.",
+        "is_survival_essential": false,
+        "usage_notes": "'It increases'. Common in economic or descriptive contexts."
+      }
+    ]
+  },
+  {
+    "lemma": "Disminuir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "disminuye",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Disminuye el frío.",
+        "is_survival_essential": false,
+        "usage_notes": "'It decreases'. The opposite of 'aumenta'."
+      },
+      {
+        "rank": 2,
+        "form": "disminuyo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Disminuyo mi estrés.",
+        "is_survival_essential": false,
+        "usage_notes": "'I decrease'."
+      }
+    ]
+  },
+  {
+    "lemma": "Ajustar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "ajusto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Ajusto mi horario.",
+        "is_survival_essential": false,
+        "usage_notes": "'I adjust'."
+      },
+      {
+        "rank": 2,
+        "form": "ajusté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Ajusté la silla.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I adjusted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Adaptarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me adapto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me adapto rápido.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I adapt'."
+      },
+      {
+        "rank": 2,
+        "form": "me adapté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me adapté al cambio.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I adapted'."
+      }
+    ]
+  },
+  {
+    "lemma": "Conformarse",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "me conformo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Me conformo con poco.",
+        "is_survival_essential": false,
+        "usage_notes": "Reflexive verb, 'I settle for' or 'I content myself with'."
+      },
+      {
+        "rank": 2,
+        "form": "me conformé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Me conformé con el plan.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I settled for'."
+      }
+    ]
+  },
+  {
+    "lemma": "Convencer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "convenzo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Convenzo a mis amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I convince'. Irregular 'yo' form (c -> z)."
+      },
+      {
+        "rank": 2,
+        "form": "convencí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Convencí a mi jefe.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I convinced'."
+      }
+    ]
+  },
+  {
+    "lemma": "Persuadir",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "persuado",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Persuado con argumentos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I persuade'. A synonym for 'convencer'."
+      },
+      {
+        "rank": 2,
+        "form": "persuadí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Persuadí a mi equipo.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I persuaded'."
+      }
+    ]
+  },
+  {
+    "lemma": "Apoyar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "apoyo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Apoyo a mi equipo.",
+        "is_survival_essential": false,
+        "usage_notes": "'I support'."
+      },
+      {
+        "rank": 2,
+        "form": "apoyé",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Apoyé en el proyecto.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I supported'."
+      }
+    ]
+  },
+  {
+    "lemma": "Animar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "animo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Animo a mis amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I encourage' or 'I cheer on'."
+      },
+      {
+        "rank": 2,
+        "form": "anímate",
+        "tense": "imperative",
+        "person": "2nd-singular",
+        "example": "¡Anímate!",
+        "is_survival_essential": false,
+        "usage_notes": "A very common imperative phrase meaning 'Cheer up!'."
+      }
+    ]
+  },
+  {
+    "lemma": "Molestar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "molesto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "No quiero molestar.",
+        "is_survival_essential": false,
+        "usage_notes": "'I bother' or 'I annoy'."
+      },
+      {
+        "rank": 2,
+        "form": "molesta",
+        "tense": "present-indicative",
+        "person": "3rd-singular",
+        "example": "Me molesta el ruido.",
+        "is_survival_essential": false,
+        "usage_notes": "'It bothers'. Used like 'gustar' to express annoyance: 'Me molesta que...'."
+      }
+    ]
+  },
+  {
+    "lemma": "Prestar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "presto",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Presto mi libro.",
+        "is_survival_essential": false,
+        "usage_notes": "'I lend' or 'I loan'."
+      },
+      {
+        "rank": 2,
+        "form": "presté",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Presté mi coche.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I lent'."
+      }
+    ]
+  },
+  {
+    "lemma": "Devolver",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "devuelvo",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Devuelvo lo que presto.",
+        "is_survival_essential": false,
+        "usage_notes": "'I return' (an object). A stem-changing verb (o -> ue)."
+      },
+      {
+        "rank": 2,
+        "form": "devolví",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Devolví el dinero.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I returned'."
+      }
+    ]
+  },
+  {
+    "lemma": "Agradecer",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "agradezco",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Agradezco tu ayuda.",
+        "is_survival_essential": false,
+        "usage_notes": "'I thank' or 'I appreciate'. Irregular 'yo' form (-zco verb)."
+      },
+      {
+        "rank": 2,
+        "form": "agradecí",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Agradecí el favor.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I thanked'."
+      }
+    ]
+  },
+  {
+    "lemma": "Felicitar",
+    "frequent_forms": [
+      {
+        "rank": 1,
+        "form": "felicito",
+        "tense": "present-indicative",
+        "person": "1st-singular",
+        "example": "Felicito a mis amigos.",
+        "is_survival_essential": false,
+        "usage_notes": "'I congratulate'."
+      },
+      {
+        "rank": 2,
+        "form": "felicité",
+        "tense": "preterite",
+        "person": "1st-singular",
+        "example": "Felicité por el éxito.",
+        "is_survival_essential": false,
+        "usage_notes": "Simple past (preterite), 'I congratulated'."
+      }
+    ]
+  }
+]

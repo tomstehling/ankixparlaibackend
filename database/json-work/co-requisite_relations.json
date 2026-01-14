@@ -1,0 +1,24 @@
+[
+  ["gender-of-nouns", "definite-indefinite-articles"],
+  ["gender-of-nouns", "adjective-agreement-position"],
+  ["gender-of-nouns", "demonstratives"],
+  ["gender-of-nouns", "possessive-adjectives-pronouns"],
+  ["plural-formation", "definite-indefinite-articles"],
+  ["plural-formation", "adjective-agreement-position"],
+  ["plural-formation", "demonstratives"],
+  ["plural-formation", "possessive-adjectives-pronouns"],
+  ["definite-indefinite-articles", "adjective-agreement-position"],
+  ["subject-pronouns-pro-drop", "indicative-simple-tenses"],
+
+  ["direct-indirect-object-pronouns", "imperative-commands"],
+
+  ["direct-indirect-object-pronouns", "gustar-like-verbs"],
+
+  ["impersonal-se", "passive-voice"],
+
+  ["subjunctive-adjective-clauses", "relative-pronouns"],
+
+  ["sequence-of-tenses", "reported-speech"],
+
+  ["voseo-vosotros-ustedes", "usted-vs-tu"]
+]

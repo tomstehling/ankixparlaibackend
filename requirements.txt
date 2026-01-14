@@ -69,3 +69,5 @@ watchfiles==1.0.4
 websockets==15.0.1
 yarl==1.19.0
 pytz==2023.3.post1
+httpx
+openai

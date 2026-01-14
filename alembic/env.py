@@ -3,6 +3,7 @@ from logging.config import fileConfig
 
 # This is the crucial part for loading the .env file
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from sqlalchemy import pool
@@ -55,13 +56,12 @@ async def run_migrations_online() -> None:
     """
     import os
     import uuid
-    db_url= os.getenv("SUPABASE_DATABASE_URL_IPV4")
+
+    db_url = os.getenv("SUPABASE_DATABASE_URL_IPV4")
     if not db_url:
         raise ValueError("MIGRATION_DATABASE_URL environment variable is not set.")
 
-
     # Define our non-string connection arguments separately
-   
 
     # Pass the connect_args as a keyword argument to the function.
     # This is the clean, type-safe way to do it.
@@ -72,13 +72,14 @@ async def run_migrations_online() -> None:
             "statement_cache_size": 0,
             "prepared_statement_cache_size": 0,
         },
-)
+    )
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
 
-    await connection.close() # It's good practice to close the connection explicitly
+    await connection.close()  # It's good practice to close the connection explicitly
     await connectable.dispose()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

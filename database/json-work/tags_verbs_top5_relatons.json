@@ -1,0 +1,577 @@
+[
+  {
+    "data": [
+      "plural-formation",
+      "ser",
+      "estar",
+      "tener",
+      "haber",
+      "hacer",
+      "ir",
+      "venir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "agreement-compound-subjects",
+      "ser",
+      "estar",
+      "tener",
+      "ir",
+      "llegar",
+      "venir",
+      "jugar",
+      "comer"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "subject-pronouns-pro-drop",
+      "ser",
+      "estar",
+      "creer",
+      "saber",
+      "decir",
+      "hablar",
+      "comer",
+      "vivir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "direct-indirect-object-pronouns",
+      "dar",
+      "decir",
+      "ver",
+      "tener",
+      "hacer",
+      "comprar",
+      "enviar"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "clitic-order-combinations",
+      "dar",
+      "decir",
+      "mandar",
+      "traer",
+      "comprar",
+      "pedir",
+      "mostrar"
+    ],
+    "confidence_score": 98
+  },
+  {
+    "data": [
+      "reflexive-pronouns-verbs",
+      "llamarse",
+      "irse",
+      "sentirse",
+      "quedarse",
+      "encontrarse",
+      "lavar",
+      "poner",
+      "levantar",
+      "vestir"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "reciprocal-se",
+      "verse",
+      "conocerse",
+      "hablarse",
+      "ayudarse",
+      "quererse",
+      "amar",
+      "besar",
+      "escribir"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "accidental-se",
+      "olvidar",
+      "caer",
+      "perder",
+      "romper",
+      "quedar",
+      "quemar"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "impersonal-se",
+      "decir",
+      "poder",
+      "saber",
+      "ver",
+      "creer",
+      "vivir",
+      "comer",
+      "trabajar",
+      "hacer"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "passive-voice",
+      "hacer",
+      "encontrar",
+      "escribir",
+      "decir",
+      "construir",
+      "ver"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "ser-vs-estar",
+      "ser",
+      "estar",
+      "parecer",
+      "ir",
+      "sentirse",
+      "sentir",
+      "encontrar"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "indicative-simple-tenses",
+      "ser",
+      "estar",
+      "tener",
+      "haber",
+      "ir",
+      "hablar",
+      "comer",
+      "vivir"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "compound-perfect-tenses",
+      "haber",
+      "hacer",
+      "decir",
+      "ver",
+      "ir",
+      "comer",
+      "venir"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "subjunctive-mood",
+      "ser",
+      "estar",
+      "haber",
+      "poder",
+      "querer",
+      "dudar",
+      "esperar",
+      "ir"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "subjunctive-adjective-clauses",
+      "buscar",
+      "querer",
+      "necesitar",
+      "haber",
+      "conocer",
+      "ser"
+    ],
+    "confidence_score": 98
+  },
+  {
+    "data": [
+      "subjunctive-with-conjunctions",
+      "ser",
+      "poder",
+      "ir",
+      "llegar",
+      "hacer",
+      "venir",
+      "decir",
+      "esperar"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "imperative-commands",
+      "decir",
+      "hacer",
+      "ir",
+      "ver",
+      "venir",
+      "poner"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "future-tense",
+      "ir",
+      "ser",
+      "estar",
+      "hacer",
+      "poder",
+      "haber",
+      "decir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "conditional-tense",
+      "gustar",
+      "ser",
+      "poder",
+      "deber",
+      "haber",
+      "ir",
+      "hacer",
+      "decir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "si-clauses",
+      "ser",
+      "tener",
+      "poder",
+      "saber",
+      "haber",
+      "ir",
+      "venir",
+      "hacer",
+      "ganar"
+    ],
+    "confidence_score": 98
+  },
+  {
+    "data": [
+      "sequence-of-tenses",
+      "decir",
+      "pensar",
+      "creer",
+      "saber",
+      "querer",
+      "ser",
+      "ir",
+      "venir"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "modal-verbs",
+      "poder",
+      "deber",
+      "querer",
+      "tener",
+      "soler",
+      "saber"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "verbal-periphrasis",
+      "ir",
+      "estar",
+      "tener",
+      "deber",
+      "acabar",
+      "andar",
+      "venir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "gerunds-participles",
+      "estar",
+      "seguir",
+      "ir",
+      "llevar",
+      "haber",
+      "venir",
+      "andar"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "double-negatives",
+      "ver",
+      "saber",
+      "hacer",
+      "decir",
+      "querer",
+      "tener",
+      "ir"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "reported-speech",
+      "decir",
+      "preguntar",
+      "responder",
+      "contar",
+      "afirmar",
+      "contestar",
+      "explicar"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "adverbs-adverbial-phrases",
+      "estar",
+      "ir",
+      "hablar",
+      "hacer",
+      "sentirse",
+      "correr",
+      "venir"
+    ],
+    "confidence_score": 90
+  },
+  {
+    "data": [
+      "causative-constructions",
+      "hacer",
+      "dejar",
+      "mandar",
+      "permitir",
+      "ver",
+      "oír"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "se-lo-construction",
+      "dar",
+      "decir",
+      "entregar",
+      "mandar",
+      "explicar",
+      "prestar",
+      "vender",
+      "mostrar"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "queismo-dequeismo",
+      "darse",
+      "pensar",
+      "alegrarse",
+      "acordarse",
+      "estar",
+      "decir",
+      "creer",
+      "acordar",
+      "olvidar"
+    ],
+    "confidence_score": 90
+  },
+  {
+    "data": [
+      "leismo-loismo-laismo",
+      "ver",
+      "ayudar",
+      "decir",
+      "llamar",
+      "conocer",
+      "dar"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "ellipsis-omission",
+      "ser",
+      "estar",
+      "hacer",
+      "ir",
+      "tener",
+      "venir",
+      "decir"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "negative-imperative-pronoun-placement",
+      "hacer",
+      "decir",
+      "ir",
+      "preocuparse",
+      "olvidar",
+      "dar",
+      "venir"
+    ],
+    "confidence_score": 98
+  },
+  {
+    "data": [
+      "participle-agreement-ser-estar",
+      "ser",
+      "estar",
+      "hacer",
+      "escribir",
+      "abrir",
+      "romper",
+      "cerrar",
+      "decir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "voseo-vosotros-ustedes",
+      "ser",
+      "estar",
+      "tener",
+      "querer",
+      "decir",
+      "ir",
+      "venir",
+      "hacer"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "lexical-vs-grammatical-aspect",
+      "llegar",
+      "empezar",
+      "terminar",
+      "darse",
+      "morir",
+      "conocer",
+      "saber",
+      "construir"
+    ],
+    "confidence_score": 90
+  },
+  {
+    "data": [
+      "negative-polarity-items",
+      "haber",
+      "ver",
+      "saber",
+      "tener",
+      "decir",
+      "ir",
+      "hacer"
+    ],
+    "confidence_score": 95
+  },
+  {
+    "data": [
+      "clitic-doubling",
+      "dar",
+      "decir",
+      "gustar",
+      "preguntar",
+      "comprar",
+      "ver",
+      "invitar",
+      "ayudar"
+    ],
+    "confidence_score": 98
+  },
+  {
+    "data": [
+      "gustar-like-verbs",
+      "gustar",
+      "encantar",
+      "importar",
+      "interesar",
+      "parecer",
+      "doler",
+      "faltar"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "politeness-formal",
+      "poder",
+      "querer",
+      "gustar",
+      "permitir",
+      "necesitar",
+      "ser",
+      "estar",
+      "ir",
+      "venir"
+    ],
+    "confidence_score": 99
+  },
+  {
+    "data": [
+      "ser-estar-confusion",
+      "ser",
+      "estar",
+      "ir",
+      "parecer",
+      "hacer",
+      "sentir",
+      "encontrar"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "preterite-imperfect-misuse",
+      "ser",
+      "estar",
+      "tener",
+      "saber",
+      "conocer",
+      "ir",
+      "ver"
+    ],
+    "confidence_score": 100
+  },
+  {
+    "data": [
+      "subjunctive-indicative-misuse",
+      "creer",
+      "pensar",
+      "ser",
+      "dudar",
+      "querer",
+      "esperar",
+      "suponer"
+    ],
+    "confidence_score": 99
+  }
+]

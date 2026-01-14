@@ -37,3 +37,7 @@ nosetests.xml
 coverage.xml
 *.log
 logs/
+
+#custom
+intelligent_engine_data.json
+zz_build_commands.txt
