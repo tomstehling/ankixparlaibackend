@@ -39,7 +39,8 @@ async def lifespan(app: FastAPI):
 
     # Initialize LLM Handler
     try:
-        if settings.LLM_PROVIDER == "gemini":
+        provider = settings.LLM_PROVIDER.lower().strip()
+        if provider == "gemini":
             api_key = settings.GEMINI_API_KEY
             if not api_key:
                 raise ValueError("GEMINI_API_KEY environment variable not set.")
@@ -49,7 +50,7 @@ async def lifespan(app: FastAPI):
             logger.info(
                 f"Gemini Handler initialized successfully with model '{settings.GEMINI_MODEL_NAME}'."
             )
-        elif settings.LLM_PROVIDER == "openrouter":
+        elif provider == "openrouter":
             api_key = settings.OPENROUTER_API_KEY
             if not api_key:
                 raise ValueError("OPENROUTER_API_KEY environment variable not set.")

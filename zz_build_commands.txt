@@ -12,6 +12,7 @@ IMAGE_NAME="europe-southwest1-docker.pkg.dev/${PROJECT_ID}/ankixparlai-repo/my-a
 SERVICE_NAME="ankixparlai"
 CONTAINER_PORT="8000"      
 SECRET_NAME_GEMINI="chatbot-google-api-key" 
+SECRET_NAME_OPENROUTER="chatbot-openrouter-api-key"
 SECRET_NAME_DB_URL="DATABASE_URL_PROD" 
 AUTH_MASTER_KEY="AUTH_MASTER_KEY" 
 gcloud run deploy "${SERVICE_NAME}" \
@@ -21,10 +22,10 @@ gcloud run deploy "${SERVICE_NAME}" \
     --platform=managed \
     --port="${CONTAINER_PORT}" \
     --allow-unauthenticated \
-    --set-secrets="GEMINI_API_KEY=${SECRET_NAME_GEMINI}:latest" \
+    --set-secrets="GEMINI_API_KEY=${SECRET_NAME_GEMINI}:latest,OPENROUTER_API_KEY=${SECRET_NAME_OPENROUTER}:latest" \
     --set-secrets="DATABASE_URL_PROD=${SECRET_NAME_DB_URL}:latest" \
     --set-secrets="AUTH_MASTER_KEY=${AUTH_MASTER_KEY}:latest" \
-    --set-env-vars="RELOAD=false,LOG_LEVEL=info"
+    --set-env-vars="RELOAD=false,LOG_LEVEL=info,LLM_PROVIDER=openrouter"
 
 
 

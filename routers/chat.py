@@ -59,6 +59,46 @@ async def get_chat_history(
     return chat_history
 
 
+@router.get("/health-llm", tags=["Health"])
+async def health_check_llm(
+    llm_handler: Any = Depends(get_llm),
+):
+    """
+    Diagnostic endpoint to verify LLM connectivity and configuration.
+    """
+    logger.info("Manual LLM health check requested.")
+    try:
+        # Check provider
+        provider = "Unknown"
+        model_name = "Unknown"
+        if isinstance(llm_handler, GeminiHandler):
+            provider = "Gemini"
+            model_name = llm_handler.model_name
+        elif isinstance(llm_handler, OpenRouterHandler):
+            provider = "OpenRouter"
+            model_name = llm_handler.model_name
+
+        # Attempt generation
+        logger.info(f"Testing generation with {provider} ({model_name})...")
+        response = await llm_handler.generate_one_off("Hello, are you online? Reply with 'Yes'.")
+        
+        return {
+            "status": "ok",
+            "provider": provider,
+            "model": model_name,
+            "response_preview": response[:50] if response else None,
+            "full_response": response
+        }
+    except Exception as e:
+        logger.error(f"LLM Health Check Failed: {e}", exc_info=True)
+        return {
+            "status": "error",
+            "provider": provider,
+            "model": model_name,
+            "error": str(e)
+        }
+
+
 @router.post("/chat", response_model=schemas.ChatMessage)
 async def chat_endpoint(
     request_data: schemas.ChatMessageCreate,

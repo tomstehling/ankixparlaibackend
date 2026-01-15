@@ -22,9 +22,18 @@ class OpenRouterHandler:
         """
         self.api_key = api_key
         self.model_name = model_name
+        
+        # Log masked key for debugging
+        masked_key = f"{self.api_key[:8]}...{self.api_key[-4:]}" if self.api_key else "None"
+        logger.info(f"Initializing OpenRouterHandler. Model: {self.model_name}, Key: {masked_key}")
+
         self.client = openai.AsyncOpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=self.api_key,
+            default_headers={
+                "HTTP-Referer": "https://ankixparlai.com", # Replace with actual site URL
+                "X-Title": "AnkiXParlaI",
+            },
         )
         logger.info(f"OpenRouterHandler initialized with model: {self.model_name}")
 
@@ -42,8 +51,9 @@ class OpenRouterHandler:
                 return "(Received empty response from AI)"
         except openai.APIError as e:
             logger.exception(f"OpenRouter API error: {e}")
+            logger.error(f"OpenRouter Error Details - Status: {e.status_code}, Message: {e.message}, Code: {e.code}, Param: {e.param}")
             raise HTTPException(
-                status_code=e.status_code,
+                status_code=e.status_code or 500,
                 detail=f"OpenRouter API error: {e.message}",
             )
         except Exception as e:
@@ -56,13 +66,13 @@ class OpenRouterHandler:
 class GeminiHandler:
     """Handles interactions with the Google Gemini API."""
 
-    def __init__(self, api_key: str, model_name: str = "gemini-2.5-flash-lite"):
+    def __init__(self, api_key: str, model_name: str = "gemini-1.5-flash"):
         """
         Initializes the Gemini client.
 
         Args:
             api_key: The Google API key for Gemini.
-            model_name: The specific Gemini model to use (e.g., 'gemini-pro', 'gemini-1.5-flash-latest').
+            model_name: The specific Gemini model to use (e.g., 'gemini-pro', 'gemini-1.5-flash').
         """
         try:
             genai.configure(api_key=api_key)

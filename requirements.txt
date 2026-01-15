@@ -71,3 +71,4 @@ yarl==1.19.0
 pytz==2023.3.post1
 httpx
 openai
+fsrs

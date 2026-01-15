@@ -20,7 +20,7 @@ class Settings:
     PORT = int(os.getenv("PORT", 8000))
     HOST = os.getenv("HOST", "0.0.0.0")
     RELOAD = os.getenv("RELOAD", "True").lower() == "true"
-    GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash-latest")
+    GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash")
 
     OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
     if not OPENROUTER_API_KEY and LLM_PROVIDER == "openrouter":
