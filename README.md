@@ -57,4 +57,4 @@ Built with Python and FastAPI, this backend demonstrates advanced patterns in as
 
 ---
 
-*This backend is the core of the AnkiXParlaI Fullstack suite, showcasing professional Python engineering and AI-driven educational technology.*
+*This backend is the core of the AnkiXParlaI Fullstack suite.*
