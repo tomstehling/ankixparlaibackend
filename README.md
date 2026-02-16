@@ -1,4 +1,4 @@
-# AnkiXParlaI - AI-Powered Spanish Learning Backend
+# AnkiXParlaI - Backend
 
 AnkiXParlaI Backend is a robust, high-performance API designed to power an intelligent Spanish language learning ecosystem. It orchestrates complex interactions between **Large Language Models (LLMs)**, a custom **Spaced Repetition System (SRS)**, and a sophisticated pedagogical database.
 
