@@ -34,6 +34,7 @@ class Settings:
     ############################## SECURITY Configuration ###########################################
     #################################################################################################
     AUTH_MASTER_KEY = os.getenv("AUTH_MASTER_KEY")
+    CRON_SECRET_KEY = os.getenv("CRON_SECRET_KEY")
     ALGORITHM = "HS256"  # JWT algorithm
     ACCESS_TOKEN_EXPIRE_MINUTES = int(
         os.getenv("ACCSS_TOKEN_EXPIRE_MINUTES", 42000)
@@ -55,6 +56,7 @@ class Settings:
     STANDARD_TRANSLATOR_PROMPT = os.path.join(
         PROMPT_DIR, "standard_translator_prompt.txt"
     )
+    TAGGER_PROMPT = os.path.join(PROMPT_DIR, "tagger_prompt.txt")
 
     #################################################################################################
     ############################## SRS (FLASHCARD LEARNING) Configuration ###########################

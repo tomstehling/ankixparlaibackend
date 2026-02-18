@@ -62,7 +62,7 @@ class OpenRouterHandler:
                 status_code=500, detail=f"OpenRouter generation failed: {e}"
             )
 
-
+#old-do not use
 class GeminiHandler:
     """Handles interactions with the Google Gemini API."""
 

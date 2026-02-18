@@ -6,7 +6,7 @@ import sqlite3  # Import sqlite3 for specific error handling
 # import math
 
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Request
 from fastapi.responses import JSONResponse
 
 
@@ -15,6 +15,7 @@ import database.session as session
 import database.models as models
 from sqlalchemy.ext.asyncio import AsyncSession
 from services.llm_handler import GeminiHandler, OpenRouterHandler
+from services.agent_services import run_agent_tagger, run_card_generator_agent
 import schemas
 from dependencies import get_current_active_user, get_llm, get_prompt
 from core.config import settings
@@ -219,6 +220,8 @@ async def validate_translate_sentence_endpoint(
 @router.post("/save_note", response_model=schemas.NotePublic)
 async def save_note(
     request_data: schemas.SaveCardRequest,  # Keep input model, map fields below
+    background_tasks: BackgroundTasks,
+    request: Request,
     current_user: models.User = Depends(get_current_active_user),
     db_session: AsyncSession = Depends(session.get_db_session),
 ):
@@ -241,6 +244,15 @@ async def save_note(
         )
         
         await db_session.commit()
+        
+        # Schedule Background Tagging Agent
+        raw_content = f"Front: {request_data.spanish_front} | Back: {request_data.english_back}"
+        background_tasks.add_task(
+            run_agent_tagger, 
+            note_obj.id, 
+            raw_content, 
+            request.app.state.db_session_factory
+        )
         
         # Re-fetch with tags loaded to avoid lazy loading issues
         note = await crud.get_note_by_id(db_session, user_id, note_obj.id)
@@ -348,8 +360,12 @@ async def get_due_cards_for_user(
 async def grade_card(
     card_id: int,
     grade_data: schemas.CardGradeRequest,
+    background_tasks: BackgroundTasks,
+    request: Request,
     current_user: models.User = Depends(get_current_active_user),
     db_session: AsyncSession = Depends(session.get_db_session),
+    llm_handler: Any = Depends(get_llm),
+    card_creator_prompt: str = Depends(get_prompt("studio_topic_prompt")),
 ) -> schemas.APIResponse[schemas.GradeCardResponse]:
     """Grades a specific card instance after review."""
     user_id = current_user.id
@@ -372,6 +388,17 @@ async def grade_card(
     state_to_status = {0: "new", 1: "learning", 2: "review", 3: "lapsed"}
     current_status = state_to_status.get(card_data.state, "review")
     
+    # Capture pre-review state for logging
+    pre_review_state = {
+        "state": card_data.state,
+        "due_date": card_data.due_date.isoformat() if card_data.due_date else None,
+        "stability": card_data.stability,
+        "difficulty": card_data.difficulty,
+        "last_review": card_data.last_review.isoformat() if card_data.last_review else None,
+        "review_count": card_data.review_count,
+        "lapse_count": card_data.lapse_count,
+    }
+
     current_interval = float(card_data.stability or 0.0)
     current_ease = float(card_data.difficulty or DEFAULT_EASE_FACTOR)
     # learning_step is missing from model, we'll assume it's stored in pedagogical_difficulty for now or just use 0
@@ -468,12 +495,54 @@ async def grade_card(
     if not success:
         logger.error(f"Failed to update SRS state for Card ID {card_id} in database.")
         raise HTTPException(status_code=500, detail="Failed to update card state.")
-    logger.info(f"Successfully updated Card ID {card_id}.")
+    
+    # Capture post-review state and create log
+    status_map = {"new": 0, "learning": 1, "review": 2, "lapsed": 3}
+    post_review_state = {
+        "state": status_map.get(new_status, 2),
+        "due_date": datetime.datetime.fromtimestamp(next_due, tz=datetime.timezone.utc).isoformat(),
+        "stability": new_interval,
+        "difficulty": new_ease,
+        "last_review": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "review_count": card_data.review_count, # already incremented in crud.update_card_srs
+        "lapse_count": card_data.lapse_count,   # already potentially incremented in crud.update_card_srs
+    }
+
+    grade_map = {"again": 1, "hard": 2, "good": 3, "easy": 4}
+    await crud.create_review_log(
+        db_session=db_session,
+        review_log_in=schemas.ReviewLogCreate(
+            user_id=user_id,
+            card_id=card_id,
+            grade=grade_map.get(grade, 3),
+            pre_review_state=pre_review_state,
+            post_review_state=post_review_state,
+        )
+    )
+
+    logger.info(f"Successfully updated Card ID {card_id} and created review log.")
     await db_session.refresh(current_user, attribute_names=["awards"])
     await crud.update_streak_on_grade(
         db_session=db_session, user=current_user, timezone=grade_data.timezone
     )
     await db_session.refresh(current_user, attribute_names=["awards"])
+
+    # Endless Syllabus Trigger Logic
+    try:
+        review_count = await crud.count_todays_reviews(db_session, user_id)
+        due_count = await crud.count_due_cards(db_session, user_id)
+        
+        if review_count % 20 == 0 or due_count < 5:
+            logger.info(f"Endless Syllabus Trigger: review_count={review_count}, due_count={due_count}. Scheduling generation.")
+            background_tasks.add_task(
+                run_card_generator_agent,
+                user_id,
+                request.app.state.db_session_factory,
+                llm_handler,
+                card_creator_prompt
+            )
+    except Exception as e:
+        logger.error(f"Failed to trigger Endless Syllabus background task: {e}")
 
     return schemas.APIResponse(
         status="success",
@@ -1003,3 +1072,20 @@ async def translate_text_endpoint(
             status_code=500,
             detail=f"An unexpected error occurred during {request.translation_mode} translation.",
         )
+
+
+@router.get("/review-logs", response_model=schemas.APIResponse[List[schemas.ReviewLogPublic]])
+async def get_review_logs(
+    limit: int = 50,
+    current_user: models.User = Depends(get_current_active_user),
+    db_session: AsyncSession = Depends(session.get_db_session),
+) -> schemas.APIResponse[List[schemas.ReviewLogPublic]]:
+    """Fetches the most recent review logs for the current user."""
+    try:
+        logs = await crud.get_review_logs_for_user(
+            db_session=db_session, user_id=current_user.id, limit=limit
+        )
+        return schemas.APIResponse(status="success", data=logs)
+    except Exception as e:
+        logger.exception(f"Error retrieving review logs for user {current_user.id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve review logs.")

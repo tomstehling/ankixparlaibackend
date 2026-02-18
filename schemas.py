@@ -249,6 +249,27 @@ class GradeCardResponse(BaseModel):
     longest_streak: int
 
 
+class ReviewLogCreate(BaseModel):
+    user_id: uuid.UUID
+    card_id: int
+    grade: int
+    pre_review_state: Optional[Dict[str, Any]] = None
+    post_review_state: Optional[Dict[str, Any]] = None
+
+
+class ReviewLogPublic(BaseModel):
+    id: int
+    user_id: uuid.UUID
+    card_id: int
+    review_time: datetime.datetime
+    grade: int
+    pre_review_state: Optional[Dict[str, Any]] = None
+    post_review_state: Optional[Dict[str, Any]] = None
+
+    class Config:
+        from_attributes = True
+
+
 class CreateFromTopicRequest(BaseModel):
     topic: str
     custom_instructions: Optional[str] = None

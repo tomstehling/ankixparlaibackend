@@ -16,8 +16,10 @@ from sqlalchemy.pool import StaticPool
 from core.config import settings
 import utils
 from services.llm_handler import GeminiHandler, OpenRouterHandler
-from routers import authentication, chat, cards, feedback
+from routers import authentication, chat, cards, feedback, internal
 from sqlalchemy.ext.asyncio import async_sessionmaker
+from services.graph_handler import GraphHandler
+from services.tagger_handler import TaggerHandler
 
 # --- Logging Configuration ---
 log_level = getattr(
@@ -100,6 +102,9 @@ async def lifespan(app: FastAPI):
         app.state.standard_translator_prompt = utils.load_prompt_from_template(
             settings.STANDARD_TRANSLATOR_PROMPT
         )
+        app.state.tagger_prompt = utils.load_prompt_from_template(
+            settings.TAGGER_PROMPT
+        )
         logger.info("Core prompts loaded successfully and stored in app state.")
     except FileNotFoundError as e:
         logger.error(f"FATAL: Failed to load prompts - {e}")
@@ -135,7 +140,7 @@ async def lifespan(app: FastAPI):
             
             # Reset sequences to prevent IntegrityErrors after seeding with hardcoded IDs
             logger.info("Resetting database sequences...")
-            for table in ["tags", "notes", "cards"]:
+            for table in ["tags", "notes", "cards", "review_log"]:
                 await conn.execute(text(f"SELECT setval(pg_get_serial_sequence('{table}', 'id'), coalesce((SELECT MAX(id) FROM {table}), 1), coalesce((SELECT MAX(id) FROM {table}), null) is not null)"))
             await conn.commit()
             
@@ -144,6 +149,32 @@ async def lifespan(app: FastAPI):
         app.state.db_session_factory = async_sessionmaker(
             bind=engine, expire_on_commit=False
         )
+
+        # Initialize Graph Handler and load graph
+        logger.info("Initializing Graph Handler...")
+        try:
+            graph_handler = GraphHandler()
+            async with app.state.db_session_factory() as session:
+                await graph_handler.load_graph_from_db(session)
+                        app.state.graph_handler = graph_handler
+                        logger.info("Knowledge graph loaded successfully.")
+            
+                        # Initialize Tagger Handler
+                        if app.state.llm_handler and app.state.graph_handler:
+                            app.state.tagger_handler = TaggerHandler(
+                                llm_handler=app.state.llm_handler,
+                                graph_handler=app.state.graph_handler,
+                                system_prompt=app.state.tagger_prompt
+                            )
+                            logger.info("Tagger Handler initialized successfully.")
+                        else:
+                            app.state.tagger_handler = None
+                            logger.warning("Tagger Handler could not be initialized (LLM or Graph missing).")
+            
+                    except Exception as e:
+            
+            logger.error(f"Failed to load knowledge graph: {e}")
+            app.state.graph_handler = None
 
     except Exception as e:
         logger.error(f"FATAL: Database connection failed - {e}")
@@ -188,6 +219,7 @@ app.include_router(
 )  # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(feedback.router, tags=["Feedback"])
+app.include_router(internal.router, prefix="/internal", tags=["Internal"])
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)
