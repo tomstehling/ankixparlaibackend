@@ -15,7 +15,7 @@ import database.session as session
 import database.models as models
 from sqlalchemy.ext.asyncio import AsyncSession
 from services.llm_handler import GeminiHandler, OpenRouterHandler
-from services.agent_services import run_agent_tagger, run_card_generator_agent
+from services.agent_services import run_agent_tagger
 import schemas
 from dependencies import get_current_active_user, get_llm, get_prompt
 from core.config import settings
@@ -526,23 +526,6 @@ async def grade_card(
         db_session=db_session, user=current_user, timezone=grade_data.timezone
     )
     await db_session.refresh(current_user, attribute_names=["awards"])
-
-    # Endless Syllabus Trigger Logic
-    try:
-        review_count = await crud.count_todays_reviews(db_session, user_id)
-        due_count = await crud.count_due_cards(db_session, user_id)
-        
-        if review_count % 20 == 0 or due_count < 5:
-            logger.info(f"Endless Syllabus Trigger: review_count={review_count}, due_count={due_count}. Scheduling generation.")
-            background_tasks.add_task(
-                run_card_generator_agent,
-                user_id,
-                request.app.state.db_session_factory,
-                llm_handler,
-                card_creator_prompt
-            )
-    except Exception as e:
-        logger.error(f"Failed to trigger Endless Syllabus background task: {e}")
 
     return schemas.APIResponse(
         status="success",
@@ -1074,18 +1057,4 @@ async def translate_text_endpoint(
         )
 
 
-@router.get("/review-logs", response_model=schemas.APIResponse[List[schemas.ReviewLogPublic]])
-async def get_review_logs(
-    limit: int = 50,
-    current_user: models.User = Depends(get_current_active_user),
-    db_session: AsyncSession = Depends(session.get_db_session),
-) -> schemas.APIResponse[List[schemas.ReviewLogPublic]]:
-    """Fetches the most recent review logs for the current user."""
-    try:
-        logs = await crud.get_review_logs_for_user(
-            db_session=db_session, user_id=current_user.id, limit=limit
-        )
-        return schemas.APIResponse(status="success", data=logs)
-    except Exception as e:
-        logger.exception(f"Error retrieving review logs for user {current_user.id}: {e}")
-        raise HTTPException(status_code=500, detail="Failed to retrieve review logs.")
+

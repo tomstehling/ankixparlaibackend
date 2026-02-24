@@ -10,8 +10,6 @@ import core.security as security  # Handles password hashing, JWT
 from core.config import settings
 import database.crud as crud
 from services.llm_handler import GeminiHandler, OpenRouterHandler  # Type hint for LLM handler
-from services.graph_handler import GraphHandler
-from services.tagger_handler import TaggerHandler
 import schemas
 import uuid
 
@@ -88,26 +86,7 @@ def get_llm(request: Request) -> Any:
     return llm_handler
 
 
-def get_graph_handler(request: Request) -> GraphHandler:
-    """Dependency to get the initialized Graph handler from app state."""
-    graph_handler = getattr(request.app.state, "graph_handler", None)
-    if not graph_handler:
-        logger.error("Graph Handler not found in app state.")
-        raise HTTPException(
-            status_code=503, detail="Service Unavailable: Graph Handler not ready."
-        )
-    return graph_handler
 
-
-def get_tagger_handler(request: Request) -> TaggerHandler:
-    """Dependency to get the initialized Tagger handler from app state."""
-    tagger_handler = getattr(request.app.state, "tagger_handler", None)
-    if not tagger_handler:
-        logger.error("Tagger Handler not found in app state.")
-        raise HTTPException(
-            status_code=503, detail="Service Unavailable: Tagger Handler not ready."
-        )
-    return tagger_handler
 
 
 def get_prompt(prompt_name: str):
