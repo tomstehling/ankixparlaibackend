@@ -57,6 +57,8 @@ class Settings:
         PROMPT_DIR, "standard_translator_prompt.txt"
     )
     TAGGER_PROMPT = os.path.join(PROMPT_DIR, "tagger_prompt.txt")
+    HOMEOSTASIS_CARD_GENERATOR_PROMPT = os.path.join(PROMPT_DIR, "homeostasis_card_generator_prompt.txt")
+    HOMEOSTASIS_CARD_COMPRESSOR_PROMPT = os.path.join(PROMPT_DIR, "homeostasis_card_compressor_prompt.txt")
 
     #################################################################################################
     ############################## SRS (FLASHCARD LEARNING) Configuration ###########################
