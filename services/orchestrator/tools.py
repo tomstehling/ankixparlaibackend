@@ -1,7 +1,8 @@
 import logging
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Type
 from abc import ABC, abstractmethod
 import uuid
+import inspect
 from sqlalchemy.ext.asyncio import AsyncSession
 import database.models as models
 
@@ -44,6 +45,10 @@ class CardGenerator(BaseTool):
         Returns:
             Dict with generation results
         """
+        if not self.llm_handler:
+            logger.error("LLM Handler not available for CardGenerator.")
+            raise RuntimeError("LLM Handler is required for card generation but was not provided.")
+
         try:
             logger.info(f"Generating {target_count} cards for user {user_id}")
             
@@ -52,19 +57,16 @@ class CardGenerator(BaseTool):
             recent_cards = await self._get_recent_cards(db_session, user_id, limit=10)
             
             # Use LLM to generate new cards based on user's patterns
-            if self.llm_handler:
-                new_cards = await self._generate_cards_with_ai(
-                    user_id=user_id,
-                    existing_tags=user_tags,
-                    recent_cards=recent_cards,
-                    target_count=target_count
-                )
-            else:
-                # Fallback: generate basic cards if no LLM available
-                new_cards = await self._generate_fallback_cards(
-                    db_session, user_id, target_count
-                )
+            new_cards = await self._generate_cards_with_ai(
+                user_id=user_id,
+                existing_tags=user_tags,
+                recent_cards=recent_cards,
+                target_count=target_count
+            )
             
+            if not new_cards:
+                raise ValueError("LLM returned an empty card list.")
+
             # Save new cards to database
             created_cards = await self._save_cards(db_session, user_id, new_cards)
             
@@ -80,6 +82,7 @@ class CardGenerator(BaseTool):
             
     async def _get_user_tags(self, db_session: AsyncSession, user_id: uuid.UUID) -> List[models.Tag]:
         """Get user's tags and their scores."""
+        from sqlalchemy import select
         query = select(models.Tag).join(
             models.UserTagScore
         ).where(
@@ -92,6 +95,7 @@ class CardGenerator(BaseTool):
         
     async def _get_recent_cards(self, db_session: AsyncSession, user_id: uuid.UUID, limit: int = 10) -> List[models.Card]:
         """Get user's most recent cards for pattern analysis."""
+        from sqlalchemy import select
         query = select(models.Card).where(
             models.Card.user_id == user_id
         ).order_by(
@@ -150,28 +154,9 @@ Format response as JSON:
             data = json.loads(response)
             return data.get("cards", [])
         except Exception as e:
-            logger.warning(f"AI card generation failed, using fallback: {e}")
-            return await self._generate_fallback_cards(None, user_id, target_count)
+            logger.error(f"AI card generation failed: {e}")
+            raise RuntimeError(f"Failed to generate cards via LLM: {e}")
             
-    async def _generate_fallback_cards(
-        self, 
-        db_session: AsyncSession, 
-        user_id: uuid.UUID, 
-        target_count: int
-    ) -> List[Dict[str, str]]:
-        """Generate basic fallback cards when AI is not available."""
-        
-        # Basic Spanish vocabulary cards as fallback
-        basic_cards = [
-            {"front": "Hola", "back": "Hello"},
-            {"front": "Gracias", "back": "Thank you"},
-            {"front": "Por favor", "back": "Please"},
-            {"front": "¿Cómo estás?", "back": "How are you?"},
-            {"front": "Buenos días", "back": "Good morning"},
-        ]
-        
-        return basic_cards[:target_count]
-        
     async def _save_cards(
         self, 
         db_session: AsyncSession, 
@@ -195,6 +180,7 @@ Format response as JSON:
             # Create the card
             card = models.Card(
                 note_id=note.id,
+                user_id=user_id,
                 front=card_info["front"],
                 back=card_info["back"],
                 due_date=models.func.now()  # Due immediately
@@ -247,16 +233,14 @@ class CardCompressor(BaseTool):
                     "max_due_cards": max_due_cards
                 }
             
+            if not self.llm_handler:
+                logger.error("LLM Handler not available for CardCompressor.")
+                raise RuntimeError("LLM Handler is required for workload compression but was not provided.")
+
             # Use AI to prioritize and consolidate cards
-            if self.llm_handler:
-                prioritized_cards = await self._prioritize_cards_with_ai(
-                    due_cards, max_due_cards
-                )
-            else:
-                # Fallback: simple prioritization by review count
-                prioritized_cards = await self._simple_prioritize_cards(
-                    due_cards, max_due_cards
-                )
+            prioritized_cards = await self._prioritize_cards_with_ai(
+                due_cards, max_due_cards
+            )
             
             # Update card states based on prioritization
             compression_results = await self._apply_compression(
@@ -277,6 +261,7 @@ class CardCompressor(BaseTool):
             
     async def _get_due_cards(self, db_session: AsyncSession, user_id: uuid.UUID) -> List[models.Card]:
         """Get all due cards for the user."""
+        from sqlalchemy import select
         query = select(models.Card).where(
             models.Card.user_id == user_id,
             models.Card.due_date <= models.func.now(),
@@ -325,25 +310,15 @@ Return the indices (1-based) of the {max_due_cards} most important cards to keep
             selected_indices = [int(i) - 1 for i in indices[:max_due_cards]]  # Convert to 0-based
             
             # Return the prioritized cards
-            return [due_cards[i] for i in selected_indices if 0 <= i < len(due_cards)]
+            prioritized = [due_cards[i] for i in selected_indices if 0 <= i < len(due_cards)]
+            if not prioritized:
+                 raise ValueError("LLM returned no valid indices for prioritization.")
+            return prioritized
             
         except Exception as e:
-            logger.warning(f"AI prioritization failed, using simple method: {e}")
-            return await self._simple_prioritize_cards(due_cards, max_due_cards)
+            logger.error(f"AI prioritization failed: {e}")
+            raise RuntimeError(f"Failed to prioritize cards via LLM: {e}")
             
-    async def _simple_prioritize_cards(
-        self, 
-        due_cards: List[models.Card], 
-        max_due_cards: int
-    ) -> List[models.Card]:
-        """Simple prioritization: keep cards with fewest reviews (newer/less practiced)."""
-        # Sort by review count (fewer reviews first) and then due date
-        sorted_cards = sorted(
-            due_cards,
-            key=lambda card: (card.review_count or 0, card.due_date)
-        )
-        return sorted_cards[:max_due_cards]
-        
     async def _apply_compression(
         self, 
         db_session: AsyncSession, 
@@ -376,3 +351,119 @@ Return the indices (1-based) of the {max_due_cards} most important cards to keep
             "kept_active": kept_active,
             "suspended": suspended
         }
+
+
+class CardDecompressor(BaseTool):
+    """
+    Tool for decompressing workload by reactivating suspended cards.
+    """
+    
+    async def execute(
+        self, 
+        db_session: AsyncSession, 
+        user_id: uuid.UUID, 
+        reactivate_count: int = 10,
+        **kwargs
+    ) -> Dict[str, Any]:
+        """
+        Reactivate suspended cards for the user.
+        
+        Args:
+            db_session: Database session
+            user_id: User to decompress workload for
+            reactivate_count: Number of cards to reactivate
+            
+        Returns:
+            Dict with decompression results
+        """
+        try:
+            logger.info(f"Decompressing workload for user {user_id}, reactivating {reactivate_count} cards")
+            
+            # Get suspended cards
+            from sqlalchemy import select
+            query = select(models.Card).where(
+                models.Card.user_id == user_id,
+                models.Card.state == 3  # Suspended
+            ).limit(reactivate_count)
+            
+            result = await db_session.execute(query)
+            suspended_cards = result.scalars().all()
+            
+            reactivated_count = 0
+            for card in suspended_cards:
+                card.state = 1  # Move back to active learning state
+                reactivated_count += 1
+                
+            await db_session.commit()
+            
+            return {
+                "action": "decompressed_cards",
+                "reactivated_count": reactivated_count,
+                "requested_count": reactivate_count
+            }
+            
+        except Exception as e:
+            logger.error(f"Error decompressing cards for user {user_id}: {e}")
+            raise
+
+
+class AgentToolRegistry:
+    def __init__(self):
+        self._tools: Dict[str, BaseTool] = {}
+
+    def register(self, tool_instance: BaseTool):
+        """Registers a tool instance by its class name."""
+        tool_name = tool_instance.__class__.__name__
+        self._tools[tool_name] = tool_instance
+        logger.info(f"Registered tool: {tool_name}")
+
+    def get_llm_schemas(self) -> list[Dict[str, Any]]:
+        """Dynamically generates JSON schemas for the LLM based on method signatures."""
+        schemas = []
+        for name, tool in self._tools.items():
+            doc = inspect.getdoc(tool) or f"Tool to execute {name}"
+            sig = inspect.signature(tool.execute)
+            
+            properties = {}
+            required = []
+            
+            for param_name, param in sig.parameters.items():
+                # Skip internal context that the LLM shouldn't provide
+                if param_name in ['self', 'db_session', 'user_id', 'kwargs']:
+                    continue
+                    
+                # Map Python types to JSON Schema types
+                param_type = "string"
+                if param.annotation == int:
+                    param_type = "integer"
+                elif param.annotation == bool:
+                    param_type = "boolean"
+                elif param.annotation == float:
+                    param_type = "number"
+
+                properties[param_name] = {
+                    "type": param_type,
+                    "description": f"Parameter {param_name}" # Can be enhanced by parsing docstrings
+                }
+                
+                if param.default == inspect.Parameter.empty:
+                    required.append(param_name)
+
+            schemas.append({
+                "type": "function",
+                "function": {
+                    "name": name,
+                    "description": doc,
+                    "parameters": {
+                        "type": "object",
+                        "properties": properties,
+                        "required": required
+                    }
+                }
+            })
+        return schemas
+
+    def get_tool(self, name: str) -> BaseTool:
+        if name not in self._tools:
+            raise ValueError(f"Tool {name} not found in registry.")
+        return self._tools[name]

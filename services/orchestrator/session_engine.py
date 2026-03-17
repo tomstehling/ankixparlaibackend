@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from enum import Enum
 import datetime
 import uuid
@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, delete
 import database.models as models
 import database.crud as crud
+from .tools import AgentToolRegistry, CardGenerator, CardCompressor, CardDecompressor
 
 logger = logging.getLogger(__name__)
 
@@ -25,24 +26,60 @@ class SessionEngine:
     Deletes stale 14-day-old cards and determines if workload needs balancing.
     """
     
-    def __init__(self, llm_handler=None):
+    def __init__(self, db_session: AsyncSession, user_id: uuid.UUID, llm_handler=None):
+        self.db_session = db_session
+        self.user_id = user_id
         self.llm_handler = llm_handler
         
+        # Initialize and register tools
+        self.registry = AgentToolRegistry()
+        self.registry.register(CardGenerator(llm_handler=self.llm_handler))
+        self.registry.register(CardCompressor(llm_handler=self.llm_handler))
+        self.registry.register(CardDecompressor(llm_handler=self.llm_handler))
+
+    async def run_agent_loop(self, user_prompt: str):
+        """
+        Executes the agent loop: gets schemas, asks LLM for action, and executes tool with context.
+        """
+        # 1. Get auto-generated schemas
+        available_tools = self.registry.get_llm_schemas()
+        
+        # 2. Ask the LLM what to do
+        # Note: self.llm_handler.decide_action is a placeholder for the actual decision logic
+        llm_response = await self.llm_handler.decide_action(
+            prompt=user_prompt, 
+            tools=available_tools
+        )
+        
+        # 3. If LLM decides to use a tool, execute it with injected context
+        if hasattr(llm_response, 'tool_call') and llm_response.tool_call:
+            tool_name = llm_response.tool_call.name
+            tool_args = llm_response.tool_call.arguments # e.g., {"target_count": 10}
+            
+            tool_instance = self.registry.get_tool(tool_name)
+            
+            # Context Injection: the LLM didn't provide db_session or user_id
+            result = await tool_instance.execute(
+                db_session=self.db_session,
+                user_id=self.user_id,
+                **tool_args
+            )
+            return result
+            
+        return getattr(llm_response, 'text', str(llm_response))
+
     async def evaluate_user_workload(
         self, 
-        db_session: AsyncSession, 
-        user_id: uuid.UUID
+        db_session: AsyncSession = None, 
+        user_id: uuid.UUID = None
     ) -> tuple[WorkloadAction, dict]:
         """
         Evaluate user's current workload and return recommended action.
-        
-        Args:
-            db_session: Database session
-            user_id: User to evaluate
-            
-        Returns:
-            tuple: (recommended_action, metrics_dict)
+        Uses internal session and user_id if not provided.
         """
+        db_session = db_session or self.db_session
+        user_id = user_id or self.user_id
+        
         try:
             # Get user's current workload metrics
             metrics = await self._calculate_workload_metrics(db_session, user_id)

@@ -29,10 +29,10 @@ async def run_homeostasis_for_user(
     try:
         async with session_factory() as db_session:
             # Use Unit of Work pattern - isolated session per user
-            session_engine = SessionEngine(llm_handler=llm_handler)
+            session_engine = SessionEngine(db_session=db_session, user_id=user_id, llm_handler=llm_handler)
             
             # Evaluate user's workload
-            action, metrics = await session_engine.evaluate_user_workload(db_session, user_id)
+            action, metrics = await session_engine.evaluate_user_workload()
             
             results = {
                 "user_id": user_id,
