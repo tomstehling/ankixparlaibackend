@@ -526,10 +526,11 @@ async def count_todays_reviews(db_session: AsyncSession, user_id: uuid.UUID) -> 
 
 
 async def count_due_cards(db_session: AsyncSession, user_id: uuid.UUID) -> int:
-    """Count rows in cards for this user where due_date is <= now."""
+    """Count rows in cards for this user where due_date is <= now and not suspended."""
     query = select(func.count()).select_from(models.Card).join(models.Note).where(
         models.Note.user_id == user_id,
-        models.Card.due_date <= func.now()
+        models.Card.due_date <= func.now(),
+        models.Card.suspended == False
     )
     result = await db_session.execute(query)
     return result.scalar() or 0

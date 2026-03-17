@@ -16,7 +16,7 @@ from sqlalchemy.pool import StaticPool
 from core.config import settings
 import utils
 from services.llm_handler import GeminiHandler, OpenRouterHandler
-from routers import authentication, chat, cards, feedback, internal, homeostasis
+from routers import authentication, chat, cards, feedback, homeostasis
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from services.graph_handler import GraphHandler
 from services.tagger_handler import TaggerHandler
@@ -41,31 +41,15 @@ async def lifespan(app: FastAPI):
 
     # Initialize LLM Handler
     try:
-        provider = settings.LLM_PROVIDER.lower().strip()
-        if provider == "gemini":
-            api_key = settings.GEMINI_API_KEY
-            if not api_key:
-                raise ValueError("GEMINI_API_KEY environment variable not set.")
-            llm_handler = GeminiHandler(
-                api_key=api_key, model_name=settings.GEMINI_MODEL_NAME
-            )
-            logger.info(
-                f"Gemini Handler initialized successfully with model '{settings.GEMINI_MODEL_NAME}'."
-            )
-        elif provider == "openrouter":
-            api_key = settings.OPENROUTER_API_KEY
-            if not api_key:
-                raise ValueError("OPENROUTER_API_KEY environment variable not set.")
-            llm_handler = OpenRouterHandler(
-                api_key=api_key, model_name=settings.OPENROUTER_MODEL_NAME
-            )
-            logger.info(
-                f"OpenRouter Handler initialized successfully with model '{settings.OPENROUTER_MODEL_NAME}'."
-            )
-        else:
-            raise ValueError(
-                f"Unknown LLM_PROVIDER: {settings.LLM_PROVIDER}. Must be 'gemini' or 'openrouter'."
-            )
+        api_key = settings.OPENROUTER_API_KEY
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable not set.")
+        llm_handler = OpenRouterHandler(
+            api_key=api_key, model_name=settings.OPENROUTER_MODEL_NAME
+        )
+        logger.info(
+            f"OpenRouter Handler initialized successfully with model '{settings.OPENROUTER_MODEL_NAME}'."
+        )
         
         # Check secret key during startup for security warning
         _ = settings.AUTH_MASTER_KEY  # Trigger warning from config.py if default
@@ -224,7 +208,6 @@ app.include_router(
 )  # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(feedback.router, tags=["Feedback"])
-app.include_router(internal.router, prefix="/internal", tags=["Internal"])
 app.include_router(homeostasis.router, prefix="/internal", tags=["Homeostasis"])
 
 

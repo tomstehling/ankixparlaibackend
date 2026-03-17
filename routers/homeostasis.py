@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks, Request
 from dependencies import verify_cron_secret
 from sqlalchemy.ext.asyncio import AsyncSession
 from services.orchestrator.session_engine import SessionEngine
-from services.orchestrator.tools import CardGenerator, CardCompressor
+from services.orchestrator.tools import CardGenerator, CardCompressor, CardDecompressor
 from database.session import get_db_session
 
 logger = logging.getLogger(__name__)
@@ -51,6 +51,11 @@ async def run_homeostasis_for_user(
                 compressor = CardCompressor(llm_handler=llm_handler)
                 compressor_result = await compressor.execute(db_session, user_id, max_due_cards=30)
                 results["tools_executed"].append(compressor_result)
+                
+            elif action.value == "decompress_cards":
+                decompressor = CardDecompressor(llm_handler=llm_handler)
+                decompressor_result = await decompressor.execute(db_session, user_id, reactivate_count=10)
+                results["tools_executed"].append(decompressor_result)
                 
             # For maintain_status, no tools are executed
             

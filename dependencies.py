@@ -9,7 +9,7 @@ from database.session import get_db_session
 import core.security as security  # Handles password hashing, JWT
 from core.config import settings
 import database.crud as crud
-from services.llm_handler import GeminiHandler, OpenRouterHandler  # Type hint for LLM handler
+from services.llm_handler import OpenRouterHandler  # Type hint for LLM handler
 import schemas
 import uuid
 

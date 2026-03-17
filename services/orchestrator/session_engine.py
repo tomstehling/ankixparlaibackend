@@ -15,6 +15,7 @@ class WorkloadAction(Enum):
     """Enum representing possible actions to balance user workload"""
     GENERATE_CARDS = "generate_cards"
     COMPRESS_CARDS = "compress_cards"
+    DECOMPRESS_CARDS = "decompress_cards"
     MAINTAIN_STATUS = "maintain_status"
 
 
@@ -73,6 +74,7 @@ class SessionEngine:
         due_query = select(func.count(models.Card.id)).where(
             models.Card.user_id == user_id,
             models.Card.due_date <= func.now(),
+            models.Card.suspended == False,
             models.Card.state.in_([0, 1, 2])  # Active learning states
         )
         due_result = await db_session.execute(due_query)
@@ -81,10 +83,19 @@ class SessionEngine:
         # Count total active cards
         total_query = select(func.count(models.Card.id)).where(
             models.Card.user_id == user_id,
+            models.Card.suspended == False,
             models.Card.state.in_([0, 1, 2])  # Active learning states
         )
         total_result = await db_session.execute(total_query)
         total_count = total_result.scalar() or 0
+
+        # Count suspended cards
+        suspended_query = select(func.count(models.Card.id)).where(
+            models.Card.user_id == user_id,
+            models.Card.suspended == True
+        )
+        suspended_result = await db_session.execute(suspended_query)
+        suspended_count = suspended_result.scalar() or 0
         
         # Count recent reviews (last 7 days)
         week_ago = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=7)
@@ -98,6 +109,7 @@ class SessionEngine:
         return {
             "due_count": due_count,
             "total_count": total_count,
+            "suspended_count": suspended_count,
             "recent_reviews": recent_reviews,
             "review_rate": recent_reviews / 7 if recent_reviews > 0 else 0,
         }
@@ -108,11 +120,13 @@ class SessionEngine:
         
         Logic:
         - If due_count is very high (>50) and user is not reviewing much: COMPRESS
+        - If due_count is very low (<5) and there are suspended cards: DECOMPRESS
         - If due_count is very low (<5) and total_count is low: GENERATE  
         - If workload is in reasonable bounds: MAINTAIN
         """
         due_count = metrics["due_count"]
         total_count = metrics["total_count"]
+        suspended_count = metrics["suspended_count"]
         review_rate = metrics["review_rate"]
         
         # High workload due pile but low review activity - suggest compression
@@ -120,9 +134,14 @@ class SessionEngine:
             logger.info(f"High workload detected: {due_count} due cards, {review_rate} reviews/day")
             return WorkloadAction.COMPRESS_CARDS
             
-        # Low workload - suggest generation
+        # Low workload - reactivate suspended cards first if any exist
+        elif due_count < 5 and suspended_count > 0:
+            logger.info(f"Low workload detected: {due_count} due cards, {suspended_count} suspended cards available")
+            return WorkloadAction.DECOMPRESS_CARDS
+            
+        # Low workload and no suspended cards - suggest generation
         elif due_count < 5 and total_count < 20:
-            logger.info(f"Low workload detected: {due_count} due cards, {total_count} total cards")
+            logger.info(f"Low workload detected: {due_count} due cards, {total_count} total active cards")
             return WorkloadAction.GENERATE_CARDS
             
         # Balanced workload
