@@ -15,8 +15,8 @@ from sqlalchemy.pool import StaticPool
 # --- project imports
 from core.config import settings
 import utils
-from services.llm_handler import GeminiHandler, OpenRouterHandler
-from routers import authentication, chat, cards, feedback, homeostasis
+from services.llm_handler import OpenRouterHandler
+from routers import authentication, chat, cards, feedback
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from services.graph_handler import GraphHandler
 from services.tagger_handler import TaggerHandler
@@ -208,7 +208,6 @@ app.include_router(
 )  # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(feedback.router, tags=["Feedback"])
-app.include_router(homeostasis.router, prefix="/internal", tags=["Homeostasis"])
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

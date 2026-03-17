@@ -1,4 +1,3 @@
-# routers/chat.py
 import logging
 import uuid
 import json
@@ -13,13 +12,14 @@ from core.config import settings
 
 # Import the corrected utility function
 from utils import load_prompt_from_template
-from services.llm_handler import GeminiHandler, OpenRouterHandler
+from services.llm_handler import OpenRouterHandler
 import schemas
 
-# Import get_prompt ONLY if needed for /explain (or load explain prompt directly too)
+# Import dependencies
 from dependencies import get_current_active_user, get_llm, get_prompt
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import get_db_session
+from services.orchestrator.tools import AgentToolRegistry, CardGenerator, CardCompressor, CardDecompressor
 
 
 logger = logging.getLogger(__name__)
@@ -69,14 +69,8 @@ async def health_check_llm(
     logger.info("Manual LLM health check requested.")
     try:
         # Check provider
-        provider = "Unknown"
-        model_name = "Unknown"
-        if isinstance(llm_handler, GeminiHandler):
-            provider = "Gemini"
-            model_name = llm_handler.model_name
-        elif isinstance(llm_handler, OpenRouterHandler):
-            provider = "OpenRouter"
-            model_name = llm_handler.model_name
+        provider = "OpenRouter"
+        model_name = getattr(llm_handler, "model_name", "Unknown")
 
         # Attempt generation
         logger.info(f"Testing generation with {provider} ({model_name})...")
@@ -93,8 +87,8 @@ async def health_check_llm(
         logger.error(f"LLM Health Check Failed: {e}", exc_info=True)
         return {
             "status": "error",
-            "provider": provider,
-            "model": model_name,
+            "provider": "OpenRouter",
+            "model": getattr(llm_handler, "model_name", "Unknown"),
             "error": str(e)
         }
 
@@ -103,261 +97,142 @@ async def health_check_llm(
 async def chat_endpoint(
     request_data: schemas.ChatMessageCreate,
     current_user: models.User = Depends(get_current_active_user),
-    llm_handler: GeminiHandler = Depends(get_llm),
+    llm_handler: OpenRouterHandler = Depends(get_llm),
     db_session: AsyncSession = Depends(get_db_session),
 ):
-    # --- 1. Stores incoming messages in the database.
-    # --- 2. Constructs a promt consisting of the latest user message, the system prompt, and the user's flashcards.
-    # --- 2. Sends the prompt to the LLM and receives a response.
-    # --- 3. Stores the LLM response or an Error in the database.
-    # --- 4. Fetches the LLM response from the database to have the timestamp and return it to the user.
-
-    # ---get user
+    """
+    Unified chat endpoint that supports regular conversation and tool execution.
+    """
     user_id = current_user.id
     user_message = request_data.content
-    role = "user"  # Default role for user messages
     session_id = request_data.session_id
+    
     if not user_id:
         raise HTTPException(status_code=403, detail="Could not identify user.")
-    logger.info(
-        f"Received chat message from User ID {user_id}: '{user_message[:50]}...'"
-    )
+        
+    logger.info(f"Chat request from user {user_id}: '{user_message[:50]}...'")
 
-    # --- Store User Message ---
+    # 1. Initialize Tool Registry and register tools
+    registry = AgentToolRegistry()
+    registry.register(CardGenerator(llm_handler=llm_handler))
+    registry.register(CardCompressor(llm_handler=llm_handler))
+    registry.register(CardDecompressor(llm_handler=llm_handler))
+    
+    available_tools = registry.get_llm_schemas()
+
+    # 2. Store User Message
     chat_message = schemas.ChatMessageCreate(
-        user_id=user_id, session_id=session_id, role=role, content=user_message
+        user_id=user_id, session_id=session_id, role="user", content=user_message
     )
+    await crud.add_chat_message(chat_message=chat_message, db_session=db_session)
 
-    store_user_message = await crud.add_chat_message(
-        chat_message=chat_message, db_session=db_session
-    )
-
-    logger.debug(f"Stored user message for User ID {user_id}: {store_user_message}")
-
-    # --- Fetch Chat History amd extract role and message content to build prompt ---
-    chat_history: list[models.ChatMessage] = await crud.get_chat_history(
+    # 3. Fetch History and Format for LLM
+    chat_history = await crud.get_chat_history(
         db_session=db_session,
         user_id=user_id,
         session_id=session_id,
         limit=HISTORY_LOOKBACK,
     )
-    formatted_history: list[Dict[str, Any]] = []
+    
+    messages = []
+    # Add System Prompt with context
+    system_prompt = await _get_formatted_system_prompt(user_id, db_session)
+    messages.append({"role": "system", "content": system_prompt})
+    
+    # Add History (reversed because crud returns newest first)
+    for msg in reversed(chat_history):
+        messages.append({"role": msg.role, "content": msg.content})
 
-    logger.debug(f"Fetched chat history for User ID {user_id}: {chat_history}")
-    for message in chat_history:
-        formatted_history.insert(
-            0, {"role": message.role, "parts": [{"text": message.content}]}
-        )
-
-    # --- Load System Prompt Template Directly ---
-    system_prompt_template_content = "(Error: Template not loaded)"
-    system_prompt_template_path = settings.SYSTEM_PROMPT_TEMPLATE
+    # 4. LLM Call with Tool Support
     try:
-        logger.debug(f"Attempting to load template from: {system_prompt_template_path}")
-        # Call the simple load function from utils
-        system_prompt_template_content = load_prompt_from_template(
-            system_prompt_template_path
+        response = await llm_handler.generate_with_tools(
+            messages=messages,
+            tools=available_tools
         )
-        if not system_prompt_template_content:
-            raise ValueError("Loaded system prompt template is empty.")
-        logger.debug(
-            f"Successfully loaded template content (first 100 chars): {system_prompt_template_content[:100]}"
-        )
-        # Check placeholder presence
-        if "{learned_content}" not in system_prompt_template_content:
-            logger.error(
-                "!!! Template file seems to be missing the {learned_content} placeholder !!!"
-            )
-        else:
-            logger.debug("Placeholder {learned_content} found in loaded template.")
-
-    except FileNotFoundError:
-        logger.error(
-            f"System prompt template file not found at: {system_prompt_template_path}"
-        )
-        raise HTTPException(
-            status_code=500, detail="Internal server error: Chat template missing."
-        )
-    except Exception as e:
-        logger.error(f"Failed to load system_prompt_template: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=500,
-            detail="Internal server error: Cannot load chat configuration.",
-        )
-
-    # --- Fetch User's Flashcards ---
-    formatted_card_list = "(Error fetching flashcards)"
-    try:
-        user_notes: list[models.Note] = await crud.get_all_notes_for_user(
-            user_id=user_id, db_session=db_session
-        )
-        learned_sentences = [note.field1.strip() for note in user_notes]
-        logger.debug(
-            f"Extracted learned_sentences list for user {user_id}: {learned_sentences}"
-        )
-
-        MAX_LEARNED_SENTENCES = 50  # Limit number of cards sent in context
-        if learned_sentences:
-            sentences_to_use = learned_sentences[:MAX_LEARNED_SENTENCES]
-            # Format the list clearly for the prompt
-            formatted_card_list = (
-                "START OF MY KNOWN SENTENCES:\n"
-                + "\n".join(f"- {s}" for s in sentences_to_use)
-                + "\nEND OF MY KNOWN SENTENCES."
-            )
-            logger.info(
-                f"User {user_id} has {len(user_notes)} cards total. Formatted {len(sentences_to_use)} sentences."
-            )
-            logger.debug(
-                f"Generated formatted_card_list: {formatted_card_list[:100]}..."
-            )
-        else:
-            formatted_card_list = (
-                "(No flashcards with content found)"  # Correct fallback
-            )
-            logger.warning(
-                f"User {user_id} has {len(user_notes)} cards, but no non-empty 'front' fields found."
-            )
-
-    except Exception as db_err:
-        logger.error(
-            f"Failed to fetch/format flashcards for user {user_id}: {db_err}",
-            exc_info=True,
-        )
-        # formatted_card_list remains "(Error fetching flashcards)"
-
-    # --- Format the final System Prompt ---
-    final_system_prompt = "(Error: Formatting failed)"
-    try:
-        logger.debug("Attempting to format system prompt...")
-        # Format the loaded template content with the generated card list string
-        format_args = {"learned_content": formatted_card_list}
-        logger.debug(f"Formatting with args: {format_args}")
-        final_system_prompt = system_prompt_template_content.format(**format_args)
-        logger.debug(
-            f"Result of .format() (final_system_prompt, first 200 chars): {final_system_prompt[:200]}..."
-        )
-        if "{learned_content}" in final_system_prompt:
-            # This should not happen if format worked, but check anyway
-            logger.error(
-                "!!! CRITICAL: Placeholder {learned_content} still present after .format() call!"
-            )
-        else:
-            logger.debug("Placeholder correctly replaced in final_system_prompt.")
-    except KeyError as ke:
-        logger.error(
-            f"KeyError formatting system prompt. Check placeholder '{ke}'. Template was: {system_prompt_template_content[:100]}..."
-        )
-        final_system_prompt = system_prompt_template_content  # Fallback to unformatted
-    except Exception as format_err:
-        logger.error(
-            f"Unexpected error formatting system prompt: {format_err}", exc_info=True
-        )
-        final_system_prompt = system_prompt_template_content  # Fallback
-
-    # --- Interact with LLM ---
-    try:
+        
         ai_reply = ""
-        if isinstance(llm_handler, GeminiHandler):
-            model = llm_handler.get_model()
-            # Construct context as list of dicts
-            conversation_context: list[dict[Any, Any]] = [
-                {
-                    "role": "user",
-                    "parts": [{"text": final_system_prompt}],
-                },  # Send combined prompt+cards
-                {
-                    "role": "model",
-                    "parts": [
-                        {
-                            "text": "¡Claro! Entendido. Estoy listo para practicar contigo. ¿Qué quieres decir?"
-                        }
-                    ],
-                },  # Simulate model ack
-            ]
-            complete_constructed_message = conversation_context + formatted_history
-
-            logger.debug(
-                f"Sending the following context structure to Gemini for user {user_id}:"
-            )
-            logger.debug(pprint.pformat(complete_constructed_message))  # Log final context
-
-            response = await model.generate_content_async(
-                contents=complete_constructed_message
-            )
-
-            # --- Safety Check & Response Extraction ---
+        tool_call_executed = False
+        
+        # Check for tool calls
+        if response.choices and response.choices[0].message.tool_calls:
+            tool_call = response.choices[0].message.tool_calls[0]
+            tool_name = tool_call.function.name
+            tool_args = json.loads(tool_call.function.arguments)
+            
+            logger.info(f"LLM requested tool execution: {tool_name} with {tool_args}")
+            
             try:
-                if not response.candidates:
-                    reason = "Unknown"
-                    prompt_feedback = getattr(response, "prompt_feedback", None)
-                    if prompt_feedback:
-                        reason = f"Reason: {prompt_feedback.block_reason}"
-                    logger.warning(f"Gemini response blocked for user {user_id}. {reason}")
-                    raise HTTPException(
-                        status_code=400,
-                        detail=f"Response blocked by safety filter. {reason}",
-                    )
-                # Ensure response.text exists before accessing
-                ai_reply = response.text
-            except ValueError as e:  # Catch specific errors like blocked content
-                logger.warning(
-                    f"Gemini value error for user {user_id}. Maybe blocked? Error: {e}"
+                tool_instance = registry.get_tool(tool_name)
+                result = await tool_instance.execute(
+                    db_session=db_session,
+                    user_id=user_id,
+                    **tool_args
                 )
-                reason = "Blocked by safety filter (ValueError)"
-                prompt_feedback = getattr(response, "prompt_feedback", None)
-                if prompt_feedback:
-                    reason = f"Blocked by safety filter: {prompt_feedback.block_reason}"
-                raise HTTPException(status_code=400, detail=reason)
-            except AttributeError:
-                logger.error(
-                    f"Gemini response structure unexpected. No 'text' attribute found. Response: {response}"
-                )
-                raise HTTPException(
-                    status_code=500, detail="Received unexpected AI response structure."
-                )
-        else: # It's an OpenRouterHandler
-            # Simplified prompt construction for OpenRouter
-            prompt = final_system_prompt + "\n\n" + user_message
-            ai_reply = await llm_handler.generate_one_off(prompt)
+                
+                # Format a reply about what the tool did
+                if tool_name == "CardGenerator":
+                    ai_reply = f"I've generated {result.get('count', 0)} new flashcards for you based on your learning patterns."
+                elif tool_name == "CardCompressor":
+                    res = result.get('compression_results', {})
+                    ai_reply = f"I've compressed your workload. Processed {res.get('cards_processed', 0)} cards and suspended {res.get('suspended', 0)} to make your review session more manageable."
+                elif tool_name == "CardDecompressor":
+                    ai_reply = f"I've reactivated {result.get('reactivated_count', 0)} of your suspended cards so you have more to practice."
+                else:
+                    ai_reply = f"I've executed the tool {tool_name} for you."
+                
+                tool_call_executed = True
+                
+            except Exception as tool_err:
+                logger.error(f"Error executing tool {tool_name}: {tool_err}")
+                ai_reply = f"I tried to execute the {tool_name} tool, but encountered an error: {str(tool_err)}"
+        
+        elif response.choices and response.choices[0].message.content:
+            ai_reply = response.choices[0].message.content
+        else:
+            ai_reply = "I'm sorry, I couldn't generate a response."
 
-
-        logger.info(f"LLM Reply for User ID {user_id}: '{ai_reply[:50]}...'")
-
-        # --- Store AI Response ---
+        # 5. Store and Return AI Response
         ai_message = schemas.ChatMessageCreate(
             user_id=user_id,
             session_id=session_id,
-            role="model",  # Role for AI response
+            role="assistant",
             content=ai_reply,
-            message_type="chat",  # Type of message)
+            message_type="chat"
         )
-        reply = await crud.add_chat_message(
+        stored_reply = await crud.add_chat_message(
             chat_message=ai_message, db_session=db_session
         )
-        logger.debug(f"Stored AI message for User ID {user_id}: {ai_message}")
+        
+        return stored_reply
 
-        return reply
-
-    except HTTPException as http_exc:
-        raise http_exc  # Re-raise specific HTTP exceptions
     except Exception as e:
-        logger.error(
-            f"Error during LLM chat interaction for User ID {user_id}: {e}",
-            exc_info=True,
-        )
-        raise HTTPException(
-            status_code=500, detail=f"An error occurred communicating with the AI: {e}"
-        )
+        logger.error(f"Error in chat endpoint: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"AI communication failed: {str(e)}")
+
+
+async def _get_formatted_system_prompt(user_id: uuid.UUID, db_session: AsyncSession) -> str:
+    """Helper to fetch cards and format the system prompt."""
+    try:
+        template = load_prompt_from_template(settings.SYSTEM_PROMPT_TEMPLATE)
+        user_notes = await crud.get_all_notes_for_user(user_id=user_id, db_session=db_session)
+        learned_sentences = [note.field1.strip() for note in user_notes[:50]]
+        
+        formatted_list = "No sentences learned yet."
+        if learned_sentences:
+            formatted_list = "MY KNOWN SENTENCES:\n- " + "\n- ".join(learned_sentences)
+            
+        return template.format(learned_content=formatted_list)
+    except Exception as e:
+        logger.error(f"Failed to format system prompt: {e}")
+        return "You are a helpful Spanish teaching assistant."
 
 
 # --- Explain Endpoint ---
-# Use the *new* ExplainResponse for the response_model
 @router.post("/explain", response_model=schemas.ExplainResponse)
 async def explain_endpoint(
     request_data: schemas.ExplainRequest,
     current_user: models.User = Depends(get_current_active_user),
-    llm_handler: GeminiHandler = Depends(get_llm),
+    llm_handler: OpenRouterHandler = Depends(get_llm),
     teacher_prompt: str = Depends(get_prompt("teacher_prompt")),
 ):
     """

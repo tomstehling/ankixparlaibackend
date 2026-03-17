@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class BaseTool(ABC):
-    """Base class for all AI-powered tools used by the SessionEngine."""
+    """Base class for all AI-powered tools."""
     
     def __init__(self, llm_handler=None):
         self.llm_handler = llm_handler
