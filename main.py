@@ -4,8 +4,9 @@ import os
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.sql import text
@@ -15,9 +16,12 @@ from sqlalchemy.pool import StaticPool
 # --- project imports
 from core.config import settings
 import utils
-from services.llm_handler import GeminiHandler, OpenRouterHandler
+from services.llm_handler import OpenRouterHandler
 from routers import authentication, chat, cards, feedback
+from dependencies import verify_cron_secret
 from sqlalchemy.ext.asyncio import async_sessionmaker
+from services.graph_handler import GraphHandler
+from services.tagger_handler import TaggerHandler
 
 # --- Logging Configuration ---
 log_level = getattr(
@@ -39,31 +43,15 @@ async def lifespan(app: FastAPI):
 
     # Initialize LLM Handler
     try:
-        provider = settings.LLM_PROVIDER.lower().strip()
-        if provider == "gemini":
-            api_key = settings.GEMINI_API_KEY
-            if not api_key:
-                raise ValueError("GEMINI_API_KEY environment variable not set.")
-            llm_handler = GeminiHandler(
-                api_key=api_key, model_name=settings.GEMINI_MODEL_NAME
-            )
-            logger.info(
-                f"Gemini Handler initialized successfully with model '{settings.GEMINI_MODEL_NAME}'."
-            )
-        elif provider == "openrouter":
-            api_key = settings.OPENROUTER_API_KEY
-            if not api_key:
-                raise ValueError("OPENROUTER_API_KEY environment variable not set.")
-            llm_handler = OpenRouterHandler(
-                api_key=api_key, model_name=settings.OPENROUTER_MODEL_NAME
-            )
-            logger.info(
-                f"OpenRouter Handler initialized successfully with model '{settings.OPENROUTER_MODEL_NAME}'."
-            )
-        else:
-            raise ValueError(
-                f"Unknown LLM_PROVIDER: {settings.LLM_PROVIDER}. Must be 'gemini' or 'openrouter'."
-            )
+        api_key = settings.OPENROUTER_API_KEY
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable not set.")
+        llm_handler = OpenRouterHandler(
+            api_key=api_key, model_name=settings.OPENROUTER_MODEL_NAME
+        )
+        logger.info(
+            f"OpenRouter Handler initialized successfully with model '{settings.OPENROUTER_MODEL_NAME}'."
+        )
         
         # Check secret key during startup for security warning
         _ = settings.AUTH_MASTER_KEY  # Trigger warning from config.py if default
@@ -100,6 +88,15 @@ async def lifespan(app: FastAPI):
         app.state.standard_translator_prompt = utils.load_prompt_from_template(
             settings.STANDARD_TRANSLATOR_PROMPT
         )
+        app.state.tagger_prompt = utils.load_prompt_from_template(
+            settings.TAGGER_PROMPT
+        )
+        app.state.homeostasis_card_generator_prompt = utils.load_prompt_from_template(
+            settings.HOMEOSTASIS_CARD_GENERATOR_PROMPT
+        )
+        app.state.homeostasis_card_compressor_prompt = utils.load_prompt_from_template(
+            settings.HOMEOSTASIS_CARD_COMPRESSOR_PROMPT
+        )
         logger.info("Core prompts loaded successfully and stored in app state.")
     except FileNotFoundError as e:
         logger.error(f"FATAL: Failed to load prompts - {e}")
@@ -135,7 +132,7 @@ async def lifespan(app: FastAPI):
             
             # Reset sequences to prevent IntegrityErrors after seeding with hardcoded IDs
             logger.info("Resetting database sequences...")
-            for table in ["tags", "notes", "cards"]:
+            for table in ["tags", "notes", "cards", "review_log"]:
                 await conn.execute(text(f"SELECT setval(pg_get_serial_sequence('{table}', 'id'), coalesce((SELECT MAX(id) FROM {table}), 1), coalesce((SELECT MAX(id) FROM {table}), null) is not null)"))
             await conn.commit()
             
@@ -144,6 +141,31 @@ async def lifespan(app: FastAPI):
         app.state.db_session_factory = async_sessionmaker(
             bind=engine, expire_on_commit=False
         )
+
+        # Initialize Graph Handler and load graph
+        logger.info("Initializing Graph Handler...")
+        try:
+            graph_handler = GraphHandler()
+            async with app.state.db_session_factory() as session:
+                await graph_handler.load_graph_from_db(session)
+            app.state.graph_handler = graph_handler
+            logger.info("Knowledge graph loaded successfully.")
+            
+            # Initialize Tagger Handler
+            if app.state.llm_handler and app.state.graph_handler:
+                app.state.tagger_handler = TaggerHandler(
+                    llm_handler=app.state.llm_handler,
+                    graph_handler=app.state.graph_handler,
+                    system_prompt=app.state.tagger_prompt
+                )
+                logger.info("Tagger Handler initialized successfully.")
+            else:
+                app.state.tagger_handler = None
+                logger.warning("Tagger Handler could not be initialized (LLM or Graph missing).")
+            
+        except Exception as e:
+            logger.error(f"Failed to load knowledge graph: {e}")
+            app.state.graph_handler = None
 
     except Exception as e:
         logger.error(f"FATAL: Database connection failed - {e}")
@@ -188,6 +210,12 @@ app.include_router(
 )  # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(feedback.router, tags=["Feedback"])
+
+
+@app.get("/_health", tags=["Root"], include_in_schema=True)
+async def health_check_internal(authorized: bool = Depends(verify_cron_secret)):
+    """Internal health check for cron jobs and monitoring."""
+    return PlainTextResponse("Still awake!", status_code=200)
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

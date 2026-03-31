@@ -8,25 +8,16 @@ class Settings:
     #################################################################################################
     ############################## CORE Configuration ###########################################
     #################################################################################################
-    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini")  # 'gemini' or 'openrouter'
-
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    if not GEMINI_API_KEY and LLM_PROVIDER == "gemini":
-        print("\n" + "*" * 60)
-        print("ERROR: GEMINI_API_KEY environment variable not set.")
-        print("       The application requires a valid Gemini API key to function when LLM_PROVIDER is set to 'gemini'.")
-        print("*" * 60 + "\n")
     WEB_APP_BASE_URL = os.getenv("WEB_APP_BASE_URL", "http://localhost:5173")
     PORT = int(os.getenv("PORT", 8000))
     HOST = os.getenv("HOST", "0.0.0.0")
     RELOAD = os.getenv("RELOAD", "True").lower() == "true"
-    GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash")
 
     OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-    if not OPENROUTER_API_KEY and LLM_PROVIDER == "openrouter":
+    if not OPENROUTER_API_KEY:
         print("\n" + "*" * 60)
         print("ERROR: OPENROUTER_API_KEY environment variable not set.")
-        print("       The application requires a valid OpenRouter API key to function when LLM_PROVIDER is set to 'openrouter'.")
+        print("       The application requires a valid OpenRouter API key to function.")
         print("*" * 60 + "\n")
     OPENROUTER_MODEL_NAME = os.getenv("OPENROUTER_MODEL_NAME", "openai/gpt-oss-120b:free")
 
@@ -34,6 +25,7 @@ class Settings:
     ############################## SECURITY Configuration ###########################################
     #################################################################################################
     AUTH_MASTER_KEY = os.getenv("AUTH_MASTER_KEY")
+    CRON_SECRET_KEY = os.getenv("CRON_SECRET_KEY")
     ALGORITHM = "HS256"  # JWT algorithm
     ACCESS_TOKEN_EXPIRE_MINUTES = int(
         os.getenv("ACCSS_TOKEN_EXPIRE_MINUTES", 42000)
@@ -55,6 +47,9 @@ class Settings:
     STANDARD_TRANSLATOR_PROMPT = os.path.join(
         PROMPT_DIR, "standard_translator_prompt.txt"
     )
+    TAGGER_PROMPT = os.path.join(PROMPT_DIR, "tagger_prompt.txt")
+    HOMEOSTASIS_CARD_GENERATOR_PROMPT = os.path.join(PROMPT_DIR, "homeostasis_card_generator_prompt.txt")
+    HOMEOSTASIS_CARD_COMPRESSOR_PROMPT = os.path.join(PROMPT_DIR, "homeostasis_card_compressor_prompt.txt")
 
     #################################################################################################
     ############################## SRS (FLASHCARD LEARNING) Configuration ###########################

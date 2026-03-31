@@ -7,8 +7,9 @@ import database.crud as crud  # CRUD operations for database
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import get_db_session
 import core.security as security  # Handles password hashing, JWT
+from core.config import settings
 import database.crud as crud
-from services.llm_handler import GeminiHandler, OpenRouterHandler  # Type hint for LLM handler
+from services.llm_handler import OpenRouterHandler  # Type hint for LLM handler
 import schemas
 import uuid
 
@@ -85,6 +86,9 @@ def get_llm(request: Request) -> Any:
     return llm_handler
 
 
+
+
+
 def get_prompt(prompt_name: str):
     """
     Dependency factory: Returns a dependency function that retrieves
@@ -119,3 +123,16 @@ def get_learned_sentences(request: Request) -> list[str]:
     """Dependency to get the list of learned sentences from app state (if used)."""
     sentences = getattr(request.app.state, "learned_sentences", [])
     return sentences
+
+
+async def verify_cron_secret(x_cron_secret: str = Header(None)):
+    """
+    Dependency to verify the internal cron secret for scheduled tasks.
+    """
+    if x_cron_secret != settings.CRON_SECRET_KEY:
+        logger.warning("Unauthorized cron trigger attempt detected.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized: Invalid cron secret.",
+        )
+    return True

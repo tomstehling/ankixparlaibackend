@@ -385,6 +385,9 @@ class Card(Base):
     lapse_count: Mapped[int] = mapped_column(
         Integer, default=0, server_default="0", nullable=False
     )
+    suspended: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default="false", nullable=False
+    )
     pedagogical_difficulty: Mapped[Optional[int]] = mapped_column(SmallInteger)
 
     note: Mapped["Note"] = relationship("Note", back_populates="cards")

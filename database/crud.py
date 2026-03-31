@@ -334,6 +334,34 @@ async def create_feedback(
     return feedback
 
 
+async def create_review_log(
+    db_session: AsyncSession, review_log_in: schemas.ReviewLogCreate
+) -> models.ReviewLog:
+    new_log = models.ReviewLog(
+        user_id=review_log_in.user_id,
+        card_id=review_log_in.card_id,
+        grade=review_log_in.grade,
+        pre_review_state=review_log_in.pre_review_state,
+        post_review_state=review_log_in.post_review_state,
+    )
+    db_session.add(new_log)
+    # We don't commit here as it's usually part of the grading transaction
+    return new_log
+
+
+async def get_review_logs_for_user(
+    db_session: AsyncSession, user_id: uuid.UUID, limit: int = 100
+) -> List[models.ReviewLog]:
+    query = (
+        select(models.ReviewLog)
+        .where(models.ReviewLog.user_id == user_id)
+        .order_by(models.ReviewLog.review_time.desc())
+        .limit(limit)
+    )
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
 # consistency function, resets streak if applicable and returns correct streak
 async def update_card_srs(
     db_session: AsyncSession,
@@ -470,3 +498,166 @@ async def add_notes_with_cards_bulk(
 
     db_session.add_all(mapped_notes)
     return mapped_notes
+
+
+async def get_all_tags(db_session: AsyncSession) -> List[models.Tag]:
+    """Fetches all tags from the database."""
+    query = select(models.Tag)
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
+async def get_all_tag_relationships(db_session: AsyncSession) -> List[models.TagRelationship]:
+    """Fetches all tag relationships from the database."""
+    query = select(models.TagRelationship)
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
+async def count_todays_reviews(db_session: AsyncSession, user_id: uuid.UUID) -> int:
+    """Count rows in review_log for this user where review_time is today."""
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    query = select(func.count()).select_from(models.ReviewLog).where(
+        models.ReviewLog.user_id == user_id,
+        func.date(models.ReviewLog.review_time) == today
+    )
+    result = await db_session.execute(query)
+    return result.scalar() or 0
+
+
+async def count_due_cards(db_session: AsyncSession, user_id: uuid.UUID) -> int:
+    """Count rows in cards for this user where due_date is <= now and not suspended."""
+    query = select(func.count()).select_from(models.Card).join(models.Note).where(
+        models.Note.user_id == user_id,
+        models.Card.due_date <= func.now(),
+        models.Card.suspended == False
+    )
+    result = await db_session.execute(query)
+    return result.scalar() or 0
+
+
+async def get_users_with_due_cards(db_session: AsyncSession) -> List[uuid.UUID]:
+    """
+    Fetches a list of unique user IDs who have at least one card due for review.
+    Used by the Nightly Compressor to identify active users.
+    """
+    query = (
+        select(models.Note.user_id)
+        .join(models.Card, models.Note.id == models.Card.note_id)
+        .where(models.Card.due_date <= func.now())
+        .distinct()
+    )
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
+async def get_user_tag_scores(
+    db_session: AsyncSession, user_id: uuid.UUID
+) -> dict[int, models.UserTagScore]:
+    """Returns a mapping of tag_id to UserTagScore for a user."""
+    query = select(models.UserTagScore).where(models.UserTagScore.user_id == user_id)
+    result = await db_session.execute(query)
+    scores = result.scalars().all()
+    return {s.tag_id: s for s in scores}
+
+
+async def get_tag_prerequisites(db_session: AsyncSession, tag_id: int) -> List[int]:
+    """Returns a list of prerequisite tag IDs for a given tag."""
+    query = select(models.TagRelationship.source_tag_id).where(
+        models.TagRelationship.target_tag_id == tag_id,
+        models.TagRelationship.relationship_type == "PREREQUISITE",
+    )
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
+async def get_recent_review_metrics(
+    db_session: AsyncSession, user_id: uuid.UUID, tag_id: int, limit: int = 5
+) -> dict:
+    """Queries the review_log to return recent failure and confidence metrics for a tag."""
+    # Path: ReviewLog -> Card -> Note -> NoteTag
+    query = (
+        select(models.ReviewLog.grade)
+        .join(models.Card, models.ReviewLog.card_id == models.Card.id)
+        .join(models.Note, models.Card.note_id == models.Note.id)
+        .join(models.NoteTag, models.Note.id == models.NoteTag.note_id)
+        .where(models.ReviewLog.user_id == user_id, models.NoteTag.tag_id == tag_id)
+        .order_by(models.ReviewLog.review_time.desc())
+        .limit(limit)
+    )
+    result = await db_session.execute(query)
+    grades = result.scalars().all()
+
+    recent_failures = sum(1 for g in grades if g == 1)  # 1 = "again"
+    hard_grades = sum(1 for g in grades if g == 2)  # 2 = "hard"
+    success_grades = sum(1 for g in grades if g >= 3)  # 3 = "good", 4 = "easy"
+    total_recent = len(grades)
+
+    return {
+        "recent_failures": recent_failures,
+        "hard_grades": hard_grades,
+        "success_grades": success_grades,
+        "total_recent_reviews": total_recent,
+    }
+
+
+async def add_note_tags(db_session: AsyncSession, note_id: int, tag_ids: List[int]):
+    """
+    Inserts records into the note_tags junction table.
+    """
+    for tag_id in tag_ids:
+        # Check if relationship already exists to avoid unique constraint errors
+        query = select(models.NoteTag).where(
+            models.NoteTag.note_id == note_id, 
+            models.NoteTag.tag_id == tag_id
+        )
+        existing = await db_session.execute(query)
+        if not existing.scalar_one_or_none():
+            note_tag = models.NoteTag(note_id=note_id, tag_id=tag_id, is_primary=False)
+            db_session.add(note_tag)
+    
+    await db_session.commit()
+
+
+async def get_recent_user_notes(
+    db_session: AsyncSession, user_id: uuid.UUID, limit: int = 5
+) -> List[models.Note]:
+    """
+    Fetches the user's most recent notes, excluding those generated by the agent.
+    """
+    # System tag ID for 'agent-generated' is 103
+    AGENT_GENERATED_TAG_ID = 103
+    
+    # Subquery to find all note IDs that have the agent-generated tag
+    exclude_subquery = (
+        select(models.NoteTag.note_id)
+        .where(models.NoteTag.tag_id == AGENT_GENERATED_TAG_ID)
+    )
+    
+    query = (
+        select(models.Note)
+        .where(models.Note.user_id == user_id)
+        .where(models.Note.id.not_in(exclude_subquery))
+        .order_by(models.Note.created_at.desc())
+        .limit(limit)
+    )
+    
+    result = await db_session.execute(query)
+    return list(result.scalars().all())
+
+
+async def get_notes_by_tag(
+    db_session: AsyncSession, user_id: uuid.UUID, tag_id: int
+) -> List[models.Note]:
+    """
+    Fetches all notes for a user that are associated with a specific tag.
+    Used for context to avoid duplication.
+    """
+    query = (
+        select(models.Note)
+        .join(models.NoteTag)
+        .where(models.Note.user_id == user_id)
+        .where(models.NoteTag.tag_id == tag_id)
+    )
+    result = await db_session.execute(query)
+    return list(result.scalars().all())

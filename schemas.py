@@ -1,13 +1,12 @@
 # generic api response schema
 from pydantic import BaseModel
 from typing import TypeVar, Generic, Literal
-from pydantic.generics import GenericModel
 from fsrs import State  # type: ignore
 
 T = TypeVar("T")
 
 
-class APIResponse(GenericModel, Generic[T]):
+class APIResponse(BaseModel, Generic[T]):
     status: Literal["success", "fail", "error"]
     data: T
 
@@ -16,7 +15,7 @@ class APIResponse(GenericModel, Generic[T]):
 import uuid
 import datetime
 from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict, Any
 from typing import Literal
 
 
@@ -247,6 +246,14 @@ class GradeCardResponse(BaseModel):
     message: str
     current_streak: int
     longest_streak: int
+
+
+class ReviewLogCreate(BaseModel):
+    user_id: uuid.UUID
+    card_id: int
+    grade: int
+    pre_review_state: Optional[Dict[str, Any]] = None
+    post_review_state: Optional[Dict[str, Any]] = None
 
 
 class CreateFromTopicRequest(BaseModel):
