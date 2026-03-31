@@ -13,7 +13,7 @@ class TaggerHandler:
         Initializes the TaggerHandler.
         
         Args:
-            llm_handler: Initialized LLM handler (GeminiHandler or OpenRouterHandler).
+            llm_handler: Initialized LLM handler (OpenRouterHandler).
             graph_handler: Initialized GraphHandler containing the knowledge graph.
             system_prompt: The system prompt to use for tagging.
         """
@@ -61,15 +61,9 @@ class TaggerHandler:
 
         # 3. Build the full prompt
         full_prompt = (
-            f"{self.system_prompt}
-
-"
-            f"ALLOWED TAGS:
-{allowed_tags_str}
-
-"
-            f"NOTES TO TAG (JSON):
-{notes_json_str}"
+            f"{self.system_prompt}\n\n"
+            f"ALLOWED TAGS:\n{allowed_tags_str}\n\n"
+            f"NOTES TO TAG (JSON):\n{notes_json_str}"
         )
 
         # 4. Call LLM

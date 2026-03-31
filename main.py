@@ -94,9 +94,9 @@ async def lifespan(app: FastAPI):
         app.state.homeostasis_card_generator_prompt = utils.load_prompt_from_template(
             settings.HOMEOSTASIS_CARD_GENERATOR_PROMPT
         )
-        app.state.homeostasis_card_compressor_prompt = utils.load_prompt_from_template(
-            settings.HOMEOSTASIS_CARD_COMPRESSOR_PROMPT
-        )
+        # app.state.homeostasis_card_compressor_prompt = utils.load_prompt_from_template(
+        #     settings.HOMEOSTASIS_CARD_COMPRESSOR_PROMPT
+        # )
         logger.info("Core prompts loaded successfully and stored in app state.")
     except FileNotFoundError as e:
         logger.error(f"FATAL: Failed to load prompts - {e}")
@@ -226,9 +226,10 @@ async def read_root():
 
 # --- Main Execution Guard (for local testing) ---
 if __name__ == "__main__":
-    # Use port/host from config or environment variables
-    port = settings.PORT
-    host = settings.HOST  # Use HOST from config (e.g., "0.0.0.0")
+    # For Google Cloud Run, use PORT environment variable directly
+    # For local dev, use settings.PORT
+    port = int(os.environ.get("PORT", settings.PORT))
+    host = os.environ.get("HOST", settings.HOST)  # Use HOST from env or config (e.g., "0.0.0.0")
 
     # Log effective settings
     logger.info(f"Starting Uvicorn server configuration:")
