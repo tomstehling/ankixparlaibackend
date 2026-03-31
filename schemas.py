@@ -16,7 +16,7 @@ class APIResponse(GenericModel, Generic[T]):
 import uuid
 import datetime
 from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict, Any
 from typing import Literal
 
 
