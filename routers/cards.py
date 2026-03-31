@@ -14,7 +14,7 @@ import database.crud as crud
 import database.session as session
 import database.models as models
 from sqlalchemy.ext.asyncio import AsyncSession
-from services.llm_handler import GeminiHandler, OpenRouterHandler
+from services.llm_handler import OpenRouterHandler
 from services.agent_services import run_agent_tagger
 import schemas
 from dependencies import get_current_active_user, get_llm, get_prompt

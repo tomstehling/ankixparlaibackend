@@ -1,13 +1,12 @@
 # generic api response schema
 from pydantic import BaseModel
 from typing import TypeVar, Generic, Literal
-from pydantic.generics import GenericModel
 from fsrs import State  # type: ignore
 
 T = TypeVar("T")
 
 
-class APIResponse(GenericModel, Generic[T]):
+class APIResponse(BaseModel, Generic[T]):
     status: Literal["success", "fail", "error"]
     data: T
 
