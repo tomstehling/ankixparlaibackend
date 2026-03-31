@@ -7,7 +7,7 @@ Built with Python and FastAPI, this backend demonstrates advanced patterns in as
 ## 🚀 Key Features (Technical Highlights)
 
 *   **🧠 Spanish Learning Intelligent Engine:** A complex data model managing hierarchical relationships between grammatical tags, learning "hacks" (mnemonics/rules), and verb lemmas. It tracks user performance at a granular level to provide personalized learning paths.
-*   **🤖 Multi-Provider LLM Orchestration:** Seamlessly integrates with **OpenRouter** (GPT models) to handle conversational practice, automated grammar correction, and dynamic flashcard generation.
+*   **🤖 Multi-Provider LLM Orchestration:** Seamlessly integrates with **Google Gemini** and **OpenRouter** (GPT models) to handle conversational practice, automated grammar correction, and dynamic flashcard generation.
 *   **📈 FSRS Spaced Repetition Logic:** Implements the **Free Spaced Repetition Scheduler (FSRS)** algorithm to calculate optimal review intervals, moving beyond traditional Anki-style SM-2 algorithms for superior retention.
 *   **⚡ High-Performance Asynchronous API:** Built on **FastAPI** using `async`/`await` patterns for non-blocking I/O, ensuring the application remains responsive during heavy LLM processing.
 *   **🏗️ Advanced ORM & Database Design:** Utilizes **SQLAlchemy 2.0** with **PostgreSQL** (via Supabase). Features complex many-to-many relationships, JSONB storage for flexible metadata, and Alembic for robust schema migrations.
@@ -19,7 +19,7 @@ Built with Python and FastAPI, this backend demonstrates advanced patterns in as
 *   **Framework:** [FastAPI](https://fastapi.tiangolo.com/)
 *   **ORM:** [SQLAlchemy 2.0](https://www.sqlalchemy.org/) (Async)
 *   **Database:** [PostgreSQL](https://www.postgresql.org/) (Supabase)
-*   **AI Integration:** OpenAI SDK (via OpenRouter)
+*   **AI Integration:** Google Generative AI (Gemini), OpenAI SDK (via OpenRouter)
 *   **Migrations:** [Alembic](https://alembic.sqlalchemy.org/)
 *   **Authentication:** Passlib (bcrypt), PyJWT, Python-Multipart
 

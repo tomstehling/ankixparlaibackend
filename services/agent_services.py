@@ -27,7 +27,7 @@ async def run_agent_tagger(
         await asyncio.sleep(3)
         
         # 2. Mock Agent Logic: 
-        # In a real scenario, this would call OpenRouter to determine CEFR level.
+        # In a real scenario, this would call Gemini/OpenRouter to determine CEFR level.
         # For now, we use mock tag IDs. 
         # (Assuming tag IDs 1, 2 are 'A1' and 'Vocabulary' in a seeded database)
         mock_tag_ids = [1, 2] 

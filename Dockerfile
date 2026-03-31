@@ -29,5 +29,7 @@ ENV PORT 8080
 EXPOSE 8080
 
 # Command to run the application, using the $PORT variable
-# Important: Don't use --reload in production for Google Cloud Run
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT} --workers 1
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
+
+# Define the command to run the application using Uvicorn
+# Use 0.0.0.0 to bind to all interfaces inside the container
