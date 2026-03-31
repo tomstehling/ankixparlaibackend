@@ -23,8 +23,11 @@ class BaseTool(ABC):
 
 class CardGenerator(BaseTool):
     """
-    Tool for generating new cards to address low workload situations.
-    Uses AI to create appropriate flashcards based on user's learning patterns.
+    Generate new Spanish-English flashcards for the user.
+    Use this when:
+    - The user expresses a desire to learn new words or topics.
+    - The user has finished their reviews and wants more content.
+    - You identify a gap in the user's knowledge that needs filling.
     """
     
     async def execute(
@@ -35,15 +38,10 @@ class CardGenerator(BaseTool):
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Generate new cards for the user.
+        Generate a specific number of new cards based on the user's current learning context.
         
         Args:
-            db_session: Database session
-            user_id: User to generate cards for
-            target_count: Number of cards to generate
-            
-        Returns:
-            Dict with generation results
+            target_count: The number of new cards to generate. Defaults to 5.
         """
         if not self.llm_handler:
             logger.error("LLM Handler not available for CardGenerator.")
@@ -196,8 +194,11 @@ Format response as JSON:
 
 class CardCompressor(BaseTool):
     """
-    Tool for compressing workload by consolidating or prioritizing cards.
-    Uses AI to identify and handle high workload situations.
+    Consolidate and prioritize the user's workload to reduce study stress.
+    Use this when:
+    - The user mentions they are overwhelmed by reviews.
+    - You see a very high number of due cards.
+    - The user has been inactive and has a large backlog.
     """
     
     async def execute(
@@ -208,15 +209,10 @@ class CardCompressor(BaseTool):
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Compress user's workload by prioritizing and consolidating cards.
+        Suspend less important cards to bring the daily workload below a manageable limit.
         
         Args:
-            db_session: Database session
-            user_id: User to compress workload for
-            max_due_cards: Maximum number of due cards to maintain
-            
-        Returns:
-            Dict with compression results
+            max_due_cards: The maximum number of cards to keep in the active review queue. Defaults to 30.
         """
         try:
             logger.info(f"Compressing workload for user {user_id}, target max due cards: {max_due_cards}")
@@ -355,7 +351,11 @@ Return the indices (1-based) of the {max_due_cards} most important cards to keep
 
 class CardDecompressor(BaseTool):
     """
-    Tool for decompressing workload by reactivating suspended cards.
+    Reactivate previously suspended flashcards to increase study sessions.
+    Use this when:
+    - The user wants more things to review.
+    - The user has cleared their current workload.
+    - You want to re-introduce older content.
     """
     
     async def execute(
@@ -366,15 +366,10 @@ class CardDecompressor(BaseTool):
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Reactivate suspended cards for the user.
+        Reactivate a set number of suspended flashcards into the user's active learning rotation.
         
         Args:
-            db_session: Database session
-            user_id: User to decompress workload for
-            reactivate_count: Number of cards to reactivate
-            
-        Returns:
-            Dict with decompression results
+            reactivate_count: The number of suspended cards to reactivate. Defaults to 10.
         """
         try:
             logger.info(f"Decompressing workload for user {user_id}, reactivating {reactivate_count} cards")
@@ -422,8 +417,18 @@ class AgentToolRegistry:
         schemas = []
         for name, tool in self._tools.items():
             doc = inspect.getdoc(tool) or f"Tool to execute {name}"
+            execute_doc = inspect.getdoc(tool.execute) or ""
             sig = inspect.signature(tool.execute)
             
+            # Simple parsing for parameter descriptions from docstring
+            param_descriptions = {}
+            if "Args:" in execute_doc:
+                args_section = execute_doc.split("Args:")[1]
+                for line in args_section.split("\n"):
+                    if ":" in line:
+                        p_name, p_desc = line.strip().split(":", 1)
+                        param_descriptions[p_name.strip()] = p_desc.strip()
+
             properties = {}
             required = []
             
@@ -443,7 +448,7 @@ class AgentToolRegistry:
 
                 properties[param_name] = {
                     "type": param_type,
-                    "description": f"Parameter {param_name}" # Can be enhanced by parsing docstrings
+                    "description": param_descriptions.get(param_name, f"Parameter {param_name}")
                 }
                 
                 if param.default == inspect.Parameter.empty:

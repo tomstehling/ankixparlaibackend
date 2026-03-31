@@ -4,8 +4,9 @@ import os
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.sql import text
@@ -17,6 +18,7 @@ from core.config import settings
 import utils
 from services.llm_handler import OpenRouterHandler
 from routers import authentication, chat, cards, feedback
+from dependencies import verify_cron_secret
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from services.graph_handler import GraphHandler
 from services.tagger_handler import TaggerHandler
@@ -208,6 +210,12 @@ app.include_router(
 )  # No prefix needed based on previous context
 app.include_router(cards.router, prefix="/cards", tags=["Flashcards & SRS"])
 app.include_router(feedback.router, tags=["Feedback"])
+
+
+@app.get("/_health", tags=["Root"], include_in_schema=True)
+async def health_check_internal(authorized: bool = Depends(verify_cron_secret)):
+    """Internal health check for cron jobs and monitoring."""
+    return PlainTextResponse("Still awake!", status_code=200)
 
 
 @app.get("/", tags=["Root"], include_in_schema=True)

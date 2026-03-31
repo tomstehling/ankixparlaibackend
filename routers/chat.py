@@ -195,7 +195,7 @@ async def chat_endpoint(
         ai_message = schemas.ChatMessageCreate(
             user_id=user_id,
             session_id=session_id,
-            role="assistant",
+            role="model",
             content=ai_reply,
             message_type="chat"
         )
@@ -207,7 +207,20 @@ async def chat_endpoint(
 
     except Exception as e:
         logger.error(f"Error in chat endpoint: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"AI communication failed: {str(e)}")
+        # Fallback: Store the error as a message so the user knows what happened
+        error_msg = f"I'm sorry, I encountered an error while processing your request: {str(e)}"
+        try:
+            ai_message = schemas.ChatMessageCreate(
+                user_id=user_id,
+                session_id=session_id,
+                role="model",
+                content=error_msg,
+                message_type="chat"
+            )
+            return await crud.add_chat_message(chat_message=ai_message, db_session=db_session)
+        except Exception as db_e:
+            logger.error(f"Failed to even store the error message: {db_e}")
+            raise HTTPException(status_code=500, detail=f"AI communication failed and could not be logged: {str(e)}")
 
 
 async def _get_formatted_system_prompt(user_id: uuid.UUID, db_session: AsyncSession) -> str:
